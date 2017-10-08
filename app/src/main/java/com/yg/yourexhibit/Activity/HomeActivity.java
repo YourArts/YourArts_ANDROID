@@ -22,7 +22,7 @@ public class HomeActivity extends BaseActivity {
     @BindView(R.id.homeContainer)
     ViewPager viewPager;
 
-
+    //풀 하고 이 문구가 잘 보이면 됨
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
