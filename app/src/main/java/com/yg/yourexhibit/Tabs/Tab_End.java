@@ -2,7 +2,6 @@ package com.yg.yourexhibit.Tabs;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,16 +11,14 @@ import com.yg.yourexhibit.R;
 import butterknife.ButterKnife;
 
 /**
- * Created by 2yg on 2017. 10. 8..
+ * Created by 2yg on 2017. 10. 9..
  */
 
-public class Tab_Collection extends Fragment{
-
+public class Tab_End extends Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.tab_collection, container, false);
+        View v = inflater.inflate(R.layout.tab_home_end, container, false);
         ButterKnife.bind(this, v);
-        Log.v("프랙", "콜렉션");
 
         return v;
     }
