@@ -1,15 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="여기는 홈"
-        android:background="#ffffff"
-        android:textColor="#000000"
-        android:includeFontPadding="false"
-        android:textSize="30sp"/>
+
+
+    <android.support.design.widget.TabLayout
+        android:layout_marginTop="48dp"
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/tab_home_exhibit_tabs"
+        android:layout_width="100dp"
+        android:layout_height="45dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="5dp"
+        app:tabIndicatorHeight="0dp"
+        >
+
+    </android.support.design.widget.TabLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/tab_home_exhibit_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/homeTabs"
+        >
+
+    </android.support.v4.view.ViewPager>
+
 
 </LinearLayout>
