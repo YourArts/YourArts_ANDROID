@@ -2,12 +2,29 @@ package com.yg.yourexhibit.Tabs;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestManager;
+import com.squareup.otto.Subscribe;
+import com.yg.yourexhibit.Adapter.TabEndAdapter;
+import com.yg.yourexhibit.App.ApplicationController;
+import com.yg.yourexhibit.Datas.TabEndData;
 import com.yg.yourexhibit.R;
+import com.yg.yourexhibit.Retrofit.RetrofitGet.ExhibitEndResult;
+import com.yg.yourexhibit.Util.EventBus;
+import com.yg.yourexhibit.Util.EventCode;
+import com.yg.yourexhibit.Util.NetworkController;
 
+import java.util.ArrayList;
+
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -15,11 +32,87 @@ import butterknife.ButterKnife;
  */
 
 public class Tab_End extends Fragment{
+
+    @BindView(R.id.tab_end_list)
+    RecyclerView endList;
+
+    private TabEndAdapter tabEndAdapter;
+    private RequestManager requestManager;
+    private LinearLayoutManager linearLayoutManager;
+    private NetworkController networkController;
+    private ArrayList<TabEndData> endDatas;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.tab_home_end, container, false);
         ButterKnife.bind(this, v);
-
+        EventBus.getInstance().register(this);
+        networkController = new NetworkController();
+        networkController.getEndData();
         return v;
+    }
+
+    public void getData(){
+        networkController.getEndData();
+        //initFragment();
+    }
+
+    public void initFragment(){
+        requestManager = Glide.with(this);
+        endList.setHasFixedSize(true);
+        linearLayoutManager = new LinearLayoutManager(getActivity());
+        linearLayoutManager.setOrientation(LinearLayout.VERTICAL);
+        endList.setLayoutManager(linearLayoutManager);
+        editData();
+        tabEndAdapter = new TabEndAdapter(endDatas, requestManager);
+        endList.setAdapter(tabEndAdapter);
+    }
+
+    @Subscribe
+    public void onEventLoad(ArrayList<ExhibitEndResult> exhibitEndResult){
+
+        //initFragment();
+        Log.v("통신 됨", "통신");
+    }
+
+    @Subscribe
+    public void onEventLoad(Integer code){
+        if(code == EventCode.EVENT_CODE_END_SUCESS){
+            initFragment();
+        }
+    }
+
+    public void editData(){
+
+        ArrayList<ExhibitEndResult> exhibitEndResults;
+        exhibitEndResults = ApplicationController.getInstance().getExhibitEndResult();
+
+        endDatas = new ArrayList<TabEndData>();
+        for(int i = 0; i<exhibitEndResults.size(); i++){
+            endDatas.add(new TabEndData(exhibitEndResults.get(i).getExhibition_picture(),
+                    //endPeriod(exhibitEndResults.get(i).getExhibition_stard_date(), exhibitEndResults.get(i).getExhibition_end_date()),
+                    exhibitEndResults.get(i).getExhibition_stard_date(),
+                    exhibitEndResults.get(i).getExhibition_name()
+                    ));
+        }
+    }
+
+    public String endPeriod(String start, String end){
+        Log.v("시작", start);
+        Log.v("시작", start.split(".")[1]);
+        String tempStart = start.split(".")[1] + "/" + start.split(".")[2];
+        String tempEnd = end.split(".")[1] = "/" + start.split(".")[2];
+
+
+
+        return tempStart + " - " + tempEnd;
+
+    }
+
+
+    @Override
+    public void onDestroy() {
+        EventBus.getInstance().unregister(this);
+        super.onDestroy();
     }
 }
