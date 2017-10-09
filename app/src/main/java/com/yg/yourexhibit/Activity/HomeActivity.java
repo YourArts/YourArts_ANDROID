@@ -10,6 +10,7 @@ import com.yg.yourexhibit.Adapter.HomeTabAdapter;
 import com.yg.yourexhibit.R;
 import com.yg.yourexhibit.Util.BaseActivity;
 import com.yg.yourexhibit.Util.EventBus;
+import com.yg.yourexhibit.Util.NetworkController;
 import com.yg.yourexhibit.Util.SwipeViewPager;
 
 import butterknife.BindView;
@@ -26,12 +27,15 @@ public class HomeActivity extends BaseActivity {
     @BindView(R.id.home_title_text)
     TextView totleText;
 
+    private NetworkController networkController;
+
     //풀 하고 이 문구가 잘 보이면 됨
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
+        //networkController = new NetworkController();
+        //getData();
         EventBus.getInstance().register(this);
         ButterKnife.bind(this);
 
@@ -85,18 +89,28 @@ public class HomeActivity extends BaseActivity {
     }
 
     @Subscribe
-    public void onEventLoad(int code) {
+    public void onEventLoad(Integer code) {
         switch (code){
             case 0:
                 totleText.setText("종료 전시");
                 break;
             case 1:
-                totleText.setText("진행 전시"); 
+                totleText.setText("진행 전시");
                 break;
             case 2:
                 totleText.setText("예정 전시");
                 break;
         }
 
+    }
+
+    public void getData(){
+        networkController.getEndData();
+    }
+
+    @Override
+    public void onDestroy() {
+        EventBus.getInstance().unregister(this);
+        super.onDestroy();
     }
 }

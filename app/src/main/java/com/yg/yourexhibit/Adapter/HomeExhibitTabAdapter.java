@@ -27,7 +27,7 @@ public class HomeExhibitTabAdapter extends FragmentStatePagerAdapter {
         tabGoing = new Tab_Going();
         tabComing = new Tab_Coming();
 
-        this.tabCount =TabCount;
+        this.tabCount = TabCount;
     }
 
 

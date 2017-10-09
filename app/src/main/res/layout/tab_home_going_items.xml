@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="480dp"
+    android:layout_marginLeft="21dp"
+    android:layout_marginRight="21dp"
+    >
+
+    <RelativeLayout
+        android:id="@+id/going_items_btn"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/going_items_img"
+            android:layout_width="match_parent"
+            android:layout_height="416dp"
+            android:background="#00ffc4"/>
+
+        <TextView
+            android:id="@+id/going_items_perioid"
+            android:layout_width="102dp"
+            android:layout_height="18dp"
+            android:background="#00ffc4"
+            android:layout_marginLeft="39dp"
+            android:layout_marginTop="408dp"
+            android:text="aaaaaaaaaaa"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            android:textColor="#ffffff"
+            />
+
+        <TextView
+            android:id="@+id/going_items_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/going_items_img"
+            android:layout_marginTop="18dp"
+            android:layout_marginLeft="39dp"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            android:includeFontPadding="false"
+            android:textColor="#ffffff"
+            android:text="aaaaaaaaaaaa"
+            />
+
+    </RelativeLayout>
+
+</LinearLayout>

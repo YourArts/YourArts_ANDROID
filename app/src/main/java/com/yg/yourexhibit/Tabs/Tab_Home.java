@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import com.yg.yourexhibit.Adapter.HomeExhibitTabAdapter;
 import com.yg.yourexhibit.R;
 import com.yg.yourexhibit.Util.EventBus;
+import com.yg.yourexhibit.Util.NetworkController;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -31,11 +32,17 @@ public class Tab_Home extends Fragment {
     @BindView(R.id.tab_home_exhibit_pager)
     ViewPager viewPager;
 
+    private NetworkController networkController;
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.tab_home, container, false);
+        EventBus.getInstance().register(this);
         ButterKnife.bind(this, v);
-        Log.v("랙", "홈");
+//        networkController = new NetworkController();
+//        networkController.getEndData();
+//        networkController.getGoingData();
 
 
         tabLayout.addTab(tabLayout.newTab().setCustomView(getActivity().getLayoutInflater().inflate(R.layout.view_end_exhibit,null)));
@@ -56,7 +63,7 @@ public class Tab_Home extends Fragment {
                 EventBus.getInstance().post(tab.getPosition());
                 switch (tab.getPosition()){
                     case 0:
-
+                        //EventBus.getInstance().post(EventCode.EVENT_CODE_END_TAB);
                         Log.v(TAG, "endTab");
                         break;
                     case 1:
@@ -83,5 +90,11 @@ public class Tab_Home extends Fragment {
 
 
         return v;
+    }
+
+    @Override
+    public void onDestroy() {
+        EventBus.getInstance().unregister(this);
+        super.onDestroy();
     }
 }
