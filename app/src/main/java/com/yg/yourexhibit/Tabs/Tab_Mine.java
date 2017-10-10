@@ -23,6 +23,7 @@ public class Tab_Mine extends Fragment{
         Log.v("프랙", "마인");
 
 
+        Log.d("test","text");
         return v;
     }
 
