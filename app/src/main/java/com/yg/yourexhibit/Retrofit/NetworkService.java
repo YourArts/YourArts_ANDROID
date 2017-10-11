@@ -1,11 +1,13 @@
 package com.yg.yourexhibit.Retrofit;
 
 import com.yg.yourexhibit.Retrofit.RetrofitGet.ExhibitComingResponse;
+import com.yg.yourexhibit.Retrofit.RetrofitGet.ExhibitDetailResponse;
 import com.yg.yourexhibit.Retrofit.RetrofitGet.ExhibitEndResponse;
 import com.yg.yourexhibit.Retrofit.RetrofitGet.ExhibitGoingResponse;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 
 /**
  * Created by 2yg on 2017. 10. 8..
@@ -25,5 +27,8 @@ public interface NetworkService {
     @GET("arts/todo")
     Call<ExhibitComingResponse> comingResponse();
 
+    //해당 전시 상세정보 불러오기
+    @GET("arts/{idx}")
+    Call<ExhibitDetailResponse> getDetailResponse(@Path("idx") int idx);
 
 }
