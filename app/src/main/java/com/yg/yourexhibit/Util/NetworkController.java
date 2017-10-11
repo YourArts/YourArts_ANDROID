@@ -5,6 +5,7 @@ import android.util.Log;
 import com.yg.yourexhibit.App.ApplicationController;
 import com.yg.yourexhibit.Retrofit.NetworkService;
 import com.yg.yourexhibit.Retrofit.RetrofitGet.ExhibitComingResponse;
+import com.yg.yourexhibit.Retrofit.RetrofitGet.ExhibitDetailResponse;
 import com.yg.yourexhibit.Retrofit.RetrofitGet.ExhibitEndResponse;
 import com.yg.yourexhibit.Retrofit.RetrofitGet.ExhibitGoingResponse;
 
@@ -88,6 +89,41 @@ public class NetworkController {
 
             @Override
             public void onFailure(Call<ExhibitComingResponse> call, Throwable t) {
+                Log.v(TAG, "checkNetwork");
+            }
+        });
+    }
+
+    public void getDetailData(final int status, int idx){
+        Call<ExhibitDetailResponse> exhibitDetailResponse = networkService.getDetailResponse(idx);
+        exhibitDetailResponse.enqueue(new Callback<ExhibitDetailResponse>() {
+            @Override
+            public void onResponse(Call<ExhibitDetailResponse> call, Response<ExhibitDetailResponse> response) {
+                if(response.body().isStatus()){
+                    ApplicationController.getInstance().setExhibitDetailResult(response.body().getResult());
+                    Log.v(TAG, "getDetailSuccess");
+                    switch (status){
+                        case 0:
+                            EventBus.getInstance().post(EventCode.EVENT_CODE_END_DETAIL);
+                            Log.v(TAG, "getDetailSuccess/END");
+                            break;
+                        case 1:
+                            EventBus.getInstance().post(EventCode.EVENT_CODE_GOING_DETAIL);
+                            Log.v(TAG, "getDetailSuccess/GOING");
+                            break;
+                        case 2:
+                            EventBus.getInstance().post(EventCode.EVENT_CODE_COMING_DETAIL);
+                            Log.v(TAG, "getDetailSuccess/COMING");
+                            break;
+                        default:
+                            break;
+                    }
+                }else{
+                    Log.v(TAG, "getDetailFail");
+                }
+            }
+            @Override
+            public void onFailure(Call<ExhibitDetailResponse> call, Throwable t) {
                 Log.v(TAG, "checkNetwork");
             }
         });

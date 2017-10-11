@@ -35,12 +35,18 @@ public class Tab_End extends Fragment{
 
     @BindView(R.id.tab_end_list)
     RecyclerView endList;
+//
+//    @BindView(R.id.tab_end_container)
+//    FrameLayout container;
 
+    private static final String TAG = "LOG::Tab_End";
     private TabEndAdapter tabEndAdapter;
     private RequestManager requestManager;
     private LinearLayoutManager linearLayoutManager;
     private NetworkController networkController;
     private ArrayList<TabEndData> endDatas;
+    private int idx;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -64,8 +70,10 @@ public class Tab_End extends Fragment{
         linearLayoutManager.setOrientation(LinearLayout.VERTICAL);
         endList.setLayoutManager(linearLayoutManager);
         editData();
-        tabEndAdapter = new TabEndAdapter(endDatas, requestManager);
+        tabEndAdapter = new TabEndAdapter(endDatas, requestManager, clickEvent);
+        //tabEndAdapter.setOnItemClickListener(this.getView().OnClickListener);
         endList.setAdapter(tabEndAdapter);
+        //Intent intent = new Intent(getActivity().getApplicationContext(), Tab_End.class);
     }
 
     @Subscribe
@@ -77,8 +85,14 @@ public class Tab_End extends Fragment{
 
     @Subscribe
     public void onEventLoad(Integer code){
-        if(code == EventCode.EVENT_CODE_END_SUCESS){
-            initFragment();
+        switch (code){
+            case EventCode.EVENT_CODE_END_SUCESS:
+                initFragment();
+                break;
+            case EventCode.EVENT_CODE_END_DETAIL:
+                Log.v(TAG, "getToEndDetailEvent");
+                toEndDetail();
+                break;
         }
     }
 
@@ -102,9 +116,6 @@ public class Tab_End extends Fragment{
         Log.v("시작", start.split(".")[1]);
         String tempStart = start.split(".")[1] + "/" + start.split(".")[2];
         String tempEnd = end.split(".")[1] = "/" + start.split(".")[2];
-
-
-
         return tempStart + " - " + tempEnd;
 
     }
@@ -115,4 +126,23 @@ public class Tab_End extends Fragment{
         EventBus.getInstance().unregister(this);
         super.onDestroy();
     }
+
+    public View.OnClickListener clickEvent = new View.OnClickListener() {
+        public void onClick(View v) {
+            int itemPosition = endList.getChildPosition(v);
+            idx = ApplicationController.getInstance().getExhibitEndResult().get(itemPosition).getExhibition_idx();
+            networkController.getDetailData(0, idx);
+        }
+    };
+
+    public void toEndDetail(){
+        Log.v(TAG, "toEndDetail");
+        getFragmentManager()
+                .beginTransaction()
+                .replace(R.id.tab_end_fragment, new Tab_End_Details())
+                .commit();
+//        Intent intent = new Intent(getActivity().getApplicationContext(), Tab_End_Details.class);
+//        startActivity(intent);
+    }
+
 }
