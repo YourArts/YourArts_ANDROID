@@ -16,6 +16,6 @@ public class ExhibitGoingResult {
     int start_date;
     int end_date;
     String exhibition_picture;
-    int avg;
+    double avg;
     String flag;
 }

@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/end_details_mainframe"
+        android:layout_width="match_parent"
+        android:layout_height="204dp">
+        <ImageView
+            android:id="@+id/end_details_img"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="#aa212121"
+            />
+
+        <TextView
+            android:id="@+id/end_details_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            android:textColor="#ffffff"
+            android:layout_marginTop="164dp"
+            android:layout_marginLeft="28dp"
+            android:text="aaaaaaaaaaaaaa"
+            />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="159dp"
+            android:layout_marginRight="17dp"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/ic_exhibit_wish_off"
+            />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/end_details_likeframe"
+        android:layout_below="@+id/end_details_mainframe"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal"
+        android:background="#000000"
+        >
+
+        <ImageView
+            android:id="@+id/end_details_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="9dp"
+            android:layout_marginLeft="81dp"
+            android:src="@drawable/ic_good_off"
+            android:layout_weight="1"
+            />
+
+        <ImageView
+            android:id="@+id/end_details_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="9dp"
+            android:layout_marginLeft="23dp"
+            android:src="@drawable/ic_good_off"
+            android:layout_weight="1"
+
+            />
+
+        <ImageView
+            android:id="@+id/end_details_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="9dp"
+            android:layout_marginLeft="23dp"
+            android:src="@drawable/ic_good_off"
+            android:layout_weight="1"
+
+            />
+
+        <ImageView
+            android:id="@+id/end_details_4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="9dp"
+            android:layout_marginLeft="23dp"
+            android:src="@drawable/ic_good_off"
+            android:layout_weight="1"
+
+            />
+
+        <ImageView
+            android:id="@+id/end_details_5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="9dp"
+            android:layout_marginLeft="23dp"
+            android:src="@drawable/ic_good_off"
+            android:layout_weight="1"
+            android:layout_marginRight="81dp"
+            />
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/end_details_likeframe"
+        >
+
+        <LinearLayout
+            android:layout_width="305dp"
+            android:layout_height="151dp"
+            android:layout_marginTop="14dp"
+            android:layout_centerHorizontal="true"
+            >
+
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/ic_look_ahead"
+            >
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/end_details_preview"
+                android:layout_width="wrap_content"
+                android:layout_height="54dp"
+                android:layout_marginLeft="46dp"
+                android:layout_marginRight="46dp"
+
+                >
+
+            </android.support.v7.widget.RecyclerView>
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>

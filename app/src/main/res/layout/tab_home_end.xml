@@ -3,6 +3,7 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#212121"
+    android:id="@+id/tab_end_fragment"
     >
 
     <android.support.v7.widget.RecyclerView
@@ -13,5 +14,6 @@
         android:layout_height="match_parent">
 
     </android.support.v7.widget.RecyclerView>
+
 
 </LinearLayout>

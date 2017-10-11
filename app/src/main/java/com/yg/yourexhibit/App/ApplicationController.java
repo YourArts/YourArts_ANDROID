@@ -7,6 +7,7 @@ import android.widget.Toast;
 import com.tsengvn.typekit.Typekit;
 import com.yg.yourexhibit.Retrofit.NetworkService;
 import com.yg.yourexhibit.Retrofit.RetrofitGet.ExhibitComingResult;
+import com.yg.yourexhibit.Retrofit.RetrofitGet.ExhibitDetailResult;
 import com.yg.yourexhibit.Retrofit.RetrofitGet.ExhibitEndResult;
 import com.yg.yourexhibit.Retrofit.RetrofitGet.ExhibitGoingResult;
 
@@ -28,6 +29,7 @@ public class ApplicationController extends Application{
     private ArrayList<ExhibitEndResult> exhibitEndResult;
     private ArrayList<ExhibitGoingResult> exhibitGoingResult;
     private ArrayList<ExhibitComingResult> exhibitComingResult;
+    private ExhibitDetailResult exhibitDetailResult;
 
     @Override public void onCreate() {
         super.onCreate();
@@ -86,6 +88,14 @@ public class ApplicationController extends Application{
 
     public void setExhibitComingResult(ArrayList<ExhibitComingResult> exhibitComingResult) {
         this.exhibitComingResult = exhibitComingResult;
+    }
+
+    public ExhibitDetailResult getExhibitDetailResult() {
+        return exhibitDetailResult;
+    }
+
+    public void setExhibitDetailResult(ExhibitDetailResult exhibitDetailResult) {
+        this.exhibitDetailResult = exhibitDetailResult;
     }
 
 }
