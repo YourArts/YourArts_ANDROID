@@ -8,10 +8,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
+import com.squareup.otto.Subscribe;
 import com.yg.yourexhibit.Adapter.HomeExhibitTabAdapter;
 import com.yg.yourexhibit.R;
 import com.yg.yourexhibit.Util.EventBus;
+import com.yg.yourexhibit.Util.EventCode;
 import com.yg.yourexhibit.Util.NetworkController;
 
 import butterknife.BindView;
@@ -31,6 +34,9 @@ public class Tab_Home extends Fragment {
 
     @BindView(R.id.tab_home_exhibit_pager)
     ViewPager viewPager;
+
+    @BindView(R.id.tab_home_frame)
+    LinearLayout frame;
 
     private NetworkController networkController;
 
@@ -91,6 +97,51 @@ public class Tab_Home extends Fragment {
 
         return v;
     }
+
+    @Subscribe
+    public void onEventLoad(Integer code){
+        switch (code){
+            case EventCode.EVENT_CODE_END_DETAIL:
+                toEndDetail();
+                break;
+            case EventCode.EVENT_CODE_GOING_DETAIL:
+                toGoingDetail();
+                break;
+            case EventCode.EVENT_CODE_COMING_DETAIL:
+                toComingDetail();
+                break;
+
+        }
+    }
+
+    public void toEndDetail(){
+        Log.v(TAG, "toEndDetail");
+        getFragmentManager()
+                .beginTransaction()
+                .addToBackStack(null)
+                .replace(R.id.tab_home_container, new Tab_End_Details())
+                .commit();
+    }
+
+    public void toGoingDetail(){
+        Log.v(TAG, "toGoingDetail");
+        getFragmentManager()
+                .beginTransaction()
+                .addToBackStack(null)
+                .replace(R.id.tab_home_container, new Tab_Going_Details())
+                .commit();
+    }
+
+    public void toComingDetail(){
+        Log.v(TAG, "toComingDetail");
+        getFragmentManager()
+                .beginTransaction()
+                .addToBackStack(null)
+                .replace(R.id.tab_home_container, new Tab_Coming_Details())
+                .commit();
+    }
+
+
 
     @Override
     public void onDestroy() {

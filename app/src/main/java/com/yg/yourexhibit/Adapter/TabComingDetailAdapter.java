@@ -15,12 +15,11 @@ import java.util.ArrayList;
  * Created by 2yg on 2017. 10. 11..
  */
 
-public class TabEndDetailAdapter extends RecyclerView.Adapter<TabDetailViewHolder>{
-
+public class TabComingDetailAdapter extends RecyclerView.Adapter<TabDetailViewHolder>{
     private ArrayList<ExhibitDetailImages> previewList;
     private RequestManager requestManager;
 
-    public TabEndDetailAdapter(ArrayList<ExhibitDetailImages> previewList, RequestManager requestManager) {
+    public TabComingDetailAdapter(ArrayList<ExhibitDetailImages> previewList, RequestManager requestManager) {
         this.previewList = previewList;
         this.requestManager = requestManager;
     }
@@ -40,6 +39,6 @@ public class TabEndDetailAdapter extends RecyclerView.Adapter<TabDetailViewHolde
 
     @Override
     public int getItemCount() {
-        return (previewList !=null)? previewList.size() : 0;
+        return (previewList != null)? previewList.size() : 0;
     }
 }

@@ -113,4 +113,6 @@ public class HomeActivity extends BaseActivity {
         EventBus.getInstance().unregister(this);
         super.onDestroy();
     }
+
+
 }

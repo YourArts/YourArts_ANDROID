@@ -89,10 +89,10 @@ public class Tab_End extends Fragment{
             case EventCode.EVENT_CODE_END_SUCESS:
                 initFragment();
                 break;
-            case EventCode.EVENT_CODE_END_DETAIL:
-                Log.v(TAG, "getToEndDetailEvent");
-                toEndDetail();
-                break;
+//            case EventCode.EVENT_CODE_END_DETAIL:
+//                Log.v(TAG, "getToEndDetailEvent");
+//                toEndDetail();
+//                break;
         }
     }
 

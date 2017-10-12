@@ -10,11 +10,11 @@ import com.yg.yourexhibit.R;
  * Created by 2yg on 2017. 10. 11..
  */
 
-public class TabEndDetailViewHolder extends RecyclerView.ViewHolder{
+public class TabDetailViewHolder extends RecyclerView.ViewHolder{
 
     ImageView preView;
 
-    public TabEndDetailViewHolder(View itemView) {
+    public TabDetailViewHolder(View itemView) {
         super(itemView);
         preView = (ImageView)itemView.findViewById(R.id.end_details_item_preview);
     }
