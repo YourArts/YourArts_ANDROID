@@ -41,7 +41,7 @@ public class Tab_Coming extends Fragment{
     private LinearLayoutManager linearLayoutManager;
     private NetworkController networkController;
     private ArrayList<TabComingData> comingDatas;
-
+    private int idx;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -60,7 +60,7 @@ public class Tab_Coming extends Fragment{
         linearLayoutManager.setOrientation(LinearLayout.VERTICAL);
         comingList.setLayoutManager(linearLayoutManager);
         editData();
-        tabComingAdapter = new TabComingAdapter(comingDatas, requestManager);
+        tabComingAdapter = new TabComingAdapter(comingDatas, requestManager, clickEvent);
         comingList.setAdapter(tabComingAdapter);
     }
 
@@ -93,6 +93,16 @@ public class Tab_Coming extends Fragment{
             ));
         }
     }
+
+    public View.OnClickListener clickEvent = new View.OnClickListener() {
+        public void onClick(View v) {
+            int itemPosition = comingList.getChildPosition(v);
+            idx = ApplicationController.getInstance().getExhibitComingResult().get(itemPosition).getExhibition_idx();
+            networkController.getDetailData(2, idx);
+        }
+    };
+
+
     @Override
     public void onDestroy() {
         EventBus.getInstance().unregister(this);

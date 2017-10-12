@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.bumptech.glide.RequestManager;
-import com.yg.yourexhibit.App.ApplicationController;
 import com.yg.yourexhibit.Datas.TabComingData;
 import com.yg.yourexhibit.R;
 
@@ -20,10 +19,12 @@ public class TabComingAdapter extends RecyclerView.Adapter<TabComingViewHolder>{
 
     private ArrayList<TabComingData> comingResult;
     private RequestManager requestManager;
+    private View.OnClickListener onItemClick = null;
 
-    public TabComingAdapter(ArrayList<TabComingData> comingResult, RequestManager requestManager) {
+    public TabComingAdapter(ArrayList<TabComingData> comingResult, RequestManager requestManager, View.OnClickListener onItemClick) {
         this.comingResult = comingResult;
         this.requestManager = requestManager;
+        this.onItemClick = onItemClick;
     }
 
 
@@ -31,6 +32,8 @@ public class TabComingAdapter extends RecyclerView.Adapter<TabComingViewHolder>{
     public TabComingViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.tab_home_coming_items, parent,false);
         TabComingViewHolder viewHolder = new TabComingViewHolder(itemView);
+
+        itemView.setOnClickListener(onItemClick);
         return viewHolder;
     }
 
@@ -40,12 +43,6 @@ public class TabComingAdapter extends RecyclerView.Adapter<TabComingViewHolder>{
         requestManager.load(comingResult.get(position).getExhibitImage()).into(holder.comingItemImage);
         holder.comingItemPerioid.setText(comingResult.get(position).getExhibitPeriod());
         holder.comingItemName.setText(comingResult.get(position).getExhibitName());
-        holder.comingItemBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ApplicationController.getInstance().makeToast(comingResult.get(position).getExhibitName());
-            }
-        });
     }
 
     @Override
