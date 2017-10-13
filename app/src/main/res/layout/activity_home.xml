@@ -19,6 +19,7 @@
             android:includeFontPadding="false"
             android:layout_centerInParent="true"
             android:text="중앙배치"
+            android:textColor="#ffffff"
             />
     </RelativeLayout>
 

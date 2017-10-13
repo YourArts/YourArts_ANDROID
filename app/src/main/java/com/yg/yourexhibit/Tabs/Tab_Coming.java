@@ -48,6 +48,7 @@ public class Tab_Coming extends Fragment{
         View v = inflater.inflate(R.layout.tab_home_coming, container, false);
         ButterKnife.bind(this, v);
         EventBus.getInstance().register(this);
+        EventBus.getInstance().post(EventCode.EVENT_CODE_TAB_COMING);
         networkController = new NetworkController();
         networkController.getComingData();
         return v;
@@ -102,6 +103,19 @@ public class Tab_Coming extends Fragment{
         }
     };
 
+    @Override
+    public void onStart(){
+        super.onStart();
+        EventBus.getInstance().post(EventCode.EVENT_CODE_TAB_COMING);
+
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        EventBus.getInstance().post(EventCode.EVENT_CODE_TAB_COMING);
+
+    }
 
     @Override
     public void onDestroy() {
