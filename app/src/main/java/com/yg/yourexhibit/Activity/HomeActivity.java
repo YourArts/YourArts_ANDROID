@@ -10,6 +10,7 @@ import com.yg.yourexhibit.Adapter.HomeTabAdapter;
 import com.yg.yourexhibit.R;
 import com.yg.yourexhibit.Util.BaseActivity;
 import com.yg.yourexhibit.Util.EventBus;
+import com.yg.yourexhibit.Util.EventCode;
 import com.yg.yourexhibit.Util.NetworkController;
 import com.yg.yourexhibit.Util.SwipeViewPager;
 
@@ -91,13 +92,13 @@ public class HomeActivity extends BaseActivity {
     @Subscribe
     public void onEventLoad(Integer code) {
         switch (code){
-            case 0:
+            case EventCode.EVENT_CODE_TAB_END:
                 totleText.setText("종료 전시");
                 break;
-            case 1:
+            case EventCode.EVENT_CODE_TAB_GOING:
                 totleText.setText("진행 전시");
                 break;
-            case 2:
+            case EventCode.EVENT_CODE_TAB_COMING:
                 totleText.setText("예정 전시");
                 break;
         }

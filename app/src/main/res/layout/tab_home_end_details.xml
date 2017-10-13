@@ -129,19 +129,11 @@
                 android:orientation="horizontal"
                 >
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="일시 : "
-                    android:textSize="14sp"
-                    android:textColor="#000000"
-                    android:includeFontPadding="false"
-                />
-                <TextView
                     android:id="@+id/end_details_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="adsasasasasasasa"
-                    android:textSize="14sp"
+                    android:textSize="16sp"
                     android:textColor="#000000"
 
                     android:includeFontPadding="false"
@@ -153,21 +145,12 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 >
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="시간 : "
-                    android:textSize="14sp"
-                    android:textColor="#000000"
-                    android:includeFontPadding="false"
-
-                    />
                 <TextView
                     android:id="@+id/end_details_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="adsasasasasasasa"
-                    android:textSize="14sp"
+                    android:textSize="16sp"
                     android:textColor="#000000"
                     android:includeFontPadding="false"
                     />
@@ -178,21 +161,13 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 >
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="장소 : "
-                    android:textSize="14sp"
-                    android:textColor="#000000"
-                    android:includeFontPadding="false"
 
-                    />
                 <TextView
                     android:id="@+id/end_details_location"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="adsasasasasasasa"
-                    android:textSize="14sp"
+                    android:textSize="16sp"
                     android:textColor="#000000"
                     android:includeFontPadding="false"
                     />
@@ -205,20 +180,11 @@
                 android:orientation="horizontal"
                 >
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="소개 : "
-                    android:textSize="14sp"
-                    android:textColor="#000000"
-                    android:includeFontPadding="false"
-
-                    />
-                <TextView
                     android:id="@+id/end_details_desciption"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="adsasasasasasasa"
-                    android:textSize="14sp"
+                    android:textSize="16sp"
                     android:textColor="#000000"
                     android:includeFontPadding="false"
                     />

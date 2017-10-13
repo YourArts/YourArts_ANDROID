@@ -8,6 +8,9 @@ public class EventCode {
 
     public static final int EVENT_CODE_END_TAB = 50;
 
+    public static final int EVENT_CODE_TAB_END = 0;
+    public static final int EVENT_CODE_TAB_GOING = 1;
+    public static final int EVENT_CODE_TAB_COMING = 2;
 
     public static final int EVENT_CODE_NETWORK_FAIL = 100;
     public static final int EVENT_CODE_END_SUCESS = 101;

@@ -85,10 +85,10 @@ public class Tab_Going_Details extends Fragment{
         requestManager = Glide.with(this);
 
         name.setText(exhibitDetailResult.getExhibition_name());
-        time.setText(exhibitDetailResult.getExhibition_start_time() + "~" + exhibitDetailResult.getExhibition_end_time());
-        location.setText(exhibitDetailResult.getExhibition_location());
-        date.setText(exhibitDetailResult.getExhibition_stard_date() + "~" + exhibitDetailResult.getExhibition_end_date());
-        description.setText(exhibitDetailResult.getExhibition_description());
+        time.setText("시간 : " + exhibitDetailResult.getExhibition_start_time() + "~" + exhibitDetailResult.getExhibition_end_time());
+        location.setText("장소 : " + exhibitDetailResult.getExhibition_location());
+        date.setText("일시 : " + exhibitDetailResult.getExhibition_stard_date() + "~" + exhibitDetailResult.getExhibition_end_date());
+        description.setText("소개 : " + exhibitDetailResult.getExhibition_description());
         requestManager.load(exhibitDetailResult.getExhibition_picture()).into(represent);
 
         preViewList.setHasFixedSize(true);
