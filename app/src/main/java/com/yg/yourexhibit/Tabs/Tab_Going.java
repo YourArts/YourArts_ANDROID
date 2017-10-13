@@ -41,13 +41,14 @@ public class Tab_Going extends Fragment{
     private LinearLayoutManager linearLayoutManager;
     private NetworkController networkController;
     private ArrayList<TabGoingData> goingDatas;
-
+    private int idx;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.tab_home_going, container, false);
         ButterKnife.bind(this, v);
         EventBus.getInstance().register(this);
+        EventBus.getInstance().post(EventCode.EVENT_CODE_TAB_GOING);
         networkController = new NetworkController();
         networkController.getGoingData();
         return v;
@@ -60,7 +61,7 @@ public class Tab_Going extends Fragment{
         linearLayoutManager.setOrientation(LinearLayout.VERTICAL);
         goingList.setLayoutManager(linearLayoutManager);
         editData();
-        tabGoingAdapter = new TabGoingAdapter(goingDatas, requestManager);
+        tabGoingAdapter = new TabGoingAdapter(goingDatas, requestManager, clickEvent);
         goingList.setAdapter(tabGoingAdapter);
     }
 
@@ -96,4 +97,27 @@ public class Tab_Going extends Fragment{
         EventBus.getInstance().unregister(this);
         super.onDestroy();
     }
+    @Override
+    public void onStart(){
+        super.onStart();
+        EventBus.getInstance().post(EventCode.EVENT_CODE_TAB_GOING);
+
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        EventBus.getInstance().post(EventCode.EVENT_CODE_TAB_GOING);
+
+    }
+
+    public View.OnClickListener clickEvent = new View.OnClickListener() {
+        public void onClick(View v) {
+            int itemPosition = goingList.getChildPosition(v);
+            idx = ApplicationController.getInstance().getExhibitGoingResult().get(itemPosition).getExhibition_idx();
+            networkController.getDetailData(1, idx);
+        }
+    };
+
+
 }

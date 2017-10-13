@@ -13,70 +13,66 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
-import com.yg.yourexhibit.Adapter.TabEndDetailAdapter;
+import com.yg.yourexhibit.Adapter.TabGoingDetailAdapter;
 import com.yg.yourexhibit.App.ApplicationController;
 import com.yg.yourexhibit.R;
 import com.yg.yourexhibit.Retrofit.RetrofitGet.ExhibitDetailResult;
 import com.yg.yourexhibit.Util.EventBus;
-import com.yg.yourexhibit.Util.NetworkController;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 /**
- * Created by 2yg on 2017. 10. 10..
+ * Created by 2yg on 2017. 10. 11..
  */
 
-public class Tab_End_Details extends Fragment{
+public class Tab_Going_Details extends Fragment{
 
-    @BindView(R.id.end_details_preview)
+    @BindView(R.id.going_details_preview)
     RecyclerView preViewList;
 
-    @BindView(R.id.end_details_date)
+    @BindView(R.id.going_details_date)
     TextView date;
 
-    @BindView(R.id.end_details_location)
+    @BindView(R.id.going_details_location)
     TextView location;
 
-    @BindView(R.id.end_details_desciption)
+    @BindView(R.id.going_details_desciption)
     TextView description;
 
-    @BindView(R.id.end_details_time)
+    @BindView(R.id.going_details_time)
     TextView time;
 
-    @BindView(R.id.end_details_1)
+    @BindView(R.id.going_details_1)
     ImageView like1;
 
-    @BindView(R.id.end_details_2)
+    @BindView(R.id.going_details_2)
     ImageView like2;
 
-    @BindView(R.id.end_details_3)
+    @BindView(R.id.going_details_3)
     ImageView like3;
 
-    @BindView(R.id.end_details_4)
+    @BindView(R.id.going_details_4)
     ImageView like4;
 
-    @BindView(R.id.end_details_5)
+    @BindView(R.id.going_details_5)
     ImageView like5;
 
-    @BindView(R.id.end_details_img)
+    @BindView(R.id.going_details_img)
     ImageView represent;
 
-    @BindView(R.id.end_details_name)
+    @BindView(R.id.going_details_name)
     TextView name;
-
-
 
     private ExhibitDetailResult exhibitDetailResult;
     private RequestManager requestManager;
     private LinearLayoutManager linearLayoutManager;
-    private TabEndDetailAdapter tabEndDetailAdapter;
-    private NetworkController networkController;
+    private TabGoingDetailAdapter tabGoingDetailAdapter;
+    private int idx;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.tab_home_end_details, container, false);
+        View v = inflater.inflate(R.layout.tab_home_going_details, container, false);
         ButterKnife.bind(this, v);
         EventBus.getInstance().register(this);
         exhibitDetailResult = ApplicationController.getInstance().getExhibitDetailResult();
@@ -84,7 +80,6 @@ public class Tab_End_Details extends Fragment{
         initFragment();
         return v;
     }
-
 
     public void initFragment(){
         requestManager = Glide.with(this);
@@ -100,35 +95,19 @@ public class Tab_End_Details extends Fragment{
         linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         linearLayoutManager.setOrientation(LinearLayout.HORIZONTAL);
         preViewList.setLayoutManager(linearLayoutManager);
-        tabEndDetailAdapter = new TabEndDetailAdapter(exhibitDetailResult.getImages(), requestManager);
+        tabGoingDetailAdapter = new TabGoingDetailAdapter(exhibitDetailResult.getImages(), requestManager, clickEvent);
         //tabEndAdapter.setOnItemClickListener(this.getView().OnClickListener);
-        preViewList.setAdapter(tabEndDetailAdapter);
+        preViewList.setAdapter(tabGoingDetailAdapter);
         //Intent intent = new Intent(getActivity().getApplicationContext(), Tab_End.class);
     }
 
-    @OnClick(R.id.end_details_1)
-    public void onClick1(){
+    public View.OnClickListener clickEvent = new View.OnClickListener() {
+        public void onClick(View v) {
+            int itemPosition = preViewList.getChildPosition(v);
+            idx = ApplicationController.getInstance().getExhibitEndResult().get(itemPosition).getExhibition_idx();
+            //networkController.getDetailData(0, idx);
+        }
+    };
 
-    }
-
-    @OnClick(R.id.end_details_2)
-    public void onClick2(){
-
-    }
-
-    @OnClick(R.id.end_details_3)
-    public void onClick3(){
-
-    }
-
-    @OnClick(R.id.end_details_4)
-    public void onClick4(){
-
-    }
-
-    @OnClick(R.id.end_details_5)
-    public void onClick5(){
-
-    }
 
 }

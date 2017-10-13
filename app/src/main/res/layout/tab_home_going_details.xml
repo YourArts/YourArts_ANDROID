@@ -6,20 +6,20 @@
     >
 
     <RelativeLayout
-        android:id="@+id/end_details_mainframe"
+        android:id="@+id/going_details_mainframe"
         android:layout_width="match_parent"
         android:layout_height="204dp"
         android:background="#212121"
         >
         <ImageView
-            android:id="@+id/end_details_img"
+            android:id="@+id/going_details_img"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="#212121"
             />
 
         <TextView
-            android:id="@+id/end_details_name"
+            android:id="@+id/going_details_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textStyle="bold"
@@ -29,11 +29,19 @@
             android:layout_marginLeft="28dp"
             android:text="aaaaaaaaaaaaaa"
             />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="159dp"
+            android:layout_marginRight="17dp"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/ic_exhibit_wish_off"
+            />
     </RelativeLayout>
 
     <LinearLayout
-        android:id="@+id/end_details_likeframe"
-        android:layout_below="@+id/end_details_mainframe"
+        android:id="@+id/going_details_likeframe"
+        android:layout_below="@+id/going_details_mainframe"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:orientation="horizontal"
@@ -41,7 +49,7 @@
         >
 
         <ImageView
-            android:id="@+id/end_details_1"
+            android:id="@+id/going_details_1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="9dp"
@@ -51,7 +59,7 @@
             />
 
         <ImageView
-            android:id="@+id/end_details_2"
+            android:id="@+id/going_details_2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="9dp"
@@ -61,18 +69,7 @@
             />
 
         <ImageView
-            android:id="@+id/end_details_3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="9dp"
-            android:layout_marginLeft="23dp"
-            android:src="@drawable/ic_good_off"
-            android:layout_weight="1"
-
-            />
-
-        <ImageView
-            android:id="@+id/end_details_4"
+            android:id="@+id/going_details_3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="9dp"
@@ -83,7 +80,18 @@
             />
 
         <ImageView
-            android:id="@+id/end_details_5"
+            android:id="@+id/going_details_4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="9dp"
+            android:layout_marginLeft="23dp"
+            android:src="@drawable/ic_good_off"
+            android:layout_weight="1"
+
+            />
+
+        <ImageView
+            android:id="@+id/going_details_5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="9dp"
@@ -94,11 +102,12 @@
             />
 
     </LinearLayout>
+
     <View
-        android:layout_below="@+id/end_details_likeframe"
+        android:layout_below="@+id/going_details_likeframe"
         android:layout_width="match_parent"
         android:layout_height="14dp"
-        android:id="@+id/end_details_fill_balnk"
+        android:id="@+id/going_details_fill_balnk"
         android:background="#ffffff"
         />
 
@@ -106,95 +115,98 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#ffffff"
-        android:layout_below="@+id/end_details_fill_balnk"
+        android:layout_below="@+id/going_details_fill_balnk"
         >
 
         <ScrollView
-            android:layout_above="@+id/end_details_listframe"
+            android:layout_above="@+id/going_details_listframe"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="28dp"
             android:layout_marginRight="28dp"
             >
 
-        <LinearLayout
-            android:layout_width="305dp"
-            android:layout_height="151dp"
-            android:layout_centerHorizontal="true"
-            android:orientation="vertical"
-            >
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:layout_width="305dp"
+                android:layout_height="151dp"
+                android:layout_centerHorizontal="true"
+                android:orientation="vertical"
                 >
-                <TextView
-                    android:id="@+id/end_details_date"
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="adsasasasasasasa"
-                    android:textSize="16sp"
-                    android:textColor="#000000"
+                    android:orientation="horizontal"
+                    >
 
-                    android:includeFontPadding="false"
-                    />
-            </LinearLayout>
+                    <TextView
+                        android:id="@+id/going_details_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="adsasasasasasasa"
+                        android:textSize="16sp"
+                        android:textColor="#000000"
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                >
-                <TextView
-                    android:id="@+id/end_details_time"
+                        android:includeFontPadding="false"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="adsasasasasasasa"
-                    android:textSize="16sp"
-                    android:textColor="#000000"
-                    android:includeFontPadding="false"
-                    />
-            </LinearLayout>
+                    android:orientation="horizontal"
+                    >
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                >
+                    <TextView
+                        android:id="@+id/going_details_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="adsasasasasasasa"
+                        android:textSize="16sp"
+                        android:textColor="#000000"
+                        android:includeFontPadding="false"
+                        />
+                </LinearLayout>
 
-                <TextView
-                    android:id="@+id/end_details_location"
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="adsasasasasasasa"
-                    android:textSize="16sp"
-                    android:textColor="#000000"
-                    android:includeFontPadding="false"
-                    />
-            </LinearLayout>
+                    android:orientation="horizontal"
+                    >
+
+                    <TextView
+                        android:id="@+id/going_details_location"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="adsasasasasasasa"
+                        android:textSize="16sp"
+                        android:textColor="#000000"
+                        android:includeFontPadding="false"
+                        />
+                </LinearLayout>
 
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                >
-                <TextView
-                    android:id="@+id/end_details_desciption"
-                    android:layout_width="match_parent"
+                <LinearLayout
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="adsasasasasasasa"
-                    android:textSize="16sp"
-                    android:textColor="#000000"
-                    android:includeFontPadding="false"
-                    />
-            </LinearLayout>
+                    android:orientation="horizontal"
+                    >
 
-        </LinearLayout>
+                    <TextView
+                        android:id="@+id/going_details_desciption"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="adsasasasasasasa"
+                        android:textSize="16sp"
+                        android:textColor="#000000"
+                        android:includeFontPadding="false"
+                        />
+                </LinearLayout>
+
+            </LinearLayout>
         </ScrollView>
 
         <LinearLayout
-            android:id="@+id/end_details_listframe"
+            android:id="@+id/going_details_listframe"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
@@ -202,7 +214,7 @@
             >
 
             <android.support.v7.widget.RecyclerView
-                android:id="@+id/end_details_preview"
+                android:id="@+id/going_details_preview"
                 android:layout_width="wrap_content"
                 android:layout_height="54dp"
                 android:layout_marginTop="26dp"

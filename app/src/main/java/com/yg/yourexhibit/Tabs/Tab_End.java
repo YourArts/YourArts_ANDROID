@@ -53,6 +53,7 @@ public class Tab_End extends Fragment{
         View v = inflater.inflate(R.layout.tab_home_end, container, false);
         ButterKnife.bind(this, v);
         EventBus.getInstance().register(this);
+        EventBus.getInstance().post(EventCode.EVENT_CODE_TAB_END);
         networkController = new NetworkController();
         networkController.getEndData();
         return v;
@@ -89,10 +90,10 @@ public class Tab_End extends Fragment{
             case EventCode.EVENT_CODE_END_SUCESS:
                 initFragment();
                 break;
-            case EventCode.EVENT_CODE_END_DETAIL:
-                Log.v(TAG, "getToEndDetailEvent");
-                toEndDetail();
-                break;
+//            case EventCode.EVENT_CODE_END_DETAIL:
+//                Log.v(TAG, "getToEndDetailEvent");
+//                toEndDetail();
+//                break;
         }
     }
 
@@ -120,6 +121,19 @@ public class Tab_End extends Fragment{
 
     }
 
+    @Override
+    public void onStart(){
+        super.onStart();
+        EventBus.getInstance().post(EventCode.EVENT_CODE_TAB_END);
+
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        EventBus.getInstance().post(EventCode.EVENT_CODE_TAB_END);
+
+    }
 
     @Override
     public void onDestroy() {

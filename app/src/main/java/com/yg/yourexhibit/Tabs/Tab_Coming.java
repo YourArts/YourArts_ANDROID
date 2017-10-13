@@ -41,13 +41,14 @@ public class Tab_Coming extends Fragment{
     private LinearLayoutManager linearLayoutManager;
     private NetworkController networkController;
     private ArrayList<TabComingData> comingDatas;
-
+    private int idx;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.tab_home_coming, container, false);
         ButterKnife.bind(this, v);
         EventBus.getInstance().register(this);
+        EventBus.getInstance().post(EventCode.EVENT_CODE_TAB_COMING);
         networkController = new NetworkController();
         networkController.getComingData();
         return v;
@@ -60,7 +61,7 @@ public class Tab_Coming extends Fragment{
         linearLayoutManager.setOrientation(LinearLayout.VERTICAL);
         comingList.setLayoutManager(linearLayoutManager);
         editData();
-        tabComingAdapter = new TabComingAdapter(comingDatas, requestManager);
+        tabComingAdapter = new TabComingAdapter(comingDatas, requestManager, clickEvent);
         comingList.setAdapter(tabComingAdapter);
     }
 
@@ -93,6 +94,29 @@ public class Tab_Coming extends Fragment{
             ));
         }
     }
+
+    public View.OnClickListener clickEvent = new View.OnClickListener() {
+        public void onClick(View v) {
+            int itemPosition = comingList.getChildPosition(v);
+            idx = ApplicationController.getInstance().getExhibitComingResult().get(itemPosition).getExhibition_idx();
+            networkController.getDetailData(2, idx);
+        }
+    };
+
+    @Override
+    public void onStart(){
+        super.onStart();
+        EventBus.getInstance().post(EventCode.EVENT_CODE_TAB_COMING);
+
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        EventBus.getInstance().post(EventCode.EVENT_CODE_TAB_COMING);
+
+    }
+
     @Override
     public void onDestroy() {
         EventBus.getInstance().unregister(this);

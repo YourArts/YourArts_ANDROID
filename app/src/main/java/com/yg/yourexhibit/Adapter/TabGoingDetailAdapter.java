@@ -15,14 +15,16 @@ import java.util.ArrayList;
  * Created by 2yg on 2017. 10. 11..
  */
 
-public class TabEndDetailAdapter extends RecyclerView.Adapter<TabDetailViewHolder>{
+public class TabGoingDetailAdapter extends RecyclerView.Adapter<TabDetailViewHolder>{
 
     private ArrayList<ExhibitDetailImages> previewList;
     private RequestManager requestManager;
+    private View.OnClickListener onItemClick = null;
 
-    public TabEndDetailAdapter(ArrayList<ExhibitDetailImages> previewList, RequestManager requestManager) {
+    public TabGoingDetailAdapter(ArrayList<ExhibitDetailImages> previewList, RequestManager requestManager, View.OnClickListener onItemClick) {
         this.previewList = previewList;
         this.requestManager = requestManager;
+        this.onItemClick = onItemClick;
     }
 
 
@@ -30,6 +32,8 @@ public class TabEndDetailAdapter extends RecyclerView.Adapter<TabDetailViewHolde
     public TabDetailViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.tab_home_details_items, parent,false);
         TabDetailViewHolder viewHolder = new TabDetailViewHolder(itemView);
+        itemView.setOnClickListener(onItemClick);
+
         return viewHolder;
     }
 
@@ -40,6 +44,6 @@ public class TabEndDetailAdapter extends RecyclerView.Adapter<TabDetailViewHolde
 
     @Override
     public int getItemCount() {
-        return (previewList !=null)? previewList.size() : 0;
+        return (previewList != null)? previewList.size() : 0;
     }
 }
