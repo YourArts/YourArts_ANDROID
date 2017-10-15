@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".Activity.HomeActivity"
+            android:name=".Login.SplashActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,6 +22,20 @@
             </intent-filter>
         </activity>
         <activity android:name=".Activity.TextActivity"></activity>
+
+        <activity android:name=".Login.SignupActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            />
+        <activity android:name=".Login.FindIdPwActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            />
+        <activity android:name=".Activity.HomeActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            ></activity>
+        <activity android:name=".Login.LoginActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            />
+
     </application>
 
 </manifest>
