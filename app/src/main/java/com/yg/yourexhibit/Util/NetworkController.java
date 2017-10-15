@@ -8,6 +8,9 @@ import com.yg.yourexhibit.Retrofit.RetrofitGet.ExhibitComingResponse;
 import com.yg.yourexhibit.Retrofit.RetrofitGet.ExhibitDetailResponse;
 import com.yg.yourexhibit.Retrofit.RetrofitGet.ExhibitEndResponse;
 import com.yg.yourexhibit.Retrofit.RetrofitGet.ExhibitGoingResponse;
+import com.yg.yourexhibit.Retrofit.RetrofitGet.ExhibitSearchResponse;
+
+import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -129,4 +132,28 @@ public class NetworkController {
         });
     }
 
+    public void getSearchData(String search){
+        Call<ArrayList<ExhibitSearchResponse>> exhibitSearchResponse = networkService.getSearchResponse(search);
+        exhibitSearchResponse.enqueue(new Callback<ArrayList<ExhibitSearchResponse>>() {
+            @Override
+            public void onResponse(Call<ArrayList<ExhibitSearchResponse>> call, Response<ArrayList<ExhibitSearchResponse>> response) {
+                if(response.isSuccessful()){
+                    if(response.body()!=null) {
+                        ApplicationController.getInstance().setExhibitSearchResult(response.body());
+                        EventBus.getInstance().post(EventCode.EVENT_CODE_SEARCH);
+                        Log.v(TAG, "getSearchSuccess");
+                    }else{
+                        Log.v(TAG, "getSearchSuccessButNull");
+                    }
+                }else{
+                    EventBus.getInstance().post(EventCode.EVENT_CODE_NETWORK_FAIL);
+                    Log.v(TAG,"getSearchFail");
+                }
+            }
+            @Override
+            public void onFailure(Call<ArrayList<ExhibitSearchResponse>> call, Throwable t) {
+                Log.v(TAG,"checkNetwork");
+            }
+        });
+    }
 }

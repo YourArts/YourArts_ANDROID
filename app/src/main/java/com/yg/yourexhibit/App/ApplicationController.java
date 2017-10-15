@@ -10,6 +10,7 @@ import com.yg.yourexhibit.Retrofit.RetrofitGet.ExhibitComingResult;
 import com.yg.yourexhibit.Retrofit.RetrofitGet.ExhibitDetailResult;
 import com.yg.yourexhibit.Retrofit.RetrofitGet.ExhibitEndResult;
 import com.yg.yourexhibit.Retrofit.RetrofitGet.ExhibitGoingResult;
+import com.yg.yourexhibit.Retrofit.RetrofitGet.ExhibitSearchResponse;
 
 import java.util.ArrayList;
 
@@ -30,6 +31,7 @@ public class ApplicationController extends Application{
     private ArrayList<ExhibitGoingResult> exhibitGoingResult;
     private ArrayList<ExhibitComingResult> exhibitComingResult;
     private ExhibitDetailResult exhibitDetailResult;
+    private ArrayList<ExhibitSearchResponse> exhibitSearchResult;
 
     @Override public void onCreate() {
         super.onCreate();
@@ -96,6 +98,14 @@ public class ApplicationController extends Application{
 
     public void setExhibitDetailResult(ExhibitDetailResult exhibitDetailResult) {
         this.exhibitDetailResult = exhibitDetailResult;
+    }
+
+    public ArrayList<ExhibitSearchResponse> getExhibitSearchResult() {
+        return exhibitSearchResult;
+    }
+
+    public void setExhibitSearchResult(ArrayList<ExhibitSearchResponse> exhibitSearchResult) {
+        this.exhibitSearchResult = exhibitSearchResult;
     }
 
 }

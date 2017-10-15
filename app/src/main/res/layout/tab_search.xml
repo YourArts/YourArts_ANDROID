@@ -10,9 +10,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@null"
+        android:textColor="#000000"
         android:layout_marginLeft="33dp"
         android:layout_marginRight="61dp"
-        android:text="333333"
+        android:layout_marginTop="53dp"
         />
 
     <ImageView
@@ -20,16 +21,31 @@
         android:layout_width="28dp"
         android:layout_height="28dp"
         android:layout_marginRight="33dp"
+        android:layout_marginTop="53dp"
         android:background="@drawable/ic_search"
         />
     <View
+        android:id="@+id/tab_search_underline"
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:layout_below="@+id/tab_search_search"
         android:layout_marginLeft="33dp"
         android:layout_marginRight="33dp"
-        android:layout_marginTop="2dp"
+        android:layout_marginTop="5dp"
+        android:background="#212121"
         />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/tab_search_result"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/tab_search_underline"
+        android:layout_marginLeft="33dp"
+        android:layout_marginRight="33dp"
+        android:layout_marginTop="34dp"
+        >
+
+    </android.support.v7.widget.RecyclerView>
 
 
 </RelativeLayout>

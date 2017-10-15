@@ -4,6 +4,9 @@ import com.yg.yourexhibit.Retrofit.RetrofitGet.ExhibitComingResponse;
 import com.yg.yourexhibit.Retrofit.RetrofitGet.ExhibitDetailResponse;
 import com.yg.yourexhibit.Retrofit.RetrofitGet.ExhibitEndResponse;
 import com.yg.yourexhibit.Retrofit.RetrofitGet.ExhibitGoingResponse;
+import com.yg.yourexhibit.Retrofit.RetrofitGet.ExhibitSearchResponse;
+
+import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -30,5 +33,9 @@ public interface NetworkService {
     //해당 전시 상세정보 불러오기
     @GET("arts/{idx}")
     Call<ExhibitDetailResponse> getDetailResponse(@Path("idx") int idx);
+
+    //검색 불러오기
+    @GET("search/{search}")
+    Call<ArrayList<ExhibitSearchResponse>> getSearchResponse(@Path("search") String search);
 
 }

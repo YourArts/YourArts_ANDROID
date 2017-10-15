@@ -21,5 +21,7 @@ public class EventCode {
     public static final int EVENT_CODE_GOING_DETAIL = 105;
     public static final int EVENT_CODE_COMING_DETAIL = 106;
 
+    public static final int EVENT_CODE_SEARCH = 107;
+
 
 }
