@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
-import com.yg.yourexhibit.Adapter.TabGoingDetailAdapter;
+import com.yg.yourexhibit.Adapter.Home.TabGoingDetailAdapter;
 import com.yg.yourexhibit.App.ApplicationController;
 import com.yg.yourexhibit.R;
 import com.yg.yourexhibit.Retrofit.RetrofitGet.ExhibitDetailResult;
@@ -21,6 +21,7 @@ import com.yg.yourexhibit.Util.EventBus;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by 2yg on 2017. 10. 11..
@@ -64,6 +65,9 @@ public class Tab_Going_Details extends Fragment{
     @BindView(R.id.going_details_name)
     TextView name;
 
+    @BindView(R.id.going_details_preBtn)
+    View preBtn;
+
     private ExhibitDetailResult exhibitDetailResult;
     private RequestManager requestManager;
     private LinearLayoutManager linearLayoutManager;
@@ -83,7 +87,7 @@ public class Tab_Going_Details extends Fragment{
 
     public void initFragment(){
         requestManager = Glide.with(this);
-
+        setLike();
         name.setText(exhibitDetailResult.getExhibition_name());
         time.setText("시간 : " + exhibitDetailResult.getExhibition_start_time() + "~" + exhibitDetailResult.getExhibition_end_time());
         location.setText("장소 : " + exhibitDetailResult.getExhibition_location());
@@ -101,6 +105,38 @@ public class Tab_Going_Details extends Fragment{
         //Intent intent = new Intent(getActivity().getApplicationContext(), Tab_End.class);
     }
 
+    public void setLike(){
+        switch (exhibitDetailResult.getLike_count()){
+            case 0:
+                break;
+            case 1:
+                like1.setImageResource(R.drawable.ic_good_on);
+                break;
+            case 2:
+                like1.setImageResource(R.drawable.ic_good_on);
+                like2.setImageResource(R.drawable.ic_good_on);
+                break;
+            case 3:
+                like1.setImageResource(R.drawable.ic_good_on);
+                like2.setImageResource(R.drawable.ic_good_on);
+                like3.setImageResource(R.drawable.ic_good_on);
+                break;
+            case 4:
+                like1.setImageResource(R.drawable.ic_good_on);
+                like2.setImageResource(R.drawable.ic_good_on);
+                like3.setImageResource(R.drawable.ic_good_on);
+                like4.setImageResource(R.drawable.ic_good_on);
+                break;
+            case 5:
+                like1.setImageResource(R.drawable.ic_good_on);
+                like2.setImageResource(R.drawable.ic_good_on);
+                like3.setImageResource(R.drawable.ic_good_on);
+                like4.setImageResource(R.drawable.ic_good_on);
+                like5.setImageResource(R.drawable.ic_good_on);
+                break;
+        }
+    }
+
     public View.OnClickListener clickEvent = new View.OnClickListener() {
         public void onClick(View v) {
             int itemPosition = preViewList.getChildPosition(v);
@@ -109,5 +145,12 @@ public class Tab_Going_Details extends Fragment{
         }
     };
 
-
+    @OnClick(R.id.going_details_preBtn)
+    public void toPreview(){
+        getFragmentManager()
+                .beginTransaction()
+                .addToBackStack(null)
+                .replace(R.id.going_details_container, new Tab_Going_Preview())
+                .commit();
+    }
 }

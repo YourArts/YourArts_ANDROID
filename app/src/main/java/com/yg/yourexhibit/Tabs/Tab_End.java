@@ -13,7 +13,7 @@ import android.widget.LinearLayout;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
 import com.squareup.otto.Subscribe;
-import com.yg.yourexhibit.Adapter.TabEndAdapter;
+import com.yg.yourexhibit.Adapter.Home.TabEndAdapter;
 import com.yg.yourexhibit.App.ApplicationController;
 import com.yg.yourexhibit.Datas.TabEndData;
 import com.yg.yourexhibit.R;
@@ -145,7 +145,7 @@ public class Tab_End extends Fragment{
         public void onClick(View v) {
             int itemPosition = endList.getChildPosition(v);
             idx = ApplicationController.getInstance().getExhibitEndResult().get(itemPosition).getExhibition_idx();
-            networkController.getDetailData(0, idx);
+            networkController.getDetailData(0, ApplicationController.getInstance().token, idx);
         }
     };
 

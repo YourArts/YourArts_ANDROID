@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.squareup.otto.Subscribe;
-import com.yg.yourexhibit.Adapter.HomeExhibitTabAdapter;
+import com.yg.yourexhibit.Adapter.Home.HomeExhibitTabAdapter;
 import com.yg.yourexhibit.R;
 import com.yg.yourexhibit.Util.EventBus;
 import com.yg.yourexhibit.Util.EventCode;

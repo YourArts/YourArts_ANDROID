@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
-import com.yg.yourexhibit.Adapter.TabComingDetailAdapter;
+import com.yg.yourexhibit.Adapter.Home.TabComingDetailAdapter;
 import com.yg.yourexhibit.App.ApplicationController;
 import com.yg.yourexhibit.R;
 import com.yg.yourexhibit.Retrofit.RetrofitGet.ExhibitDetailResult;

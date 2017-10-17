@@ -1,4 +1,4 @@
-package com.yg.yourexhibit.Adapter;
+package com.yg.yourexhibit.Adapter.Home;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -32,14 +32,14 @@ public class TabGoingDetailAdapter extends RecyclerView.Adapter<TabDetailViewHol
     public TabDetailViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.tab_home_details_items, parent,false);
         TabDetailViewHolder viewHolder = new TabDetailViewHolder(itemView);
-        itemView.setOnClickListener(onItemClick);
+        //itemView.setOnClickListener(onItemClick);
 
         return viewHolder;
     }
 
     @Override
     public void onBindViewHolder(TabDetailViewHolder holder, int position) {
-        requestManager.load(previewList.get(position).getUrl()).into(holder.preView);
+        requestManager.load(previewList.get(position).getWork_image()).into(holder.preView);
     }
 
     @Override

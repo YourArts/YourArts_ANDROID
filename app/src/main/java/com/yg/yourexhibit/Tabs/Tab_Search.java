@@ -14,7 +14,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import com.squareup.otto.Subscribe;
-import com.yg.yourexhibit.Adapter.TabSearchAdapter;
+import com.yg.yourexhibit.Adapter.Search.TabSearchAdapter;
 import com.yg.yourexhibit.App.ApplicationController;
 import com.yg.yourexhibit.R;
 import com.yg.yourexhibit.Retrofit.RetrofitGet.ExhibitSearchResponse;

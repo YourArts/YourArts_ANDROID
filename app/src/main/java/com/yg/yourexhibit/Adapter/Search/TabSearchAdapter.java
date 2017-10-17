@@ -1,4 +1,4 @@
-package com.yg.yourexhibit.Adapter;
+package com.yg.yourexhibit.Adapter.Search;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
