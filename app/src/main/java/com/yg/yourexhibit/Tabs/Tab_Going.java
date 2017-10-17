@@ -13,7 +13,7 @@ import android.widget.LinearLayout;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
 import com.squareup.otto.Subscribe;
-import com.yg.yourexhibit.Adapter.TabGoingAdapter;
+import com.yg.yourexhibit.Adapter.Home.TabGoingAdapter;
 import com.yg.yourexhibit.App.ApplicationController;
 import com.yg.yourexhibit.Datas.TabGoingData;
 import com.yg.yourexhibit.R;
@@ -115,7 +115,7 @@ public class Tab_Going extends Fragment{
         public void onClick(View v) {
             int itemPosition = goingList.getChildPosition(v);
             idx = ApplicationController.getInstance().getExhibitGoingResult().get(itemPosition).getExhibition_idx();
-            networkController.getDetailData(1, idx);
+            networkController.getDetailData(1, ApplicationController.getInstance().token, idx);
         }
     };
 

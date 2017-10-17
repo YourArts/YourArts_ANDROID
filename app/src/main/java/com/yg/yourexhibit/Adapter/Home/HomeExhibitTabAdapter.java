@@ -1,4 +1,4 @@
-package com.yg.yourexhibit.Adapter;
+package com.yg.yourexhibit.Adapter.Home;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

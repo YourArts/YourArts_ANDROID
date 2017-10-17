@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 
+import com.yg.yourexhibit.Activity.HomeActivity;
 import com.yg.yourexhibit.R;
 
 public class SplashActivity extends AppCompatActivity {
@@ -20,7 +21,7 @@ public class SplashActivity extends AppCompatActivity {
         hd.postDelayed(new Runnable() {
             @Override
             public void run() {
-                startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                startActivity(new Intent(getApplicationContext(), HomeActivity.class));
             }
 
         }, 2000);

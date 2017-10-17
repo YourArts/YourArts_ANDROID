@@ -6,7 +6,7 @@ import android.util.Log;
 import android.widget.TextView;
 
 import com.squareup.otto.Subscribe;
-import com.yg.yourexhibit.Adapter.HomeTabAdapter;
+import com.yg.yourexhibit.Adapter.Home.HomeTabAdapter;
 import com.yg.yourexhibit.R;
 import com.yg.yourexhibit.Util.BaseActivity;
 import com.yg.yourexhibit.Util.EventBus;

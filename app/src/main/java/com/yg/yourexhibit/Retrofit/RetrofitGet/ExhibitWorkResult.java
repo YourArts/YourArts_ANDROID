@@ -4,12 +4,15 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 /**
- * Created by 2yg on 2017. 10. 11..
+ * Created by 2yg on 2017. 10. 17..
  */
 
 @Data
 @AllArgsConstructor
-public class ExhibitDetailImages {
+public class ExhibitWorkResult {
     int work_idx;
+    String work_size;
+    String work_style;
+    String work_owner;
     String work_image;
 }

@@ -1,4 +1,4 @@
-package com.yg.yourexhibit.Adapter;
+package com.yg.yourexhibit.Adapter.Home;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -15,12 +15,11 @@ import java.util.ArrayList;
  * Created by 2yg on 2017. 10. 11..
  */
 
-public class TabEndDetailAdapter extends RecyclerView.Adapter<TabDetailViewHolder>{
-
+public class TabComingDetailAdapter extends RecyclerView.Adapter<TabDetailViewHolder>{
     private ArrayList<ExhibitDetailImages> previewList;
     private RequestManager requestManager;
 
-    public TabEndDetailAdapter(ArrayList<ExhibitDetailImages> previewList, RequestManager requestManager) {
+    public TabComingDetailAdapter(ArrayList<ExhibitDetailImages> previewList, RequestManager requestManager) {
         this.previewList = previewList;
         this.requestManager = requestManager;
     }
@@ -35,11 +34,11 @@ public class TabEndDetailAdapter extends RecyclerView.Adapter<TabDetailViewHolde
 
     @Override
     public void onBindViewHolder(TabDetailViewHolder holder, int position) {
-        requestManager.load(previewList.get(position).getUrl()).into(holder.preView);
+        requestManager.load(previewList.get(position).getWork_image()).into(holder.preView);
     }
 
     @Override
     public int getItemCount() {
-        return (previewList !=null)? previewList.size() : 0;
+        return (previewList != null)? previewList.size() : 0;
     }
 }
