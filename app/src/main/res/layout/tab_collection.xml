@@ -1,11 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/tab_collection_container"
     android:background="#212121"
+    android:clickable="true"
     >
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <RelativeLayout
+        android:id="@+id/tab_collection_title"
+        android:layout_width="match_parent"
+        android:background="#000000"
+        android:layout_height="48dp">
+        <TextView
+            android:id="@+id/tab_collection_realtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:includeFontPadding="false"
+            android:layout_centerInParent="true"
+            android:text="콜렉션"
+            android:textColor="#ffffff"
+            />
+        <ImageView
+            android:id="@+id/tab_collection_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="21dp"
+            android:src="@drawable/ic_create_collection"
+            />
+    </RelativeLayout>
+
 
     <LinearLayout
+        android:layout_below="@+id/tab_collection_title"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#212121"
@@ -54,6 +87,6 @@
         android:textSize="16sp"
         android:visibility="gone"
         />
+    </RelativeLayout>
 
-
-</RelativeLayout>
+</FrameLayout>

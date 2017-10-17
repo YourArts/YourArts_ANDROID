@@ -26,6 +26,9 @@ public class EventCode {
 
     public static final int EVENT_CODE_SEARCH = 107;
     public static final int EVENT_CODE_COLLECTION_GET = 108;
+    public static final int EVENT_CODE_COLLECTION_DETAIL = 109;
+    public static final int EVENT_CODE_COLLECTION_EDIT1 = 110;
+    public static final int EVENT_CODE_COLLECTION_EDIT2 = 111;
 
 
 

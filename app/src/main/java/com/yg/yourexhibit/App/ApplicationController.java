@@ -6,6 +6,7 @@ import android.widget.Toast;
 
 import com.tsengvn.typekit.Typekit;
 import com.yg.yourexhibit.Retrofit.NetworkService;
+import com.yg.yourexhibit.Retrofit.RetrofitGet.ExhibitCollectionDetailResult;
 import com.yg.yourexhibit.Retrofit.RetrofitGet.ExhibitCollectionResult;
 import com.yg.yourexhibit.Retrofit.RetrofitGet.ExhibitComingResult;
 import com.yg.yourexhibit.Retrofit.RetrofitGet.ExhibitDetailResult;
@@ -42,10 +43,18 @@ public class ApplicationController extends Application{
 
 
 
+    private ExhibitCollectionDetailResult exhibitCollectionDetailResult;
+
+
+
     private ArrayList<ExhibitWorkResult> exhibitWorkResult;
+
+    private int collectionSize = 0;
 
     public String token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFrc2d1ciIsIm5pY2tuYW1lIjoiYWtzZ3VyIiwiaWF0IjoxNTA4MjI4NzY3LCJleHAiOjE1MDgyNjQ3Njd9.h0MqLTeUR6tuylOv4FTDd6wPsuQNWLru8lsaGrvR4QA";
 
+
+    private boolean fromDetail = false;
 
     @Override public void onCreate() {
         super.onCreate();
@@ -152,5 +161,31 @@ public class ApplicationController extends Application{
 
     public void setExhibitWorkResult(ArrayList<ExhibitWorkResult> exhibitWorkResult) {
         this.exhibitWorkResult = exhibitWorkResult;
+    }
+
+    public int getCollectionSize() {
+        return collectionSize;
+    }
+
+    public void setCollectionSize(int collectionSize) {
+        this.collectionSize = collectionSize;
+    }
+
+    public ExhibitCollectionDetailResult getExhibitCollectionDetailResult() {
+        return exhibitCollectionDetailResult;
+    }
+
+    public void setExhibitCollectionDetailResult(ExhibitCollectionDetailResult exhibitCollectionDetailResult) {
+        this.exhibitCollectionDetailResult = exhibitCollectionDetailResult;
+    }
+
+
+
+    public boolean isFromDetail() {
+        return fromDetail;
+    }
+
+    public void setFromDetail(boolean fromDetail) {
+        this.fromDetail = fromDetail;
     }
 }
