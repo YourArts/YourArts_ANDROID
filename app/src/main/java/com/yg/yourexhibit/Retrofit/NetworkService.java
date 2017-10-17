@@ -1,5 +1,6 @@
 package com.yg.yourexhibit.Retrofit;
 
+import com.yg.yourexhibit.Retrofit.RetrofitGet.ExhibitCollectionDetailResponse;
 import com.yg.yourexhibit.Retrofit.RetrofitGet.ExhibitCollectionResponse;
 import com.yg.yourexhibit.Retrofit.RetrofitGet.ExhibitComingResponse;
 import com.yg.yourexhibit.Retrofit.RetrofitGet.ExhibitDetailResponse;
@@ -46,6 +47,10 @@ public interface NetworkService {
     //콜랙션 불러오기
     @GET("collections")
     Call<ExhibitCollectionResponse> getCollectionResponse(@Header("token") String token);
+
+    //콜렉션 상세조회
+    @GET("collections/{collection_idx}")
+    Call<ExhibitCollectionDetailResponse> getCollectionDetailResponse(@Path("collection_idx") int collection_idx);
 
     //작품 정보 불러오기
     @GET("works/{work_idx}")

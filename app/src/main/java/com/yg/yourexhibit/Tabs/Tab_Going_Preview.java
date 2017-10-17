@@ -126,7 +126,7 @@ public class Tab_Going_Preview extends Fragment{
                 getFragmentManager()
                         .beginTransaction()
                         .addToBackStack(null)
-                        .replace(R.id.tab_preview_container, new Tab_Search())
+                        .replace(R.id.tab_preview_container, new Tab_Work())
                         .commit();
                 break;
         }

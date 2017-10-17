@@ -11,7 +11,9 @@ import lombok.Data;
 @AllArgsConstructor
 public class ExhibitWorkResult {
     int work_idx;
+    String work_name;
     String work_size;
+    String work_idea;
     String work_style;
     String work_owner;
     String work_image;

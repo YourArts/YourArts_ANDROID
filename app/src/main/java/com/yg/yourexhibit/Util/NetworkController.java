@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.yg.yourexhibit.App.ApplicationController;
 import com.yg.yourexhibit.Retrofit.NetworkService;
+import com.yg.yourexhibit.Retrofit.RetrofitGet.ExhibitCollectionDetailResponse;
 import com.yg.yourexhibit.Retrofit.RetrofitGet.ExhibitCollectionResponse;
 import com.yg.yourexhibit.Retrofit.RetrofitGet.ExhibitCollectionResult;
 import com.yg.yourexhibit.Retrofit.RetrofitGet.ExhibitComingResponse;
@@ -173,7 +174,9 @@ public class NetworkController {
         exhibitCollectionResponse.enqueue(new Callback<ExhibitCollectionResponse>() {
             @Override
             public void onResponse(Call<ExhibitCollectionResponse> call, Response<ExhibitCollectionResponse> response) {
+
                 if(response.body().isStatus()){
+                    ApplicationController.getInstance().setCollectionSize(response.body().getResult().size());
                     Log.v(TAG, "getCollectionSuccess");
                     for(int i = 0; i<response.body().getResult().size(); i++){
                         switch(i%3){
@@ -223,6 +226,26 @@ public class NetworkController {
 
             @Override
             public void onFailure(Call<ExhibitWorkResponse> call, Throwable t) {
+                Log.v(TAG,"checkNetwork");
+            }
+        });
+    }
+
+    public void getCollectionDetailData(int idx){
+        Call<ExhibitCollectionDetailResponse> detailResponse = networkService.getCollectionDetailResponse(idx);
+        detailResponse.enqueue(new Callback<ExhibitCollectionDetailResponse>() {
+            @Override
+            public void onResponse(Call<ExhibitCollectionDetailResponse> call, Response<ExhibitCollectionDetailResponse> response) {
+                if(response.body().isStatus()){
+                    ApplicationController.getInstance().setExhibitCollectionDetailResult(response.body().getResult());
+                    EventBus.getInstance().post(EventCode.EVENT_CODE_COLLECTION_DETAIL);
+                    Log.v(TAG, "getCollectionDetailSuccess");
+                }else{
+                    Log.v(TAG, "getCollectionDetailFail");
+                }
+            }
+            @Override
+            public void onFailure(Call<ExhibitCollectionDetailResponse> call, Throwable t) {
                 Log.v(TAG,"checkNetwork");
             }
         });
