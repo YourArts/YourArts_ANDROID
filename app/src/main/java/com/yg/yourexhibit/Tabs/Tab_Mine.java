@@ -1,14 +1,22 @@
 package com.yg.yourexhibit.Tabs;
 
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.util.Log;
+import android.support.v4.view.ViewPager;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.yg.yourexhibit.R;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -16,14 +24,59 @@ import butterknife.ButterKnife;
  */
 
 public class Tab_Mine extends Fragment{
+
+    int beforePosition = 0;
+
+
+    @BindView(R.id.tab_mine_pager)
+    TabLayout tabLayout;
+
+    @BindView(R.id.tab_mine)
+    ViewPager viewPager;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.tab_mine, container, false);
         ButterKnife.bind(this, v);
-        Log.v("프랙", "마인");
+        // Initializing the TabLayout
+        tabLayout.addTab(tabLayout.newTab().setText("WATCH"));
+        tabLayout.addTab(tabLayout.newTab().setText("WISH"));
+//        setCustomView(getActivity().getLayoutInflater().inflate(R.layout.tab_mine_wish,null))
+        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
+        // Creating TabPagerAdapter adapter
+        Tab_Mine_PagerAdapter pagerAdapter = new Tab_Mine_PagerAdapter(getActivity().getSupportFragmentManager(),tabLayout.getTabCount());
+        viewPager.setAdapter(pagerAdapter);
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
-        Log.d("test","text");
+        // Set TabSelectedListener
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                beforePosition = tab.getPosition();
+                viewPager.setCurrentItem(tab.getPosition());
+                TextView txt = (TextView)(((LinearLayout)((LinearLayout)tabLayout.getChildAt(0)).getChildAt(tab.getPosition())).getChildAt(1));
+                txt.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
+                txt.setTextSize(TypedValue.COMPLEX_UNIT_SP, 80);
+                txt.setTextColor(Color.parseColor("#00FFC4"));
+                txt.setTypeface(txt.getTypeface(), Typeface.BOLD);
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+                viewPager.setCurrentItem(tab.getPosition());
+                TextView txt = (TextView)(((LinearLayout)((LinearLayout)tabLayout.getChildAt(0)).getChildAt(tab.getPosition())).getChildAt(1));
+                txt.setPaintFlags(Paint.HINTING_OFF);
+                txt.setTextSize(TypedValue.COMPLEX_UNIT_SP, 80);
+                txt.setTextColor(Color.parseColor("#FFFFFF"));
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
         return v;
     }
 
