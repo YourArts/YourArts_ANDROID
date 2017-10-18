@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
-import com.yg.yourexhibit.Adapter.TabEndDetailAdapter;
+import com.yg.yourexhibit.Adapter.Home.TabEndDetailAdapter;
 import com.yg.yourexhibit.App.ApplicationController;
 import com.yg.yourexhibit.R;
 import com.yg.yourexhibit.Retrofit.RetrofitGet.ExhibitDetailResult;
@@ -88,7 +88,7 @@ public class Tab_End_Details extends Fragment{
 
     public void initFragment(){
         requestManager = Glide.with(this);
-
+        setLike();
         name.setText(exhibitDetailResult.getExhibition_name());
         time.setText("시간 : " + exhibitDetailResult.getExhibition_start_time() + "~" + exhibitDetailResult.getExhibition_end_time());
         location.setText("장소 : " + exhibitDetailResult.getExhibition_location());
@@ -104,6 +104,38 @@ public class Tab_End_Details extends Fragment{
         //tabEndAdapter.setOnItemClickListener(this.getView().OnClickListener);
         preViewList.setAdapter(tabEndDetailAdapter);
         //Intent intent = new Intent(getActivity().getApplicationContext(), Tab_End.class);
+    }
+
+    public void setLike(){
+        switch (exhibitDetailResult.getLike_count()){
+            case 0:
+                break;
+            case 1:
+                like1.setImageResource(R.drawable.ic_good_on);
+                break;
+            case 2:
+                like1.setImageResource(R.drawable.ic_good_on);
+                like2.setImageResource(R.drawable.ic_good_on);
+                break;
+            case 3:
+                like1.setImageResource(R.drawable.ic_good_on);
+                like2.setImageResource(R.drawable.ic_good_on);
+                like3.setImageResource(R.drawable.ic_good_on);
+                break;
+            case 4:
+                like1.setImageResource(R.drawable.ic_good_on);
+                like2.setImageResource(R.drawable.ic_good_on);
+                like3.setImageResource(R.drawable.ic_good_on);
+                like4.setImageResource(R.drawable.ic_good_on);
+                break;
+            case 5:
+                like1.setImageResource(R.drawable.ic_good_on);
+                like2.setImageResource(R.drawable.ic_good_on);
+                like3.setImageResource(R.drawable.ic_good_on);
+                like4.setImageResource(R.drawable.ic_good_on);
+                like5.setImageResource(R.drawable.ic_good_on);
+                break;
+        }
     }
 
     @OnClick(R.id.end_details_1)

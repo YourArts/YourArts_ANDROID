@@ -8,6 +8,9 @@ public class EventCode {
 
     public static final int EVENT_CODE_END_TAB = 50;
 
+    public static final int EVENT_CODE_GOING_PREVIEW = 10;
+    public static final int EVENT_CODE_GOING_WORK = 11;
+
     public static final int EVENT_CODE_TAB_END = 0;
     public static final int EVENT_CODE_TAB_GOING = 1;
     public static final int EVENT_CODE_TAB_COMING = 2;
@@ -20,6 +23,13 @@ public class EventCode {
     public static final int EVENT_CODE_END_DETAIL = 104;
     public static final int EVENT_CODE_GOING_DETAIL = 105;
     public static final int EVENT_CODE_COMING_DETAIL = 106;
+
+    public static final int EVENT_CODE_SEARCH = 107;
+    public static final int EVENT_CODE_COLLECTION_GET = 108;
+    public static final int EVENT_CODE_COLLECTION_DETAIL = 109;
+    public static final int EVENT_CODE_COLLECTION_EDIT1 = 110;
+    public static final int EVENT_CODE_COLLECTION_EDIT2 = 111;
+
 
 
 }

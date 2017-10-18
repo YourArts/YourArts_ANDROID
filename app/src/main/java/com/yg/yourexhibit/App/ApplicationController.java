@@ -6,10 +6,14 @@ import android.widget.Toast;
 
 import com.tsengvn.typekit.Typekit;
 import com.yg.yourexhibit.Retrofit.NetworkService;
+import com.yg.yourexhibit.Retrofit.RetrofitGet.ExhibitCollectionDetailResult;
+import com.yg.yourexhibit.Retrofit.RetrofitGet.ExhibitCollectionResult;
 import com.yg.yourexhibit.Retrofit.RetrofitGet.ExhibitComingResult;
 import com.yg.yourexhibit.Retrofit.RetrofitGet.ExhibitDetailResult;
 import com.yg.yourexhibit.Retrofit.RetrofitGet.ExhibitEndResult;
 import com.yg.yourexhibit.Retrofit.RetrofitGet.ExhibitGoingResult;
+import com.yg.yourexhibit.Retrofit.RetrofitGet.ExhibitSearchResponse;
+import com.yg.yourexhibit.Retrofit.RetrofitGet.ExhibitWorkResult;
 
 import java.util.ArrayList;
 
@@ -30,6 +34,27 @@ public class ApplicationController extends Application{
     private ArrayList<ExhibitGoingResult> exhibitGoingResult;
     private ArrayList<ExhibitComingResult> exhibitComingResult;
     private ExhibitDetailResult exhibitDetailResult;
+    private ArrayList<ExhibitSearchResponse> exhibitSearchResult;
+
+
+    private ArrayList<ExhibitCollectionResult> exhibitCollectionResultFirst;
+    private ArrayList<ExhibitCollectionResult> exhibitCollectionResultSecond;
+    private ArrayList<ExhibitCollectionResult> exhibitCollectionResultThird;
+
+
+
+    private ExhibitCollectionDetailResult exhibitCollectionDetailResult;
+
+
+
+    private ArrayList<ExhibitWorkResult> exhibitWorkResult;
+
+    private int collectionSize = 0;
+
+    public String token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFrc2d1ciIsIm5pY2tuYW1lIjoiYWtzZ3VyIiwiaWF0IjoxNTA4MjI4NzY3LCJleHAiOjE1MDgyNjQ3Njd9.h0MqLTeUR6tuylOv4FTDd6wPsuQNWLru8lsaGrvR4QA";
+
+
+    private boolean fromDetail = false;
 
     @Override public void onCreate() {
         super.onCreate();
@@ -98,4 +123,69 @@ public class ApplicationController extends Application{
         this.exhibitDetailResult = exhibitDetailResult;
     }
 
+    public ArrayList<ExhibitSearchResponse> getExhibitSearchResult() {
+        return exhibitSearchResult;
+    }
+
+    public void setExhibitSearchResult(ArrayList<ExhibitSearchResponse> exhibitSearchResult) {
+        this.exhibitSearchResult = exhibitSearchResult;
+    }
+
+    public ArrayList<ExhibitCollectionResult> getExhibitCollectionResultFirst() {
+        return exhibitCollectionResultFirst;
+    }
+
+    public void setExhibitCollectionResultFirst(ArrayList<ExhibitCollectionResult> exhibitCollectionResultFirst) {
+        this.exhibitCollectionResultFirst = exhibitCollectionResultFirst;
+    }
+
+    public ArrayList<ExhibitCollectionResult> getExhibitCollectionResultSecond() {
+        return exhibitCollectionResultSecond;
+    }
+
+    public void setExhibitCollectionResultSecond(ArrayList<ExhibitCollectionResult> exhibitCollectionResultSecond) {
+        this.exhibitCollectionResultSecond = exhibitCollectionResultSecond;
+    }
+
+    public ArrayList<ExhibitCollectionResult> getExhibitCollectionResultThird() {
+        return exhibitCollectionResultThird;
+    }
+
+    public void setExhibitCollectionResultThird(ArrayList<ExhibitCollectionResult> exhibitCollectionResultThird) {
+        this.exhibitCollectionResultThird = exhibitCollectionResultThird;
+    }
+
+    public ArrayList<ExhibitWorkResult> getExhibitWorkResult() {
+        return exhibitWorkResult;
+    }
+
+    public void setExhibitWorkResult(ArrayList<ExhibitWorkResult> exhibitWorkResult) {
+        this.exhibitWorkResult = exhibitWorkResult;
+    }
+
+    public int getCollectionSize() {
+        return collectionSize;
+    }
+
+    public void setCollectionSize(int collectionSize) {
+        this.collectionSize = collectionSize;
+    }
+
+    public ExhibitCollectionDetailResult getExhibitCollectionDetailResult() {
+        return exhibitCollectionDetailResult;
+    }
+
+    public void setExhibitCollectionDetailResult(ExhibitCollectionDetailResult exhibitCollectionDetailResult) {
+        this.exhibitCollectionDetailResult = exhibitCollectionDetailResult;
+    }
+
+
+
+    public boolean isFromDetail() {
+        return fromDetail;
+    }
+
+    public void setFromDetail(boolean fromDetail) {
+        this.fromDetail = fromDetail;
+    }
 }

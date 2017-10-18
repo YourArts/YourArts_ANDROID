@@ -10,6 +10,6 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class ExhibitDetailImages {
-    int index;
-    String url;
+    int work_idx;
+    String work_image;
 }

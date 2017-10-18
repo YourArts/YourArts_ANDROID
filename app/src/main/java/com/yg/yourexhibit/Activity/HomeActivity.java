@@ -3,14 +3,12 @@ package com.yg.yourexhibit.Activity;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.util.Log;
-import android.widget.TextView;
 
 import com.squareup.otto.Subscribe;
-import com.yg.yourexhibit.Adapter.HomeTabAdapter;
+import com.yg.yourexhibit.Adapter.Home.HomeTabAdapter;
 import com.yg.yourexhibit.R;
 import com.yg.yourexhibit.Util.BaseActivity;
 import com.yg.yourexhibit.Util.EventBus;
-import com.yg.yourexhibit.Util.EventCode;
 import com.yg.yourexhibit.Util.NetworkController;
 import com.yg.yourexhibit.Util.SwipeViewPager;
 
@@ -25,8 +23,8 @@ public class HomeActivity extends BaseActivity {
     TabLayout tabLayout;
     @BindView(R.id.homeContainer)
     SwipeViewPager viewPager;
-    @BindView(R.id.home_title_text)
-    TextView totleText;
+//    @BindView(R.id.home_title_text)
+//    TextView totleText;
 
     private NetworkController networkController;
 
@@ -63,15 +61,15 @@ public class HomeActivity extends BaseActivity {
                         Log.v(TAG, "homeTab");
                         break;
                     case 1:
-                        totleText.setText("검색");
+                        //totleText.setText("검색");
                         Log.v(TAG, "searchTab");
                         break;
                     case 2:
-                        totleText.setText("콜렉션");
+                        //totleText.setText("콜렉션");
                         Log.v(TAG, "CollectionTab");
                         break;
                     case 3:
-                        totleText.setText("내 전시");
+                        //totleText.setText("내 전시");
                         Log.v(TAG, "mineTab");
                         break;
                 }
@@ -92,15 +90,15 @@ public class HomeActivity extends BaseActivity {
     @Subscribe
     public void onEventLoad(Integer code) {
         switch (code){
-            case EventCode.EVENT_CODE_TAB_END:
-                totleText.setText("종료 전시");
-                break;
-            case EventCode.EVENT_CODE_TAB_GOING:
-                totleText.setText("진행 전시");
-                break;
-            case EventCode.EVENT_CODE_TAB_COMING:
-                totleText.setText("예정 전시");
-                break;
+//            case EventCode.EVENT_CODE_TAB_END:
+//              //  totleText.setText("종료 전시");
+//                break;
+//            case EventCode.EVENT_CODE_TAB_GOING:
+//                //totleText.setText("진행 전시");
+//                break;
+//            case EventCode.EVENT_CODE_TAB_COMING:
+//               // totleText.setText("예정 전시");
+//                break;
         }
 
     }

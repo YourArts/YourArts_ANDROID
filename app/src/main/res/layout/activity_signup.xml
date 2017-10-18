@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Login.SignupActivity">
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:orientation="horizontal"
+        android:background="#000000">
+
+<LinearLayout
+        android:layout_weight="1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left">
+        <ImageButton
+            android:layout_marginLeft="21dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="12dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/backbtn_signup"
+            android:gravity="left"
+            android:background="@drawable/ic_chevron_left" />
+    </LinearLayout>
+
+        <LinearLayout
+            android:layout_weight="8"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center|center_horizontal">
+
+        <TextView
+            android:layout_alignParentLeft="@+id/backbtn_signup"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="8dp"
+            android:textColor="#FFFFFF"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:textAlignment="center"
+            android:text="회원가입"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="right">
+        <ImageButton
+            android:layout_marginLeft="21dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="12dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            android:gravity="right" />
+</LinearLayout>
+
+    </LinearLayout>
+         <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="163dp"
+        android:orientation="vertical"
+        android:layout_marginTop="69dp"
+        android:layout_marginLeft="33dp"
+        android:layout_marginRight="33dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="26dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ID"
+                android:layout_marginRight="55dp"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"
+                android:layout_gravity="center"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/editText_join_id"
+                android:layout_gravity="center"
+                android:background="@null"
+                android:textCursorDrawable="@null"
+                android:textColor="#666666"
+                android:hint="아이디"
+                android:textColorHint="#666666"
+                android:textSize="16sp"
+                android:lines = "1"
+                />
+
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#95989A"
+            android:layout_marginBottom="22dp"/>
+             <LinearLayout
+                 android:layout_width="match_parent"
+                 android:layout_height="26dp">
+                 <TextView
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:text="E-mail"
+                     android:layout_marginRight="25dp"
+                     android:textSize="16sp"
+                     android:textStyle="bold"
+                     android:textColor="#FFFFFF"
+                     android:layout_gravity="center"/>
+
+                 <EditText
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content"
+                     android:id="@+id/editText_email"
+                     android:layout_gravity="center"
+                     android:background="@null"
+                     android:textCursorDrawable="@null"
+                     android:textColor="#666666"
+                     android:hint="이메일"
+                     android:textColorHint="#666666"
+                     android:textSize="16sp"
+                     android:lines = "1"
+                     />
+
+
+             </LinearLayout>
+
+             <View
+                 android:layout_width="match_parent"
+                 android:layout_height="1dp"
+                 android:background="#95989A"
+                 android:layout_marginBottom="22dp"/>
+
+             <LinearLayout
+                 android:layout_width="match_parent"
+                 android:layout_height="26dp">
+                 <TextView
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:text="Name"
+                     android:layout_marginRight="27dp"
+                     android:textSize="16sp"
+                     android:textStyle="bold"
+                     android:textColor="#FFFFFF"
+                     android:layout_gravity="center"/>
+
+                 <EditText
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content"
+                     android:id="@+id/editText_name"
+                     android:layout_gravity="center"
+                     android:background="@null"
+                     android:textCursorDrawable="@null"
+                     android:textColor="#666666"
+                     android:hint="이름/닉네임"
+                     android:textColorHint="#666666"
+                     android:textSize="16sp"
+                     android:lines = "1"
+                     />
+
+
+             </LinearLayout>
+
+             <View
+                 android:layout_width="match_parent"
+                 android:layout_height="1dp"
+                 android:background="#95989A"
+                 android:layout_marginBottom="22dp"/>
+             <LinearLayout
+                 android:layout_width="match_parent"
+                 android:layout_height="26dp">
+                 <TextView
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:text="PW"
+                     android:layout_marginRight="45dp"
+                     android:textSize="16sp"
+                     android:textStyle="bold"
+                     android:textColor="#FFFFFF"
+                     android:layout_gravity="center"/>
+
+                 <EditText
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content"
+                     android:id="@+id/editText_join_pw"
+                     android:layout_gravity="center"
+                     android:background="@null"
+                     android:textCursorDrawable="@null"
+                     android:textColor="#666666"
+                     android:hint="비밀번호"
+                     android:inputType="textPassword"
+                     android:textColorHint="#666666"
+                     android:textSize="16sp"
+                     android:lines = "1"
+                     />
+
+
+             </LinearLayout>
+
+             <View
+                 android:layout_width="match_parent"
+                 android:layout_height="1dp"
+                 android:background="#95989A"
+                 android:layout_marginBottom="22dp"/>
+             <LinearLayout
+                 android:layout_width="match_parent"
+                 android:layout_height="26dp">
+                 <TextView
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:text="PW"
+                     android:layout_marginRight="45dp"
+                     android:textSize="16sp"
+                     android:textStyle="bold"
+                     android:textColor="#FFFFFF"
+                     android:layout_gravity="center"/>
+
+                 <EditText
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:id="@+id/editText_join_pwcorrect"
+                     android:layout_gravity="center"
+                     android:background="@null"
+                     android:textCursorDrawable="@null"
+                     android:textColor="#666666"
+                     android:hint="비밀번호확인"
+                     android:textColorHint="#666666"
+                     android:inputType="textPassword"
+                     android:textSize="16sp"
+                     android:lines = "1"
+                     />
+
+                 <TextView
+                     android:gravity="center_vertical|right"
+                     android:layout_marginRight="0dp"
+                     android:id="@+id/joinCorrect"
+                     android:layout_width="match_parent"
+                     android:layout_height="match_parent"
+                     android:text="correcct!" />
+
+
+             </LinearLayout>
+
+             <View
+                 android:layout_width="match_parent"
+                 android:layout_height="1dp"
+                 android:background="#95989A"/>
+
+    </LinearLayout>
+
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="63dp"
+        android:layout_marginRight="63dp">
+
+        <ImageButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_join"
+            android:onClick="onClickView"
+            android:background="@drawable/join_button"/>
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

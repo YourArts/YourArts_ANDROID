@@ -9,9 +9,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.squareup.otto.Subscribe;
-import com.yg.yourexhibit.Adapter.HomeExhibitTabAdapter;
+import com.yg.yourexhibit.Adapter.Home.HomeExhibitTabAdapter;
 import com.yg.yourexhibit.R;
 import com.yg.yourexhibit.Util.EventBus;
 import com.yg.yourexhibit.Util.EventCode;
@@ -37,6 +38,9 @@ public class Tab_Home extends Fragment {
 
     @BindView(R.id.tab_home_frame)
     LinearLayout frame;
+
+    @BindView(R.id.tab_home_title)
+    TextView title;
 
     private NetworkController networkController;
 
@@ -70,14 +74,15 @@ public class Tab_Home extends Fragment {
                 switch (tab.getPosition()){
                     case 0:
                         //EventBus.getInstance().post(EventCode.EVENT_CODE_END_TAB);
+                        title.setText("종료 전시");
                         Log.v(TAG, "endTab");
                         break;
                     case 1:
-
+                        title.setText("진행 전시");
                         Log.v(TAG, "goingTab");
                         break;
                     case 2:
-
+                        title.setText("예정 전시");
                         Log.v(TAG, "comingTab");
                         break;
                 }
