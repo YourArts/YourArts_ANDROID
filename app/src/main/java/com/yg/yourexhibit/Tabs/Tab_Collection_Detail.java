@@ -54,6 +54,7 @@ public class Tab_Collection_Detail extends Fragment{
     public void initFragment(){
         Glide.with(this).load(detailResult.getCollection_image()).into(detailImg);
         name.setText("전시 이름");
+        name.setText(detailResult.getExhibition_name());
         content.setText(detailResult.getCollection_content());
     }
 
