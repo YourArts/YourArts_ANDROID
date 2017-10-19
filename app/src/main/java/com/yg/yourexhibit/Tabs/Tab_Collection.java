@@ -150,7 +150,8 @@ public class Tab_Collection extends Fragment{
             int itemPosition = first.getChildPosition(v);
             ApplicationController.getInstance().makeToast(String.valueOf(itemPosition));
             int idx = firstResult.get(itemPosition).getCollection_idx();
-            networkController.getCollectionDetailData(idx);
+            networkController.getCollectionDetailData(ApplicationController.getInstance().token, idx);
+
         }
     };
 
@@ -159,7 +160,8 @@ public class Tab_Collection extends Fragment{
             int itemPosition = second.getChildPosition(v);
             ApplicationController.getInstance().makeToast(String.valueOf(itemPosition));
             int idx = secondResult.get(itemPosition).getCollection_idx();
-            networkController.getCollectionDetailData(idx);
+            networkController.getCollectionDetailData(ApplicationController.getInstance().token, idx);
+
         }
     };
 
@@ -168,7 +170,7 @@ public class Tab_Collection extends Fragment{
             int itemPosition = third.getChildPosition(v);
             ApplicationController.getInstance().makeToast(String.valueOf(itemPosition));
             int idx = thirdResult.get(itemPosition).getCollection_idx();
-            networkController.getCollectionDetailData(idx);
+            networkController.getCollectionDetailData(ApplicationController.getInstance().token, idx);
         }
     };
 

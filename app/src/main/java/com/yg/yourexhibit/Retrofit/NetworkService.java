@@ -8,12 +8,18 @@ import com.yg.yourexhibit.Retrofit.RetrofitGet.ExhibitEndResponse;
 import com.yg.yourexhibit.Retrofit.RetrofitGet.ExhibitGoingResponse;
 import com.yg.yourexhibit.Retrofit.RetrofitGet.ExhibitSearchResponse;
 import com.yg.yourexhibit.Retrofit.RetrofitGet.ExhibitWorkResponse;
+import com.yg.yourexhibit.Retrofit.RetrofitPost.ExhibitCollectionPostResponse;
 
 import java.util.ArrayList;
 
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.Multipart;
+import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.Path;
 
 /**
@@ -50,7 +56,17 @@ public interface NetworkService {
 
     //콜렉션 상세조회
     @GET("collections/{collection_idx}")
-    Call<ExhibitCollectionDetailResponse> getCollectionDetailResponse(@Path("collection_idx") int collection_idx);
+    Call<ExhibitCollectionDetailResponse> getCollectionDetailResponse(
+            @Header("token") String token,
+            @Path("collection_idx") int collection_idx);
+
+    //콜렉션 작성
+    @Multipart
+    @POST("/collections")
+    Call<ExhibitCollectionPostResponse> postCollectionResponse(@Header("token") String token,
+                                                               @Part("exhibition_idx") RequestBody exhibition_idx,
+                                                               @Part("collection_content") RequestBody collection_content,
+                                                               @Part MultipartBody.Part profile_pic);
 
     //작품 정보 불러오기
     @GET("works/{work_idx}")
