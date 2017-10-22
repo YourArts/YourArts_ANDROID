@@ -18,9 +18,11 @@ import com.yg.yourexhibit.App.ApplicationController;
 import com.yg.yourexhibit.R;
 import com.yg.yourexhibit.Retrofit.RetrofitGet.ExhibitDetailResult;
 import com.yg.yourexhibit.Util.EventBus;
+import com.yg.yourexhibit.Util.NetworkController;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by 2yg on 2017. 10. 11..
@@ -49,16 +51,22 @@ public class Tab_Coming_Details extends Fragment{
     @BindView(R.id.coming_details_name)
     TextView name;
 
+    @BindView(R.id.coming_details_heart)
+    ImageView heart;
+
     private ExhibitDetailResult exhibitDetailResult;
     private RequestManager requestManager;
     private LinearLayoutManager linearLayoutManager;
     private TabComingDetailAdapter tabComingDetailAdapter;
+    private NetworkController networkController;
+    private boolean heartCheck = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.tab_home_coming_details, container, false);
         ButterKnife.bind(this, v);
         EventBus.getInstance().register(this);
+        networkController = new NetworkController();
         exhibitDetailResult = ApplicationController.getInstance().getExhibitDetailResult();
 
         initFragment();
@@ -83,5 +91,31 @@ public class Tab_Coming_Details extends Fragment{
         //tabEndAdapter.setOnItemClickListener(this.getView().OnClickListener);
         preViewList.setAdapter(tabComingDetailAdapter);
         //Intent intent = new Intent(getActivity().getApplicationContext(), Tab_End.class);
+
+        if(exhibitDetailResult.getHeart_used() == 1){
+            heartCheck = true;
+            heart.setImageResource(R.drawable.ic_exhibit_wish_on);
+        }
+        else {
+            heartCheck = false;
+            heart.setImageResource(R.drawable.ic_exhibit_wish_off);
+        }
+    }
+
+    @OnClick(R.id.coming_details_heart)
+    public void clickHeart(){
+        if(!heartCheck){
+            heart.setImageResource(R.drawable.ic_exhibit_wish_on);
+            if(exhibitDetailResult.getHeart_used() == 0) {
+                networkController.postHeart(ApplicationController.getInstance().token, exhibitDetailResult.getExhibition_idx());
+            }else{
+                networkController.putHeart(ApplicationController.getInstance().token, exhibitDetailResult.getExhibition_idx());
+            }
+            heartCheck = true;
+        }else{
+            heart.setImageResource(R.drawable.ic_exhibit_wish_off);
+            networkController.putHeart(ApplicationController.getInstance().token, exhibitDetailResult.getExhibition_idx());
+            heartCheck = false;
+        }
     }
 }

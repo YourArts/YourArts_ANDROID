@@ -12,7 +12,7 @@ import com.yg.yourexhibit.R;
 
 public class TabSearchViewHolder extends RecyclerView.ViewHolder{
 
-    TextView search;
+    public TextView search;
     public TabSearchViewHolder(View itemView) {
         super(itemView);
         search = (TextView) itemView.findViewById(R.id.tab_search_result_items);

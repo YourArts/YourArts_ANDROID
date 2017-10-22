@@ -29,7 +29,18 @@ public class EventCode {
     public static final int EVENT_CODE_COLLECTION_DETAIL = 109;
     public static final int EVENT_CODE_COLLECTION_EDIT1 = 110;
     public static final int EVENT_CODE_COLLECTION_EDIT2 = 111;
+    public static final int EVENT_CODE_COLLECTION_POST = 112;
+    public static final int EVENT_CODE_COLLECTION_PUT = 113;
+    public static final int EVENT_CODE_COLLECTION_DELETE = 114;
+    public static final int EVENT_CODE_COLLECTION_SEARCH = 115;
 
+    public static final int EVENT_CODE_LIKE_POST = 116;
+    public static final int EVENT_CODE_LIKE_PUT= 117;
+    public static final int EVENT_CODE_HEART_POST = 118;
+    public static final int EVENT_CODE_HEART_PUT = 119;
 
-
+    public static final int EVENT_CODE_LOGIN = 120;
+    public static final int EVENT_CODE_SIGN = 121;
+    public static final int EVENET_CODE_LOGIN_FAIL = 122;
+    public static final int EVENT_CODE_SIGN_FAIL = 123;
 }

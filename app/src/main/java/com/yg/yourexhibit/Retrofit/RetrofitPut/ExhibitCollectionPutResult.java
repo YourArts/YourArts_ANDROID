@@ -1,19 +1,21 @@
-package com.yg.yourexhibit.Retrofit.RetrofitPost;
+package com.yg.yourexhibit.Retrofit.RetrofitPut;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
 /**
- * Created by 2yg on 2017. 10. 18..
+ * Created by 2yg on 2017. 10. 21..
  */
 
 @Data
 @AllArgsConstructor
-public class ExhibitCollectionPostResult {
+public class ExhibitCollectionPutResult {
     int collection_idx;
     int user_idx;
     int exhibition_idx;
-    String exhibition_name;
     String collection_content;
     String collection_image;
+    String collection_created;
+    String collection_updated;
+    boolean collection_name;
 }
