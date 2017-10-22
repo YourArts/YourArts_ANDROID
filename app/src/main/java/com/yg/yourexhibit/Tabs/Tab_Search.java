@@ -52,7 +52,7 @@ public class Tab_Search extends Fragment{
         ButterKnife.bind(this, v);
         EventBus.getInstance().register(this);
         networkController = new NetworkController();
-
+        search.clearComposingText();
         search.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {

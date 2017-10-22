@@ -118,6 +118,7 @@
         android:orientation="vertical">
 
         <ImageButton
+            android:id="@+id/login_custom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -125,6 +126,7 @@
             android:background="@drawable/login_button" />
 
         <ImageButton
+            android:id="@+id/login_facebook"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"

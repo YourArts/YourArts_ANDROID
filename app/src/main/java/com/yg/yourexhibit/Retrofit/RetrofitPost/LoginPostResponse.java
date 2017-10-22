@@ -4,13 +4,12 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 /**
- * Created by 2yg on 2017. 10. 18..
+ * Created by 2yg on 2017. 10. 23..
  */
-
 @Data
 @AllArgsConstructor
-public class ExhibitCollectionPostResponse {
+public class LoginPostResponse {
     boolean status;
     String message;
-    ExhibitCollectionPostResult result;
+    LoginPostResult result;
 }

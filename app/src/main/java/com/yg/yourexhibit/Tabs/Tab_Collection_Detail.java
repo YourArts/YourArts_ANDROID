@@ -1,7 +1,9 @@
 package com.yg.yourexhibit.Tabs;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +15,6 @@ import com.yg.yourexhibit.App.ApplicationController;
 import com.yg.yourexhibit.R;
 import com.yg.yourexhibit.Retrofit.RetrofitGet.ExhibitCollectionDetailResult;
 import com.yg.yourexhibit.Util.EventBus;
-import com.yg.yourexhibit.Util.EventCode;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -46,6 +47,7 @@ public class Tab_Collection_Detail extends Fragment{
         EventBus.getInstance().register(this);
         detailResult = ApplicationController.getInstance().getExhibitCollectionDetailResult();
         //networkController = new NetworkController();
+        Log.v("탭콜디1", "탭콜디1");
 
         initFragment();
         return v;
@@ -64,9 +66,16 @@ public class Tab_Collection_Detail extends Fragment{
         getFragmentManager()
                 .beginTransaction()
                 .addToBackStack(null)
-                .replace(R.id.collection_detail_container, new Tab_Collection_Edit())
+                .add(R.id.collection_detail_container, new Tab_Collection_Detail(), "detail")
+                .replace(R.id.collection_detail_container, new Tab_Collection_Edit(), "edit")
                 .commit();
 
-        EventBus.getInstance().post(EventCode.EVENT_CODE_COLLECTION_EDIT2);
+        //EventBus.getInstance().post(EventCode.EVENT_CODE_COLLECTION_EDIT2);
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        Log.v("탭콜디", "탭콜디");
     }
 }

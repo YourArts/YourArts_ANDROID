@@ -9,7 +9,7 @@ import android.content.SharedPreferences;
 
 public class SharedPrefrernceController {
     private static final String USER = "user";
-    private static final String LOGIN_TYPE = "loginType";
+    private static final String LOGIN_ID = "loginID";
     private static final String FIREBASE_TOKEN = "firebaseToken";
     private static final String NICKNAME = "nickname";
     private static final String EMAIL = "email";
@@ -19,15 +19,15 @@ public class SharedPrefrernceController {
 
 
 
-    public static void setLoginType(Context context, String loginType){
+    public static void setLoginId(Context context, String loginType){
         SharedPreferences pref = context.getSharedPreferences(USER,Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = pref.edit();
-        editor.putString(LOGIN_TYPE, loginType);
+        editor.putString(LOGIN_ID, loginType);
         editor.commit();
     }
-    public static String getLoginType(Context context){
+    public static String getLoginId(Context context){
         SharedPreferences pref = context.getSharedPreferences(USER, context.MODE_PRIVATE);
-        String loginType = pref.getString(LOGIN_TYPE,"");
+        String loginType = pref.getString(LOGIN_ID,"");
         return loginType;
     }
     public static void setFirebaseToken(Context context,String token){

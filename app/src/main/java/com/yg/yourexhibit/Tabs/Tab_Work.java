@@ -15,7 +15,6 @@ import com.yg.yourexhibit.App.ApplicationController;
 import com.yg.yourexhibit.R;
 import com.yg.yourexhibit.Retrofit.RetrofitGet.ExhibitWorkResult;
 import com.yg.yourexhibit.Util.EventBus;
-import com.yg.yourexhibit.Util.NetworkController;
 
 import java.util.ArrayList;
 
@@ -82,5 +81,6 @@ public class Tab_Work extends Fragment{
     @OnClick(R.id.tab_work_move)
     public void toCollection(){
         moveToCollection.setImageResource(R.drawable.move_to_collection_on);
+
     }
 }
