@@ -15,9 +15,8 @@ public class SharedPrefrernceController {
     private static final String EMAIL = "email";
     private static final String PASSWD = "passwd";
     private static final String IMAGE = "image";
-    private static final String MOST = "most";
     private static final String SELETED = "seleted";
-    private static final String ALARM = "alarm";
+
 
 
     public static void setLoginType(Context context, String loginType){
@@ -91,39 +90,15 @@ public class SharedPrefrernceController {
         return pref.getString(IMAGE, "");
     }
 
-    public static void setMost(Context context, int most){
+    public static void setSelected(Context context, boolean selected){
         SharedPreferences pref = context.getSharedPreferences(USER, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = pref.edit();
-        editor.putInt(MOST, most);
+        editor.putBoolean(SELETED, selected);
         editor.commit();
     }
 
-    public static int getMost(Context context){
+    public static boolean getSelected(Context context){
         SharedPreferences pref = context.getSharedPreferences(USER, Context.MODE_PRIVATE);
-        return pref.getInt(MOST, -1);
-    }
-
-    public static void setSelected(Context context, int selected){
-        SharedPreferences pref = context.getSharedPreferences(USER, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = pref.edit();
-        editor.putInt(SELETED, selected);
-        editor.commit();
-    }
-
-    public static int getSelected(Context context){
-        SharedPreferences pref = context.getSharedPreferences(USER, Context.MODE_PRIVATE);
-        return pref.getInt(SELETED, -1);
-    }
-
-    public static void setAlarm(Context context, boolean alarm){
-        SharedPreferences pref = context.getSharedPreferences(USER, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = pref.edit();
-        editor.putBoolean(ALARM, alarm);
-        editor.commit();
-    }
-
-    public static boolean getAlarm(Context context){
-        SharedPreferences pref = context.getSharedPreferences(USER, Context.MODE_PRIVATE);
-        return pref.getBoolean(ALARM, true);
+        return pref.getBoolean(SELETED, false);
     }
 }

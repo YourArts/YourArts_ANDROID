@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -40,6 +41,9 @@ public class Tab_Collection_Edit extends Fragment{
     @BindView(R.id.collection_edit_text)
     TextView text;
 
+    @BindView(R.id.collection_edit_save)
+    TextView save;
+
     private NetworkController networkController;
     private ExhibitCollectionDetailResult detailResult;
     final int REQ_CODE_SELECT_IMAGE = 100;
@@ -52,6 +56,8 @@ public class Tab_Collection_Edit extends Fragment{
         EventBus.getInstance().register(this);
         networkController = new NetworkController();
         initFragment();
+        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+
         //TODO : 여기에 원래 Shared에 저장한 아이디 들어가야 함
         //networkController.getCollectionData(ApplicationController.getInstance().token);
 
@@ -91,6 +97,12 @@ public class Tab_Collection_Edit extends Fragment{
         Glide.with(this).load(detailResult.getCollection_image()).into(editImg);
         //search.setText();
         context.setText(detailResult.getCollection_content());
+    }
+
+    @OnClick(R.id.collection_edit_save)
+    public void saveEdit(){
+
+
     }
 
     @OnClick(R.id.collection_edit_pic)

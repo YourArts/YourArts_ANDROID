@@ -231,8 +231,8 @@ public class NetworkController {
         });
     }
 
-    public void getCollectionDetailData(int idx){
-        Call<ExhibitCollectionDetailResponse> detailResponse = networkService.getCollectionDetailResponse(idx);
+    public void getCollectionDetailData(String token, int idx){
+        Call<ExhibitCollectionDetailResponse> detailResponse = networkService.getCollectionDetailResponse(token, idx);
         detailResponse.enqueue(new Callback<ExhibitCollectionDetailResponse>() {
             @Override
             public void onResponse(Call<ExhibitCollectionDetailResponse> call, Response<ExhibitCollectionDetailResponse> response) {
