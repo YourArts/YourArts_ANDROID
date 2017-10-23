@@ -1,5 +1,6 @@
 package com.yg.yourexhibit.Retrofit;
 
+import com.yg.yourexhibit.Retrofit.RetrofitDelete.ExhibitCollectionDeleteResponse;
 import com.yg.yourexhibit.Retrofit.RetrofitGet.ExhibitCollectionDetailResponse;
 import com.yg.yourexhibit.Retrofit.RetrofitGet.ExhibitCollectionResponse;
 import com.yg.yourexhibit.Retrofit.RetrofitGet.ExhibitComingResponse;
@@ -9,16 +10,33 @@ import com.yg.yourexhibit.Retrofit.RetrofitGet.ExhibitGoingResponse;
 import com.yg.yourexhibit.Retrofit.RetrofitGet.ExhibitSearchResponse;
 import com.yg.yourexhibit.Retrofit.RetrofitGet.ExhibitWorkResponse;
 import com.yg.yourexhibit.Retrofit.RetrofitPost.ExhibitCollectionPostResponse;
+import com.yg.yourexhibit.Retrofit.RetrofitPost.ExhibitHeartPost;
+import com.yg.yourexhibit.Retrofit.RetrofitPost.ExhibitHeartPostResponse;
+import com.yg.yourexhibit.Retrofit.RetrofitPost.ExhibitLikePost;
+import com.yg.yourexhibit.Retrofit.RetrofitPost.ExhibitLikePostResponse;
+import com.yg.yourexhibit.Retrofit.RetrofitPost.LoginPost;
+import com.yg.yourexhibit.Retrofit.RetrofitPost.LoginPostResponse;
+import com.yg.yourexhibit.Retrofit.RetrofitPost.SignPost;
+import com.yg.yourexhibit.Retrofit.RetrofitPost.SignPostResponse;
+import com.yg.yourexhibit.Retrofit.RetrofitPut.CollectionPutBody;
+import com.yg.yourexhibit.Retrofit.RetrofitPut.ExhibitCollectionPutResponse;
+import com.yg.yourexhibit.Retrofit.RetrofitPut.ExhibitHeartPut;
+import com.yg.yourexhibit.Retrofit.RetrofitPut.ExhibitHeartPutResponse;
+import com.yg.yourexhibit.Retrofit.RetrofitPut.ExhibitLikePut;
+import com.yg.yourexhibit.Retrofit.RetrofitPut.ExhibitLikePutResponse;
 
 import java.util.ArrayList;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
+import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Part;
 import retrofit2.http.Path;
 
@@ -62,7 +80,7 @@ public interface NetworkService {
 
     //콜렉션 작성
     @Multipart
-    @POST("/collections")
+    @POST("collections")
     Call<ExhibitCollectionPostResponse> postCollectionResponse(@Header("token") String token,
                                                                @Part("exhibition_idx") RequestBody exhibition_idx,
                                                                @Part("collection_content") RequestBody collection_content,
@@ -72,4 +90,39 @@ public interface NetworkService {
     @GET("works/{work_idx}")
     Call<ExhibitWorkResponse> getWorkResponse(@Path("work_idx") int work_idx);
 
+    //콜렉션 삭제
+    @DELETE("collections/{collection_idx}")
+    Call<ExhibitCollectionDeleteResponse> deleteCollectionResponse(@Header("token") String token,
+                                                                   @Path("collection_idx") int collection_idx);
+
+    //콜렉션 수정
+    @PUT("collections/{collection_idx}")
+    Call<ExhibitCollectionPutResponse> putCollectionResponse(@Header("token") String token,
+                                                             @Body CollectionPutBody putBody,
+                                                             @Path("collection_idx") int collection_idx
+                                                             );
+
+    //좋아요 작성
+    @POST("like")
+    Call<ExhibitLikePostResponse> postLike(@Header("token") String token,
+                                           @Body ExhibitLikePost exhibitLikePost);
+    //좋아요 수정
+    @PUT("like")
+    Call<ExhibitLikePutResponse> putLike(@Header("token") String token,
+                                         @Body ExhibitLikePut exhibitLikePut);
+
+    //하트 작성
+    @POST("heart")
+    Call<ExhibitHeartPostResponse> postHeart(@Header("token") String token,
+                                             @Body ExhibitHeartPost exhibitHeartPost);
+
+    @PUT("heart")
+    Call<ExhibitHeartPutResponse> putHeart(@Header("token") String token,
+                                           @Body ExhibitHeartPut exhibitHeartPut);
+
+    @POST("users/login")
+    Call<LoginPostResponse> postLogin(@Body LoginPost loginPost);
+
+    @POST("users/register")
+    Call<SignPostResponse> postSign(@Body SignPost signPost);
 }

@@ -6,15 +6,22 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.squareup.otto.Subscribe;
 import com.yg.yourexhibit.Dialog.JoinDialog;
 import com.yg.yourexhibit.R;
+import com.yg.yourexhibit.Util.EventBus;
+import com.yg.yourexhibit.Util.EventCode;
+import com.yg.yourexhibit.Util.NetworkController;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class SignupActivity extends AppCompatActivity {
 
@@ -24,14 +31,20 @@ public class SignupActivity extends AppCompatActivity {
     ImageButton joinbutton, Signupbackbutton;
     TextView txtjoinCorrect;
 
-    private EditText editTextID, editTextPW, editTextPWcorrect;
+    @BindView(R.id.btn_join)
+    ImageButton join;
+
+    private EditText editTextID, editTextPW, editTextPWcorrect, editTextNickName;
+    private NetworkController networkController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
-
-        joinbutton = (ImageButton) findViewById(R.id.btn_join);
+        EventBus.getInstance().register(this);
+        ButterKnife.bind(this);
+        networkController = new NetworkController();
+       // joinbutton = (ImageButton) findViewById(R.id.btn_join);
         Signupbackbutton = (ImageButton) findViewById(R.id.backbtn_signup);
 
         editTextPW = (EditText) findViewById(R.id.editText_join_pw);
@@ -40,7 +53,7 @@ public class SignupActivity extends AppCompatActivity {
 
         joinbutton = (ImageButton) findViewById(R.id.btn_join);
         editTextID = (EditText) findViewById(R.id.editText_join_id);
-
+        editTextNickName = (EditText) findViewById(R.id.editText_name);
 
         //비밀번호랑 비밀번호 확인 같으면 correct 색깔 바뀌기
         editTextPWcorrect.addTextChangedListener(new TextWatcher() {
@@ -77,54 +90,82 @@ public class SignupActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent intent = new Intent(
-                        SignupActivity.this, LoginActivity.class);
-                startActivity(intent);
+                finish();
 
             }
         });
     }
 
+    @OnClick(R.id.btn_join)
+    public void clickJoin(){
+        networkController.sign(editTextID.getText().toString(), editTextPW.getText().toString(),
+                editTextPW.getText().toString(), editTextNickName.getText().toString());
+    }
 
+    @Subscribe
+    public void onEventLoad(Integer code){
+        switch (code){
+            case EventCode.EVENT_CODE_LOGIN:
+                break;
+            case EventCode.EVENT_CODE_SIGN:
+                joinDialog = new JoinDialog(this,
 
-    public void onClickView(View v) {
-
-        joinbutton = (ImageButton) findViewById(R.id.btn_join);
-        editTextID = (EditText) findViewById(R.id.editText_join_id);
-
-        Log.i("MyTag","editID" + String.valueOf(editTextID.getText().toString()));
-        Log.i("MyTag","editID1" + String.valueOf("a"));
-
-//        if(String.valueOf(editTextID.getText().toString()) == String.valueOf("a")){
-//
-//
-//            Log.i("MyTag","editID11" + String.valueOf(editTextID.getText().toString()));
-//            joinDialog = new JoinDialog(this,
-//                            "입력한 정보로 존재하는 사용자가 있습니다. ID/PW를 찾으시겠습니까?",
-//                            leftListener, // 왼쪽 버튼 이벤트
-//                            rightListener); // 오른쪽 버튼 이벤트
-//                    joinDialog.show();
-//        }else {
-//            joinDialog = new JoinDialog(this,
-//
-//                            "작품을 모을 준비가 완료되었습니다! ‘당신’의 전시를 시작하시겠습니까?",
-//                            leftListener, // 왼쪽 버튼 이벤트
-//                            rightListener); // 오른쪽 버튼 이벤트
-//                    joinDialog.show();
-//        }
-
-        switch (v.getId()) {
-            case R.id.btn_join:
-
+                            "작품을 모을 준비가 완료되었습니다! ‘당신’의 전시를 시작하시겠습니까?",
+                            leftListener, // 왼쪽 버튼 이벤트
+                            rightListener); // 오른쪽 버튼 이벤트
+                    joinDialog.show();
+                break;
+            case EventCode.EVENET_CODE_LOGIN_FAIL:
+                break;
+            case EventCode.EVENT_CODE_SIGN_FAIL:
                     joinDialog = new JoinDialog(this,
                             "입력한 정보로 존재하는 사용자가 있습니다.ID/PW를 찾으시겠습니까?",
                             leftListener, // 왼쪽 버튼 이벤트
                             rightListener); // 오른쪽 버튼 이벤트
                     joinDialog.show();
-                    break;
-
+                break;
         }
     }
+
+
+//    public void onClickView(View v) {
+//
+//        //joinbutton = (ImageButton) findViewById(R.id.btn_join);
+//        editTextID = (EditText) findViewById(R.id.editText_join_id);
+//
+//        Log.i("MyTag","editID" + String.valueOf(editTextID.getText().toString()));
+//        Log.i("MyTag","editID1" + String.valueOf("a"));
+//
+////        if(String.valueOf(editTextID.getText().toString()) == String.valueOf("a")){
+////
+////
+////            Log.i("MyTag","editID11" + String.valueOf(editTextID.getText().toString()));
+////            joinDialog = new JoinDialog(this,
+////                            "입력한 정보로 존재하는 사용자가 있습니다. ID/PW를 찾으시겠습니까?",
+////                            leftListener, // 왼쪽 버튼 이벤트
+////                            rightListener); // 오른쪽 버튼 이벤트
+////                    joinDialog.show();
+////        }else {
+////            joinDialog = new JoinDialog(this,
+////
+////                            "작품을 모을 준비가 완료되었습니다! ‘당신’의 전시를 시작하시겠습니까?",
+////                            leftListener, // 왼쪽 버튼 이벤트
+////                            rightListener); // 오른쪽 버튼 이벤트
+////                    joinDialog.show();
+////        }
+////
+////        switch (v.getId()) {
+////            case R.id.btn_join:
+////
+////                    joinDialog = new JoinDialog(this,
+////                            "입력한 정보로 존재하는 사용자가 있습니다.ID/PW를 찾으시겠습니까?",
+////                            leftListener, // 왼쪽 버튼 이벤트
+////                            rightListener); // 오른쪽 버튼 이벤트
+////                    joinDialog.show();
+////                    break;
+////
+////        }
+//    }
 //        switch (v.getId()) {
 //            case R.id.btn_join:
 //                editTextID = (EditText) findViewById(R.id.editText_join_id);

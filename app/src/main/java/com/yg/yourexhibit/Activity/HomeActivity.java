@@ -3,6 +3,7 @@ package com.yg.yourexhibit.Activity;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.util.Log;
+import android.view.WindowManager;
 
 import com.squareup.otto.Subscribe;
 import com.yg.yourexhibit.Adapter.Home.HomeTabAdapter;
@@ -11,6 +12,7 @@ import com.yg.yourexhibit.Util.BaseActivity;
 import com.yg.yourexhibit.Util.EventBus;
 import com.yg.yourexhibit.Util.NetworkController;
 import com.yg.yourexhibit.Util.SwipeViewPager;
+import com.yg.yourexhibit.Util.onKeyBackPressedListener;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -27,6 +29,7 @@ public class HomeActivity extends BaseActivity {
 //    TextView totleText;
 
     private NetworkController networkController;
+    private onKeyBackPressedListener mOnKeyBackPressedListener;
 
     //풀 하고 이 문구가 잘 보이면 됨
     @Override
@@ -37,6 +40,7 @@ public class HomeActivity extends BaseActivity {
         //getData();
         EventBus.getInstance().register(this);
         ButterKnife.bind(this);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING);
 
         //tabLayout.addTab(tabLayout.newTab().setText("Aaaa"));
         tabLayout.addTab(tabLayout.newTab().setCustomView(getLayoutInflater().inflate(R.layout.view_home, null)));
@@ -113,6 +117,16 @@ public class HomeActivity extends BaseActivity {
         super.onDestroy();
     }
 
+    public void setOnKeyBackPressedListener(onKeyBackPressedListener listener) {
+        mOnKeyBackPressedListener = listener;
+    }
 
-
+    @Override
+    public void onBackPressed() {
+        if (mOnKeyBackPressedListener != null) {
+            mOnKeyBackPressedListener.onBack();
+        } else {
+            super.onBackPressed();
+        }
+    }
 }

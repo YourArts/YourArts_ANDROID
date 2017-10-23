@@ -48,6 +48,7 @@
             android:text="aaaaaaaaaaaaaa"
             />
         <ImageView
+            android:id="@+id/coming_details_heart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="159dp"

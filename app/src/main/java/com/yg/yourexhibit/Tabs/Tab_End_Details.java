@@ -79,6 +79,7 @@ public class Tab_End_Details extends Fragment{
         View v = inflater.inflate(R.layout.tab_home_end_details, container, false);
         ButterKnife.bind(this, v);
         EventBus.getInstance().register(this);
+        networkController = new NetworkController();
         exhibitDetailResult = ApplicationController.getInstance().getExhibitDetailResult();
 
         initFragment();
@@ -140,27 +141,86 @@ public class Tab_End_Details extends Fragment{
 
     @OnClick(R.id.end_details_1)
     public void onClick1(){
-
+        like1.setImageResource(R.drawable.ic_good_on);
+        like2.setImageResource(R.drawable.ic_good_off);
+        like3.setImageResource(R.drawable.ic_good_off);
+        like4.setImageResource(R.drawable.ic_good_off);
+        like5.setImageResource(R.drawable.ic_good_off);
+        if(exhibitDetailResult.getLike_count() == 0) {
+            networkController.postLike(ApplicationController.getInstance().token, exhibitDetailResult.getExhibition_idx()
+                    ,1);
+        }else {
+            networkController.putLike(ApplicationController.getInstance().token, exhibitDetailResult.getExhibition_idx(),
+                    exhibitDetailResult.getLike_count(),1);
+        }
     }
 
     @OnClick(R.id.end_details_2)
     public void onClick2(){
+        like1.setImageResource(R.drawable.ic_good_on);
+        like2.setImageResource(R.drawable.ic_good_on);
+        like3.setImageResource(R.drawable.ic_good_off);
+        like4.setImageResource(R.drawable.ic_good_off);
+        like5.setImageResource(R.drawable.ic_good_off);
 
+        if(exhibitDetailResult.getLike_count() == 0) {
+            networkController.postLike(ApplicationController.getInstance().token, exhibitDetailResult.getExhibition_idx()
+                    ,2);
+        }else {
+            networkController.putLike(ApplicationController.getInstance().token, exhibitDetailResult.getExhibition_idx(),
+                    exhibitDetailResult.getLike_count(),2);
+        }
     }
 
     @OnClick(R.id.end_details_3)
     public void onClick3(){
+        like1.setImageResource(R.drawable.ic_good_on);
+        like2.setImageResource(R.drawable.ic_good_on);
+        like3.setImageResource(R.drawable.ic_good_on);
+        like4.setImageResource(R.drawable.ic_good_off);
+        like5.setImageResource(R.drawable.ic_good_off);
 
+        if(exhibitDetailResult.getLike_count() == 0) {
+            networkController.postLike(ApplicationController.getInstance().token, exhibitDetailResult.getExhibition_idx()
+                    ,3);
+        }else {
+            networkController.putLike(ApplicationController.getInstance().token, exhibitDetailResult.getExhibition_idx(),
+                    exhibitDetailResult.getLike_count(),3);
+        }
     }
 
     @OnClick(R.id.end_details_4)
     public void onClick4(){
+        like1.setImageResource(R.drawable.ic_good_on);
+        like2.setImageResource(R.drawable.ic_good_on);
+        like3.setImageResource(R.drawable.ic_good_on);
+        like4.setImageResource(R.drawable.ic_good_on);
+        like5.setImageResource(R.drawable.ic_good_off);
 
+        if(exhibitDetailResult.getLike_count() == 0) {
+            networkController.postLike(ApplicationController.getInstance().token, exhibitDetailResult.getExhibition_idx()
+                    ,4);
+        }else {
+            networkController.putLike(ApplicationController.getInstance().token, exhibitDetailResult.getExhibition_idx(),
+                    exhibitDetailResult.getLike_count(),4);
+        }
     }
 
     @OnClick(R.id.end_details_5)
     public void onClick5(){
+        like1.setImageResource(R.drawable.ic_good_on);
+        like2.setImageResource(R.drawable.ic_good_on);
+        like3.setImageResource(R.drawable.ic_good_on);
+        like4.setImageResource(R.drawable.ic_good_on);
+        like5.setImageResource(R.drawable.ic_good_on);
 
+        if(exhibitDetailResult.getLike_count() == 0) {
+            networkController.postLike(ApplicationController.getInstance().token, exhibitDetailResult.getExhibition_idx()
+                    ,5);
+        }else {
+            networkController.putLike(ApplicationController.getInstance().token, exhibitDetailResult.getExhibition_idx(),
+                    exhibitDetailResult.getLike_count(),5);
+        }
     }
 
 }

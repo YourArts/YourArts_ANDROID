@@ -51,8 +51,11 @@ public class ApplicationController extends Application{
 
     private int collectionSize = 0;
 
-    public String token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFrc2d1ciIsIm5pY2tuYW1lIjoiYWtzZ3VyIiwiaWF0IjoxNTA4MzAwMTE3LCJleHAiOjE1MDgzMzYxMTd9.7KzoBeBquvd5fs6TZpgfTfBMsNx6IB-5r92eHabRRo0";
 
+
+    private int collectionIdx = 0;
+
+    public String token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFrc2d1ciIsIm5pY2tuYW1lIjoiYWtzZ3VyIiwiaWF0IjoxNTA4Njc1Njg5LCJleHAiOjE1MDg3MTE2ODl9.jwwgx44W5RMxW5vn6Wd4awPrhPdnlPZCJ7-gHDkYElM";
 
     private boolean fromDetail = false;
 
@@ -187,5 +190,13 @@ public class ApplicationController extends Application{
 
     public void setFromDetail(boolean fromDetail) {
         this.fromDetail = fromDetail;
+    }
+
+    public int getCollectionIdx() {
+        return collectionIdx;
+    }
+
+    public void setCollectionIdx(int collectionIdx) {
+        this.collectionIdx = collectionIdx;
     }
 }
