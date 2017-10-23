@@ -55,7 +55,11 @@ public class ApplicationController extends Application{
 
     private int collectionIdx = 0;
 
-    public String token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFrc2d1ciIsIm5pY2tuYW1lIjoiYWtzZ3VyIiwiaWF0IjoxNTA4Njc1Njg5LCJleHAiOjE1MDg3MTE2ODl9.jwwgx44W5RMxW5vn6Wd4awPrhPdnlPZCJ7-gHDkYElM";
+    public static String getToken() {
+        return token;
+    }
+
+    public static String token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFrc2d1ciIsIm5pY2tuYW1lIjoiYWtzZ3VyIiwiaWF0IjoxNTA4Nzc1MzY2LCJleHAiOjE1MDg4MTEzNjZ9.qjLMOvX9NAcSjEDKcDvFkOgPJ21AvH-5dXm8CvavkQs";
 
     private boolean fromDetail = false;
 

@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginLeft="82dp"
-        android:layout_marginTop="84dp">
+        android:layout_marginTop="3dp">
         <TextView
             android:id="@+id/당신은"
             android:layout_width="wrap_content"
@@ -35,11 +35,12 @@
     </android.support.constraint.ConstraintLayout>
 
     <android.support.v7.widget.RecyclerView
+        android:id="@+id/rcyWatch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_marginLeft="6dp"
         android:layout_marginTop="6dp">
-
     </android.support.v7.widget.RecyclerView>
 
 </LinearLayout>
