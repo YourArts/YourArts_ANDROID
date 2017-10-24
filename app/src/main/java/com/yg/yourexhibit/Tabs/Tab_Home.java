@@ -64,10 +64,12 @@ public class Tab_Home extends Fragment {
         HomeExhibitTabAdapter pagerAdapter = new HomeExhibitTabAdapter(getActivity().getSupportFragmentManager(),tabLayout.getTabCount());
         viewPager.setAdapter(pagerAdapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        viewPager.setCurrentItem(1);
 
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
+
                 viewPager.setCurrentItem(tab.getPosition());
 
                 EventBus.getInstance().post(tab.getPosition());

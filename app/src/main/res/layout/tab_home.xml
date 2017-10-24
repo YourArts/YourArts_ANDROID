@@ -26,7 +26,7 @@
                 android:textStyle="bold"
                 android:includeFontPadding="false"
                 android:layout_centerInParent="true"
-                android:text="전시전시"
+                android:text="진행 전시"
                 android:textColor="#ffffff"
                 />
         </RelativeLayout>

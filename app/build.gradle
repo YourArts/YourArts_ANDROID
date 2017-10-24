@@ -63,5 +63,5 @@ dependencies {
     testApt 'com.google.dagger:dagger-compiler:2.0.2'
     compile 'com.facebook.android:facebook-android-sdk:4.0.0'
     compile 'com.android.support:multidex:1.0.0'
-
+    compile 'com.squareup.picasso:picasso:2.3.3'
 }

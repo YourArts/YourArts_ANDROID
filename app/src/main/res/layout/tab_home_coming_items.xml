@@ -16,7 +16,7 @@
         android:id="@+id/coming_item_img"
         android:layout_width="match_parent"
         android:layout_height="224dp"
-        android:background="#00ffc4"
+        android:background="#212121"
         />
 
     <TextView

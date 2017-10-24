@@ -58,6 +58,13 @@ public class ApplicationController extends Application{
     public String token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFrc2d1ciIsIm5pY2tuYW1lIjoiYWtzZ3VyIiwiaWF0IjoxNTA4Njc1Njg5LCJleHAiOjE1MDg3MTE2ODl9.jwwgx44W5RMxW5vn6Wd4awPrhPdnlPZCJ7-gHDkYElM";
 
     private boolean fromDetail = false;
+    private boolean fromEdit = false;
+
+
+
+    private boolean inDetail = false;
+
+    private String editContent = "";
 
     @Override public void onCreate() {
         super.onCreate();
@@ -198,5 +205,28 @@ public class ApplicationController extends Application{
 
     public void setCollectionIdx(int collectionIdx) {
         this.collectionIdx = collectionIdx;
+    }
+
+    public boolean isFromEdit() {
+        return fromEdit;
+    }
+
+    public void setFromEdit(boolean fromEdit) {
+        this.fromEdit = fromEdit;
+    }
+
+    public String getEditContent() {
+        return editContent;
+    }
+
+    public void setEditContent(String editContent) {
+        this.editContent = editContent;
+    }
+    public boolean isInDetail() {
+        return inDetail;
+    }
+
+    public void setInDetail(boolean inDetail) {
+        this.inDetail = inDetail;
     }
 }

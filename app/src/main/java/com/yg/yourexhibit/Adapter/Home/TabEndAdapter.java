@@ -6,6 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.bumptech.glide.RequestManager;
+import com.squareup.picasso.Picasso;
+import com.yg.yourexhibit.App.ApplicationController;
 import com.yg.yourexhibit.Datas.TabEndData;
 import com.yg.yourexhibit.R;
 
@@ -39,7 +41,13 @@ public class TabEndAdapter extends RecyclerView.Adapter<TabEndViewHolder>{
 
     @Override
     public void onBindViewHolder(TabEndViewHolder holder, final int position) {
-            requestManager.load(endResult.get(position).getExhibitImage()).into(holder.endItemImage);
+            //requestManager.load(endResult.get(position).getExhibitImage()).into(holder.endItemImage);
+        Picasso.with(ApplicationController.getInstance().getApplicationContext())
+                .load(endResult.get(position).getExhibitImage())
+                .resize(360, 120)
+                .into(holder.endItemImage);
+
+
             holder.endItemPerioid.setText(endResult.get(position).getExhibitPeriod());
             holder.endItemName.setText(endResult.get(position).getExhibitName());
 //            holder.endItemBtn.setOnClickListener(new View.OnClickListener() {

@@ -7,6 +7,7 @@ package com.yg.yourexhibit.Util;
 public class EventCode {
 
     public static final int EVENT_CODE_END_TAB = 50;
+    public static final int EVENT_CODE_BACK = 51;
 
     public static final int EVENT_CODE_GOING_PREVIEW = 10;
     public static final int EVENT_CODE_GOING_WORK = 11;

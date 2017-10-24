@@ -6,6 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.bumptech.glide.RequestManager;
+import com.squareup.picasso.Picasso;
+import com.yg.yourexhibit.App.ApplicationController;
 import com.yg.yourexhibit.Datas.TabGoingData;
 import com.yg.yourexhibit.R;
 
@@ -39,7 +41,11 @@ public class TabGoingAdapter extends RecyclerView.Adapter<TabGoingViewHolder> {
 
     @Override
     public void onBindViewHolder(TabGoingViewHolder holder, final int position) {
-        requestManager.load(goingResult.get(position).getExhibitImage()).into(holder.goingItemImage);
+        //requestManager.load(goingResult.get(position).getExhibitImage()).into(holder.goingItemImage);
+        Picasso.with(ApplicationController.getInstance().getApplicationContext())
+                .load(goingResult.get(position).getExhibitImage())
+                .resize(360, 500)
+                .into(holder.goingItemImage);
         holder.goingItemPerioid.setText(goingResult.get(position).getExhibitPeriod());
         holder.goingItemName.setText(goingResult.get(position).getExhibitName());
     }

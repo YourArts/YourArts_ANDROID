@@ -10,17 +10,17 @@
     <RelativeLayout
         android:id="@+id/going_items_btn"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/going_items_img"
             android:layout_width="match_parent"
             android:layout_height="416dp"
-            android:background="#00ffc4"/>
+            android:background="#212121"/>
 
         <TextView
             android:id="@+id/going_items_perioid"
-            android:layout_width="102dp"
+            android:layout_width="wrap_content"
             android:layout_height="18dp"
             android:background="#00ffc4"
             android:layout_marginLeft="39dp"

@@ -1,5 +1,6 @@
 package com.yg.yourexhibit.Tabs;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,9 +11,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.squareup.otto.Subscribe;
 import com.yg.yourexhibit.Adapter.Search.TabSearchAdapter;
 import com.yg.yourexhibit.App.ApplicationController;
@@ -39,6 +44,12 @@ public class Tab_Search extends Fragment{
     @BindView(R.id.tab_search_result)
     RecyclerView result;
 
+    @BindView(R.id.search_result_image)
+    ImageView image;
+
+    @BindView(R.id.tab_search_text)
+    TextView text;
+
     private TabSearchAdapter tabSearchAdapter;
     private LinearLayoutManager linearLayoutManager;
     private NetworkController networkController;
@@ -61,8 +72,13 @@ public class Tab_Search extends Fragment{
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+                result.setVisibility(View.VISIBLE);
+                image.setVisibility(View.GONE);
+                text.setVisibility(View.GONE);
                 if(search.getText().length()!=0) {
                     networkController.getSearchData(search.getText().toString());
+                }else{
+                    searchList.clear();
                 }
             }
 
@@ -87,8 +103,21 @@ public class Tab_Search extends Fragment{
 
     public View.OnClickListener clickEvent = new View.OnClickListener() {
         public void onClick(View v) {
+            result.setVisibility(View.GONE);
+            image.setVisibility(View.VISIBLE);
+            text.setVisibility(View.VISIBLE);
+            //search.setVisibility(View.INVISIBLE);
+
             int itemPosition = result.getChildPosition(v);
-            idx = ApplicationController.getInstance().getExhibitEndResult().get(itemPosition).getExhibition_idx();
+            //idx = searchList.get(itemPosition).getExhibition_idx();
+            text.setText(searchList.get(itemPosition).getExhibition_name());
+            Glide.with(ApplicationController.getInstance().getApplicationContext())
+                    .load(searchList.get(itemPosition).getExhibition_picture()).into(image);
+
+            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(search.getWindowToken(), 0);
+
+
             //networkController.getDetailData(0, idx);
         }
     };
@@ -99,7 +128,12 @@ public class Tab_Search extends Fragment{
             case EventCode.EVENT_CODE_SEARCH:
                 initFragment();
                 break;
-
         }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        EventBus.getInstance().unregister(this);
     }
 }
