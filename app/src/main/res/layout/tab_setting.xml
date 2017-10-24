@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="#212121"
     android:orientation="vertical"
-    tools:context="com.yg.yourexhibit.Activity.SettingActivity">
+    android:id="@+id/tabSetting">
 
     <RelativeLayout
         android:layout_width="368dp"
