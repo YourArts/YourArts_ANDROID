@@ -1,6 +1,7 @@
 package com.yg.yourexhibit.Retrofit;
 
 import com.yg.yourexhibit.Retrofit.RetrofitDelete.ExhibitCollectionDeleteResponse;
+import com.yg.yourexhibit.Retrofit.RetrofitDelete.TabSettingDeleteUserResponse;
 import com.yg.yourexhibit.Retrofit.RetrofitGet.ExhibitCollectionDetailResponse;
 import com.yg.yourexhibit.Retrofit.RetrofitGet.ExhibitCollectionResponse;
 import com.yg.yourexhibit.Retrofit.RetrofitGet.ExhibitComingResponse;
@@ -26,6 +27,8 @@ import com.yg.yourexhibit.Retrofit.RetrofitPut.ExhibitHeartPut;
 import com.yg.yourexhibit.Retrofit.RetrofitPut.ExhibitHeartPutResponse;
 import com.yg.yourexhibit.Retrofit.RetrofitPut.ExhibitLikePut;
 import com.yg.yourexhibit.Retrofit.RetrofitPut.ExhibitLikePutResponse;
+import com.yg.yourexhibit.Retrofit.RetrofitPut.TabSettingNamePut;
+import com.yg.yourexhibit.Retrofit.RetrofitPut.TabSettingNameResponse;
 
 import java.util.ArrayList;
 
@@ -136,4 +139,13 @@ public interface NetworkService {
     // Wish Tab 조회
     @GET("wish")
     Call<TabWishResult> getWish(@Header("token") String token);
+
+    // 닉네임 수정
+    @PUT("users")
+    Call<TabSettingNameResponse> putName(@Header("token") String token,
+                                          @Body TabSettingNamePut tabSettingNamePut);
+
+    // 회원 탈퇴
+    @DELETE("users")
+    Call<TabSettingDeleteUserResponse> deleteUser(@Header("token") String token);
 }
