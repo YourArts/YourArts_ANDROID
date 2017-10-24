@@ -10,6 +10,7 @@ import com.yg.yourexhibit.Retrofit.RetrofitGet.ExhibitGoingResponse;
 import com.yg.yourexhibit.Retrofit.RetrofitGet.ExhibitSearchResponse;
 import com.yg.yourexhibit.Retrofit.RetrofitGet.ExhibitWorkResponse;
 import com.yg.yourexhibit.Retrofit.RetrofitGet.TabWatchResult;
+import com.yg.yourexhibit.Retrofit.RetrofitGet.TabWishResult;
 import com.yg.yourexhibit.Retrofit.RetrofitPost.ExhibitCollectionPostResponse;
 import com.yg.yourexhibit.Retrofit.RetrofitPost.ExhibitHeartPost;
 import com.yg.yourexhibit.Retrofit.RetrofitPost.ExhibitHeartPostResponse;
@@ -131,4 +132,8 @@ public interface NetworkService {
     // Watch Tab 조회
     @GET("watch")
     Call<TabWatchResult> getWatch(@Header("token") String token);
+
+    // Wish Tab 조회
+    @GET("wish")
+    Call<TabWishResult> getWish(@Header("token") String token);
 }

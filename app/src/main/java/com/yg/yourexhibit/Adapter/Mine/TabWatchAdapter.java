@@ -37,6 +37,7 @@ public class TabWatchAdapter extends RecyclerView.Adapter<TabWatchAdapter.WatchV
     public WatchViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.tab_mine_watch_item, parent,false);
         WatchViewHolder viewHolder = new WatchViewHolder(itemView);
+        itemView.setOnClickListener(clickListener);
         return viewHolder;
     }
 
