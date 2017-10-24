@@ -87,18 +87,7 @@ public class Tab_Mine extends Fragment{
 
         tabLayout.getTabAt(0).select();
 
-//        goSetting.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-////                Intent i = new Intent(getContext(), SettingActivity.class);
-////                startActivity(i);
-//                getFragmentManager()
-//                        .beginTransaction()
-//                        .add(R.id.topLayout, new Tab_Mine(), "base")
-//                        .replace(R.id.tabSetting, new Tab_Setting(), "setting")
-//                        .commit();
-//            }
-//        });
+
 
         return v;
     }
