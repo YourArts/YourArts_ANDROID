@@ -1,5 +1,6 @@
 package com.yg.yourexhibit.Tabs;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
@@ -11,9 +12,11 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.yg.yourexhibit.Activity.SettingActivity;
 import com.yg.yourexhibit.R;
 
 import butterknife.BindView;
@@ -34,6 +37,10 @@ public class Tab_Mine extends Fragment{
     @BindView(R.id.tab_mine)
     ViewPager viewPager;
 
+    @BindView(R.id.btnGoSetting)
+    ImageButton goSetting;
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.tab_mine, container, false);
@@ -41,8 +48,9 @@ public class Tab_Mine extends Fragment{
         // Initializing the TabLayout
         tabLayout.addTab(tabLayout.newTab().setText("WATCH"));
         tabLayout.addTab(tabLayout.newTab().setText("WISH"));
-//        setCustomView(getActivity().getLayoutInflater().inflate(R.layout.tab_mine_wish,null))
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+
+        tabLayout.getTabAt(1).select();
 
         // Creating TabPagerAdapter adapter
         Tab_Mine_PagerAdapter pagerAdapter = new Tab_Mine_PagerAdapter(getActivity().getSupportFragmentManager(),tabLayout.getTabCount());
@@ -74,6 +82,17 @@ public class Tab_Mine extends Fragment{
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
 
+            }
+
+        });
+
+        tabLayout.getTabAt(0).select();
+
+        goSetting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getContext(), SettingActivity.class);
+                startActivity(i);
             }
         });
 

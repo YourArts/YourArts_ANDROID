@@ -21,6 +21,7 @@ import com.yg.yourexhibit.Datas.TabMineWatchData;
 import com.yg.yourexhibit.R;
 import com.yg.yourexhibit.Retrofit.NetworkService;
 import com.yg.yourexhibit.Retrofit.RetrofitGet.TabWatchResult;
+import com.yg.yourexhibit.Util.NetworkController;
 
 import java.util.ArrayList;
 
@@ -29,7 +30,6 @@ import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
 /**
  * Created by 김민경 on 2017-10-15.
  */
@@ -46,7 +46,7 @@ public class Tab_Mine_Watch_Tab extends Fragment {
     TabWatchAdapter tabWatchAdapter;
     RequestManager requestManager;
     LinearLayoutManager linearLayoutManager;
-
+    NetworkController networkController;
 
     public void initTab(){
         networkService = ApplicationController.getInstance().getNetworkService();
@@ -55,12 +55,16 @@ public class Tab_Mine_Watch_Tab extends Fragment {
         requestManager = Glide.with(this);
         linearLayoutManager = new LinearLayoutManager(this.getContext());
         linearLayoutManager.setOrientation(LinearLayout.VERTICAL);
+        networkController = new NetworkController();
     }
 
     View.OnClickListener clickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
             Toast.makeText(getContext(),"ㅎㅇㅎㅇ",Toast.LENGTH_SHORT).show();
+            int itemPosition = watchList.getChildPosition(view);
+            int idx = ApplicationController.getInstance().getCollectionIdx();
+            networkController.getDetailData(1, ApplicationController.getInstance().token, idx);
         }
     };
 

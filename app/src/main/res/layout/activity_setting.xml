@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#212121"
+    android:orientation="vertical"
+    tools:context="com.yg.yourexhibit.Activity.SettingActivity">
+    <RelativeLayout
+        android:layout_width="368dp"
+        android:background="#000000"
+        android:layout_height="48dp"
+        tools:layout_editor_absoluteY="0dp"
+        tools:layout_editor_absoluteX="8dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:includeFontPadding="false"
+            android:layout_centerInParent="true"
+            android:text="설정"
+            android:textColor="#ffffff"
+            />
+        <ImageButton
+            android:id="@+id/btnGoSetting"
+            android:src="@drawable/ic_settings"
+            android:background="@null"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="21dp"
+            android:layout_marginTop="12dp"/>
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="32dp"
+        android:layout_marginTop="69dp"
+        android:layout_marginLeft="33dp">
+
+        <TextView
+            android:id="@+id/닉네임수정"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="닉네임 수정"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textColor="#FFFFFF"/>
+        <TextView
+            android:id="@+id/txtSettingName"
+            android:layout_marginLeft="38dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="다정"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textColor="#666666"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="수정"
+            android:layout_marginLeft="100dp"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textColor="#666666"/>
+    </LinearLayout>
+    <View
+        android:layout_width="296dp"
+        android:layout_height="1dp"
+        android:background="#95989A"
+        android:layout_marginBottom="22dp"
+        android:layout_marginLeft="33dp"/>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="32dp"
+        android:layout_marginLeft="33dp">
+
+        <TextView
+            android:id="@+id/비번수정"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="PW 수정"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textColor="#FFFFFF"/>
+        <TextView
+            android:id="@+id/txtSettingPW"
+            android:layout_marginLeft="38dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textColor="#666666"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="수정"
+            android:layout_marginLeft="155dp"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textColor="#666666"/>
+    </LinearLayout>
+    <View
+        android:layout_width="296dp"
+        android:layout_height="1dp"
+        android:background="#95989A"
+        android:layout_marginBottom="22dp"
+        android:layout_marginLeft="33dp"/>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="32dp"
+        android:layout_marginLeft="33dp">
+
+        <TextView
+            android:id="@+id/비번확인"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="PW 수정"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textColor="#FFFFFF"/>
+        <TextView
+            android:id="@+id/txtSettingCheckPW"
+            android:layout_marginLeft="38dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textColor="#666666"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="correct!"
+            android:layout_marginLeft="145dp"
+            android:textSize="16sp"
+            android:textColor="#666666"/>
+    </LinearLayout>
+    <View
+        android:layout_width="296dp"
+        android:layout_height="1dp"
+        android:background="#95989A"
+        android:layout_marginBottom="22dp"
+        android:layout_marginLeft="33dp"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="32dp"
+        android:layout_marginLeft="33dp">
+
+        <TextView
+            android:id="@+id/갤러리접근"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="갤러리 접근"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textColor="#FFFFFF"/>
+
+        <TextView
+            android:id="@+id/txtSettingGallery"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="OFF"
+            android:layout_marginLeft="170dp"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textColor="#666666"/>
+    </LinearLayout>
+
+    <View
+        android:layout_width="296dp"
+        android:layout_height="1dp"
+        android:background="#95989A"
+        android:layout_marginBottom="22dp"
+        android:layout_marginLeft="33dp"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="32dp"
+        android:layout_marginLeft="33dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="'당신'의 전시 그만하기"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textColor="#FFFFFF"/>
+
+        <TextView
+            android:id="@+id/txtSettinOut"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="탈퇴하기"
+            android:layout_marginLeft="70dp"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textColor="#666666"/>
+    </LinearLayout>
+
+    <View
+        android:layout_width="296dp"
+        android:layout_height="1dp"
+        android:background="#95989A"
+        android:layout_marginBottom="22dp"
+        android:layout_marginLeft="33dp"/>
+
+</LinearLayout>
