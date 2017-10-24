@@ -161,6 +161,6 @@ public class Tab_Collection_Detail extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
-        //EventBus.getInstance().unregister(this);
+        EventBus.getInstance().unregister(this);
     }
 }

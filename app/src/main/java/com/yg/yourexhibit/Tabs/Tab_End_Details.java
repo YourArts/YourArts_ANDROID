@@ -223,4 +223,9 @@ public class Tab_End_Details extends Fragment{
         }
     }
 
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        EventBus.getInstance().unregister(this);
+    }
 }

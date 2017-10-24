@@ -463,8 +463,8 @@ public class NetworkController {
         });
     }
 
-    public void sign(String id, String pw1, String pw2, String nickname){
-        Call<SignPostResponse> postSignResponse = networkService.postSign(new SignPost(id, pw1, pw2, nickname));
+    public void sign(final String id, final String pw1, String pw2, final String email, String nickname){
+        Call<SignPostResponse> postSignResponse = networkService.postSign(new SignPost(id, pw1, pw2, email, nickname));
         postSignResponse.enqueue(new Callback<SignPostResponse>() {
             @Override
             public void onResponse(Call<SignPostResponse> call, Response<SignPostResponse> response) {
@@ -472,6 +472,12 @@ public class NetworkController {
                     //response.body().getResult().
                     //login(id, pw1);
                     Log.v(TAG,"postSignSuccess");
+                    SharedPrefrernceController.setLoginId(ApplicationController.getInstance().getApplicationContext(), id);
+
+                    SharedPrefrernceController.setPasswd(ApplicationController.getInstance().getApplicationContext(), pw1);
+
+                    SharedPrefrernceController.setUserEmail(ApplicationController.getInstance().getApplicationContext(), email);
+
                     EventBus.getInstance().post(EventCode.EVENT_CODE_SIGN);
                 }else{
                     EventBus.getInstance().post(EventCode.EVENT_CODE_SIGN_FAIL);

@@ -19,7 +19,7 @@
             android:value="@string/app_id" />
 
         <activity
-            android:name=".Login.SplashActivity"
+            android:name=".Activity.HomeActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar"></activity>
         <activity android:name=".Activity.TextActivity" />
         <activity
@@ -29,7 +29,7 @@
             android:name=".Login.FindIdPwActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
-            android:name=".Activity.HomeActivity"
+            android:name=".Login.SplashActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar"
             android:windowSoftInputMode="adjustNothing">
             <intent-filter>
