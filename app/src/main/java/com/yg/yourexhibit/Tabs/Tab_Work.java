@@ -83,4 +83,10 @@ public class Tab_Work extends Fragment{
         moveToCollection.setImageResource(R.drawable.move_to_collection_on);
 
     }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        EventBus.getInstance().unregister(this);
+    }
 }

@@ -10,7 +10,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -251,13 +250,6 @@ public class Tab_Collection_Edit extends Fragment{
 
     public void returnFrag(){
         if(ApplicationController.getInstance().isFromDetail()){
-//            Fragment fromFrag = null, toFrag = null;
-//            fromFrag = getActivity().getSupportFragmentManager().findFragmentByTag("edit");
-//            toFrag = getActivity().getSupportFragmentManager().findFragmentByTag("detail");
-//            final android.support.v4.app.FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-//            ft.detach(fromFrag);
-//            ft.attach(toFrag);
-//            ft.commit();
             getActivity()
                     .getSupportFragmentManager()
                     .beginTransaction()
@@ -288,7 +280,6 @@ public class Tab_Collection_Edit extends Fragment{
     @Override
     public void onResume() {
         super.onResume();
-        Log.v("탭콜에1", "탭콜에1");
 
     }
 
@@ -300,6 +291,6 @@ public class Tab_Collection_Edit extends Fragment{
     @Override
     public void onDetach() {
         super.onDetach();
-        //EventBus.getInstance().unregister(this);
+        EventBus.getInstance().unregister(this);
     }
 }

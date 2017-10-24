@@ -34,7 +34,7 @@ public class SignupActivity extends AppCompatActivity {
     @BindView(R.id.btn_join)
     ImageButton join;
 
-    private EditText editTextID, editTextPW, editTextPWcorrect, editTextNickName;
+    private EditText editTextID, editTextPW, editTextPWcorrect, editTextNickName, editTextEmail;
     private NetworkController networkController;
 
     @Override
@@ -54,6 +54,8 @@ public class SignupActivity extends AppCompatActivity {
         joinbutton = (ImageButton) findViewById(R.id.btn_join);
         editTextID = (EditText) findViewById(R.id.editText_join_id);
         editTextNickName = (EditText) findViewById(R.id.editText_name);
+
+        editTextEmail = (EditText) findViewById(R.id.editText_name);
 
         //비밀번호랑 비밀번호 확인 같으면 correct 색깔 바뀌기
         editTextPWcorrect.addTextChangedListener(new TextWatcher() {
@@ -99,7 +101,7 @@ public class SignupActivity extends AppCompatActivity {
     @OnClick(R.id.btn_join)
     public void clickJoin(){
         networkController.sign(editTextID.getText().toString(), editTextPW.getText().toString(),
-                editTextPW.getText().toString(), editTextNickName.getText().toString());
+                editTextPW.getText().toString(), editTextEmail.getText().toString(), editTextNickName.getText().toString());
     }
 
     @Subscribe

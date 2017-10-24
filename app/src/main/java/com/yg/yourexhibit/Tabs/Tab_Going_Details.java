@@ -279,4 +279,10 @@ public class Tab_Going_Details extends Fragment{
             heartCheck = false;
         }
     }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        EventBus.getInstance().unregister(this);
+    }
 }

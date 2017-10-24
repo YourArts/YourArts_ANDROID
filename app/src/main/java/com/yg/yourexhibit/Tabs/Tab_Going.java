@@ -124,6 +124,10 @@ public class Tab_Going extends Fragment{
             networkController.getDetailData(1, ApplicationController.getInstance().token, idx);
         }
     };
-
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        EventBus.getInstance().unregister(this);
+    }
 
 }

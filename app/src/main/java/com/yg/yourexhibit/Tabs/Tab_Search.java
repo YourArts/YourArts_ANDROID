@@ -77,8 +77,9 @@ public class Tab_Search extends Fragment{
                 text.setVisibility(View.GONE);
                 if(search.getText().length()!=0) {
                     networkController.getSearchData(search.getText().toString());
+//                }else{
+//                    searchList.clear();
                 }else{
-                    searchList.clear();
                 }
             }
 
@@ -111,12 +112,18 @@ public class Tab_Search extends Fragment{
             int itemPosition = result.getChildPosition(v);
             //idx = searchList.get(itemPosition).getExhibition_idx();
             text.setText(searchList.get(itemPosition).getExhibition_name());
+//            Glide.with(ApplicationController.getInstance().getApplicationContext())
+//                    .load(searchList.get(itemPosition).getExhibition_picture()).into(image);
+
+            //search.setText(searchList.get(itemPosition).getExhibition_name());
             Glide.with(ApplicationController.getInstance().getApplicationContext())
                     .load(searchList.get(itemPosition).getExhibition_picture()).into(image);
 
             InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(search.getWindowToken(), 0);
-
+            search.setCursorVisible(false);
+            //search.setText("");
+            //searchList.clear();
 
             //networkController.getDetailData(0, idx);
         }
@@ -130,6 +137,7 @@ public class Tab_Search extends Fragment{
                 break;
         }
     }
+
 
     @Override
     public void onDetach() {
