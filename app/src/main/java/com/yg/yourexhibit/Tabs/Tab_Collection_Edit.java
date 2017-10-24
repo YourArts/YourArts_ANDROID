@@ -10,6 +10,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -85,7 +86,7 @@ public class Tab_Collection_Edit extends Fragment{
     private LinearLayoutManager linearLayoutManager;
     private NetworkController networkController;
     private ArrayList<ExhibitSearchResponse> searchList;
-    private int idx;
+    private int idx = 0;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -94,11 +95,10 @@ public class Tab_Collection_Edit extends Fragment{
         EventBus.getInstance().register(this);
         networkController = new NetworkController();
         initFragment();
-        //getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
-       // getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+        ApplicationController.getInstance().setInDetail(false);
+        ApplicationController.getInstance().setFromEdit(true);
         //TODO : 여기에 원래 Shared에 저장한 아이디 들어가야 함
-        //networkController.getCollectionData(ApplicationController.getInstance().token);
-       // getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+
         search.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -140,31 +140,10 @@ public class Tab_Collection_Edit extends Fragment{
         }
     }
 
-//    @Subscribe
-//    public void onEventLoad(Integer code){
-//        switch (code){
-//            case EventCode.EVENT_CODE_COLLECTION_EDIT1:
-//                initFragment1();
-//                break;
-//            case EventCode.EVENT_CODE_COLLECTION_EDIT2:
-//                initFragment2();
-//                break;
-//        }
-//    }
-    public void initFragment1(){
-
-    }
-
-    public void initFragment2(){
-        text.setVisibility(View.GONE);
-        detailResult = ApplicationController.getInstance().getExhibitCollectionDetailResult();
-        Glide.with(this).load(detailResult.getCollection_image()).into(editImg);
-        //search.setText();
-        context.setText(detailResult.getCollection_content());
-    }
-
     @OnClick(R.id.collection_edit_save)
     public void saveEdit(){
+        ApplicationController.getInstance().setFromEdit(true);
+        ApplicationController.getInstance().setEditContent(context.getText().toString());
         if(ApplicationController.getInstance().isFromDetail()){
             //디테일로부터 옴->얜 수정 해야 함
             networkController.putCollection(ApplicationController.getInstance().token, context.getText().toString(),
@@ -182,13 +161,6 @@ public class Tab_Collection_Edit extends Fragment{
         }
 
 
-
-        //RequestBody teamname = RequestBody.create(MediaType.parse("text/pain"), make_teamname.toString());
-        //RequestBody region = RequestBody.create(MediaType.parse("text/pain"), make_region.toString());
-        //RequestBody manager = RequestBody.create(MediaType.parse("text/pain"), make_manager.toString());
-        //RequestBody found_at = RequestBody.create(MediaType.parse("text/pain"), make_found.toString());
-
-        //networkController.postCollection(ApplicationController.getInstance().token, );
 
     }
 
@@ -227,6 +199,7 @@ public class Tab_Collection_Edit extends Fragment{
                     profile_pic = MultipartBody.Part.createFormData("collection_image", photo.getName(), photoBody);
                     //body = MultipartBody.Part.createFormData("image", photo.getName(), profile_pic);
 
+                    text.setVisibility(View.GONE);
                     Glide.with(this)
                             .load(data.getData())
                             .into(editImg);
@@ -270,32 +243,63 @@ public class Tab_Collection_Edit extends Fragment{
             case EventCode.EVENT_CODE_COLLECTION_POST:
                 returnFrag();
                 break;
+            case EventCode.EVENT_CODE_COLLECTION_PUT:
+                returnFrag();
+                break;
         }
     }
 
     public void returnFrag(){
         if(ApplicationController.getInstance().isFromDetail()){
-            Fragment fromFrag = null, toFrag = null;
-            fromFrag = getActivity().getSupportFragmentManager().findFragmentByTag("edit");
-            toFrag = getActivity().getSupportFragmentManager().findFragmentByTag("detail");
-            final android.support.v4.app.FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-            ft.detach(fromFrag);
-            //ft.attach(toFrag);
-            ft.commit();
-        }else{
+//            Fragment fromFrag = null, toFrag = null;
+//            fromFrag = getActivity().getSupportFragmentManager().findFragmentByTag("edit");
+//            toFrag = getActivity().getSupportFragmentManager().findFragmentByTag("detail");
+//            final android.support.v4.app.FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+//            ft.detach(fromFrag);
+//            ft.attach(toFrag);
+//            ft.commit();
+            getActivity()
+                    .getSupportFragmentManager()
+                    .beginTransaction()
+                    .disallowAddToBackStack()
+                    .add(R.id.collection_edit_container, new Tab_Collection_Edit())
+                    .replace(R.id.collection_edit_container, new Tab_Collection_Detail())
+                    .commit();
+//
+            }else{
             //그냥 콜렉션으로부 옴
-            Fragment fromFrag = null, toFrag = null;
-            fromFrag = getActivity().getSupportFragmentManager().findFragmentByTag("edit");
-            toFrag = getActivity().getSupportFragmentManager().findFragmentByTag("base");
-            final android.support.v4.app.FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-            ft.detach(fromFrag);
-            ft.attach(toFrag);
-            ft.commit();
+//            Fragment fromFrag = null, toFrag = null;
+//            fromFrag = getActivity().getSupportFragmentManager().findFragmentByTag("edit");
+//            toFrag = getActivity().getSupportFragmentManager().findFragmentByTag("base");
+//            final android.support.v4.app.FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+//            ft.detach(fromFrag);
+//            ft.attach(toFrag);
+//            ft.commit();
+            getActivity()
+                    .getSupportFragmentManager()
+                    .beginTransaction()
+                    .disallowAddToBackStack()
+                    .add(R.id.collection_edit_container, new Tab_Collection_Edit())
+                    .replace(R.id.collection_edit_container, new Tab_Collection())
+                    .commit();
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.v("탭콜에1", "탭콜에1");
+
     }
 
     @OnClick(R.id.collection_edit_content)
     public void clickContent(){
 
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        //EventBus.getInstance().unregister(this);
     }
 }

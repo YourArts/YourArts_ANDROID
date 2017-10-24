@@ -105,20 +105,17 @@ public class Tab_End extends Fragment{
         endDatas = new ArrayList<TabEndData>();
         for(int i = 0; i<exhibitEndResults.size(); i++){
             endDatas.add(new TabEndData(exhibitEndResults.get(i).getExhibition_picture(),
-                    //endPeriod(exhibitEndResults.get(i).getExhibition_stard_date(), exhibitEndResults.get(i).getExhibition_end_date()),
-                    exhibitEndResults.get(i).getExhibition_stard_date(),
+                    endPeriod(exhibitEndResults.get(i).getExhibition_stard_date(), exhibitEndResults.get(i).getExhibition_end_date()),
+                    //exhibitEndResults.get(i).getExhibition_stard_date(),
                     exhibitEndResults.get(i).getExhibition_name()
                     ));
         }
     }
 
     public String endPeriod(String start, String end){
-        Log.v("시작", start);
-        Log.v("시작", start.split(".")[1]);
-        String tempStart = start.split(".")[1] + "/" + start.split(".")[2];
-        String tempEnd = end.split(".")[1] = "/" + start.split(".")[2];
+        String tempStart = start.split("\\.")[1] + "/" + start.split("\\.")[2];
+        String tempEnd = end.split("\\.")[1] + "/" + start.split("\\.")[2];
         return tempStart + " - " + tempEnd;
-
     }
 
     @Override

@@ -10,9 +10,9 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.squareup.otto.Subscribe;
+import com.yg.yourexhibit.Activity.HomeActivity;
 import com.yg.yourexhibit.Dialog.JoinDialog;
 import com.yg.yourexhibit.R;
 import com.yg.yourexhibit.Util.EventBus;
@@ -106,13 +106,17 @@ public class SignupActivity extends AppCompatActivity {
     public void onEventLoad(Integer code){
         switch (code){
             case EventCode.EVENT_CODE_LOGIN:
+                Intent intent = new Intent(
+                        getApplicationContext(),HomeActivity.class);
+                startActivity(intent);
+                finish();
                 break;
             case EventCode.EVENT_CODE_SIGN:
                 joinDialog = new JoinDialog(this,
 
                             "작품을 모을 준비가 완료되었습니다! ‘당신’의 전시를 시작하시겠습니까?",
                             leftListener, // 왼쪽 버튼 이벤트
-                            rightListener); // 오른쪽 버튼 이벤트
+                            rightListener2); // 오른쪽 버튼 이벤트
                     joinDialog.show();
                 break;
             case EventCode.EVENET_CODE_LOGIN_FAIL:
@@ -194,8 +198,8 @@ public class SignupActivity extends AppCompatActivity {
 
     private View.OnClickListener leftListener = new View.OnClickListener() {
         public void onClick(View v) {
-            Toast.makeText(getApplicationContext(), "취소 클릭",
-                    Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getApplicationContext(), "취소 클릭",
+                    //Toast.LENGTH_SHORT).show();
             joinDialog.dismiss();
 
         }
@@ -203,12 +207,22 @@ public class SignupActivity extends AppCompatActivity {
 
     private View.OnClickListener rightListener = new View.OnClickListener() {
         public void onClick(View v) {
-            Toast.makeText(getApplicationContext(), "ID/PW 찾기",
-                    Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getApplicationContext(), "ID/PW 찾기",
+                    //Toast.LENGTH_SHORT).show();
             joinDialog.dismiss();
             Intent intent = new Intent(
                     getApplicationContext(),FindIdPwActivity.class);
             startActivity(intent);
+        }
+    };
+
+    private View.OnClickListener rightListener2 = new View.OnClickListener() {
+        public void onClick(View v) {
+//            Toast.makeText(getApplicationContext(), "ID/PW 찾기",
+//                    Toast.LENGTH_SHORT).show();
+            networkController.login(editTextID.getText().toString(), editTextPW.getText().toString());
+            joinDialog.dismiss();
+
         }
     };
 

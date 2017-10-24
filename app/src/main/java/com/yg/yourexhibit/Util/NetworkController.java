@@ -446,12 +446,12 @@ public class NetworkController {
         postLoginResponse.enqueue(new Callback<LoginPostResponse>() {
             @Override
             public void onResponse(Call<LoginPostResponse> call, Response<LoginPostResponse> response) {
-                if (response.body().isStatus()){
+                if (response.isSuccessful()){
                     ApplicationController.getInstance().token = response.body().getResult().getToken();
                     EventBus.getInstance().post(EventCode.EVENT_CODE_LOGIN);
                     Log.v(TAG,"postLoginSuccess");
                 }else{
-                    EventBus.getInstance().post(EventCode.EVENT_CODE_LOGIN);
+                    EventBus.getInstance().post(EventCode.EVENET_CODE_LOGIN_FAIL);
                     Log.v(TAG,"postLoginFail");
                 }
             }

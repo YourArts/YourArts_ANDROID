@@ -88,11 +88,16 @@ public class Tab_Coming extends Fragment{
         comingDatas = new ArrayList<TabComingData>();
         for(int i = 0; i<exhibitComingResults.size(); i++){
             comingDatas.add(new TabComingData(exhibitComingResults.get(i).getExhibition_picture(),
-                    //endPeriod(exhibitEndResults.get(i).getExhibition_stard_date(), exhibitEndResults.get(i).getExhibition_end_date()),
-                    exhibitComingResults.get(i).getExhibition_stard_date(),
+                    endPeriod(exhibitComingResults.get(i).getExhibition_stard_date(), exhibitComingResults.get(i).getExhibition_end_date()),
+                    //exhibitComingResults.get(i).getExhibition_stard_date(),
                     exhibitComingResults.get(i).getExhibition_name()
             ));
         }
+    }
+    public String endPeriod(String start, String end){
+        String tempStart = start.split("\\.")[1] + "/" + start.split("\\.")[2];
+        String tempEnd = end.split("\\.")[1] + "/" + start.split("\\.")[2];
+        return tempStart + " - " + tempEnd;
     }
 
     public View.OnClickListener clickEvent = new View.OnClickListener() {

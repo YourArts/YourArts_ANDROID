@@ -86,11 +86,17 @@ public class Tab_Going extends Fragment{
         goingDatas = new ArrayList<TabGoingData>();
         for(int i = 0; i<exhibitGoingResults.size(); i++){
             goingDatas.add(new TabGoingData(exhibitGoingResults.get(i).getExhibition_picture(),
-                    //endPeriod(exhibitEndResults.get(i).getExhibition_stard_date(), exhibitEndResults.get(i).getExhibition_end_date()),
-                    exhibitGoingResults.get(i).getExhibition_stard_date(),
+                    endPeriod(exhibitGoingResults.get(i).getExhibition_stard_date(), exhibitGoingResults.get(i).getExhibition_end_date()),
+                    //exhibitGoingResults.get(i).getExhibition_stard_date(),
                     exhibitGoingResults.get(i).getExhibition_name()
             ));
         }
+    }
+
+    public String endPeriod(String start, String end){
+        String tempStart = start.split("\\.")[1] + "/" + start.split("\\.")[2];
+        String tempEnd = end.split("\\.")[1] + "/" + start.split("\\.")[2];
+        return tempStart + " - " + tempEnd;
     }
     @Override
     public void onDestroy() {
