@@ -53,6 +53,7 @@
                 android:layout_marginTop="6dp"
                 android:background="#000000"
                 android:text="언제 - 언제"
+                android:textAlignment="center"
                 android:textColor="#FFFFFF"
                 >
             </TextView>

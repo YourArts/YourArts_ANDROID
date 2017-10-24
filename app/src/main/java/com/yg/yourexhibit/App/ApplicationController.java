@@ -59,7 +59,9 @@ public class ApplicationController extends Application{
         return token;
     }
 
+
     public static String token;
+
 
     private boolean fromDetail = false;
     private boolean fromEdit = false;
