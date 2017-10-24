@@ -59,7 +59,7 @@ public class ApplicationController extends Application{
         return token;
     }
 
-    public static String token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFrc2d1ciIsIm5pY2tuYW1lIjoiYWtzZ3VyIiwiaWF0IjoxNTA4ODE4MjA2LCJleHAiOjE1MDg4NTQyMDZ9.3M-OatjwwS_3ZvA_e0ktJru9XuPu-3y-kjbpZ3pwSus";
+    public static String token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFrc2d1ciIsIm5pY2tuYW1lIjoiIiwiaWF0IjoxNTA4ODUyNDkwLCJleHAiOjE1MDg4ODg0OTB9.2zQFmWWLx4iTSqe4iWD9JpxDTANuJAjp6TjD_-lVyiw";
 
     private boolean fromDetail = false;
     private boolean fromEdit = false;

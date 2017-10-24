@@ -21,6 +21,8 @@ import com.yg.yourexhibit.Retrofit.RetrofitPost.LoginPost;
 import com.yg.yourexhibit.Retrofit.RetrofitPost.LoginPostResponse;
 import com.yg.yourexhibit.Retrofit.RetrofitPost.SignPost;
 import com.yg.yourexhibit.Retrofit.RetrofitPost.SignPostResponse;
+import com.yg.yourexhibit.Retrofit.RetrofitPost.TabSettingPWPost;
+import com.yg.yourexhibit.Retrofit.RetrofitPost.TabSettingPWResponse;
 import com.yg.yourexhibit.Retrofit.RetrofitPut.CollectionPutBody;
 import com.yg.yourexhibit.Retrofit.RetrofitPut.ExhibitCollectionPutResponse;
 import com.yg.yourexhibit.Retrofit.RetrofitPut.ExhibitHeartPut;
@@ -144,6 +146,10 @@ public interface NetworkService {
     @PUT("users")
     Call<TabSettingNameResponse> putName(@Header("token") String token,
                                           @Body TabSettingNamePut tabSettingNamePut);
+
+    // 비번 수정
+    @POST("users/edit/pw")
+    Call<TabSettingPWResponse> postPW(@Body TabSettingPWPost pwPost);
 
     // 회원 탈퇴
     @DELETE("users")
