@@ -6,6 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.bumptech.glide.RequestManager;
+import com.squareup.picasso.Picasso;
+import com.yg.yourexhibit.App.ApplicationController;
 import com.yg.yourexhibit.R;
 import com.yg.yourexhibit.Retrofit.RetrofitGet.ExhibitCollectionResult;
 
@@ -39,7 +41,12 @@ public class TabCollectionThirdAdapter extends RecyclerView.Adapter<TabCollectio
 
     @Override
     public void onBindViewHolder(TabCollectionThirdViewHolder holder, int position) {
-        requestManager.load(third.get(position).getCollection_image()).into(holder.collectionImage);
+        //requestManager.load(third.get(position).getCollection_image()).into(holder.collectionImage);
+
+        Picasso.with(ApplicationController.getInstance().getApplicationContext())
+                .load(third.get(position).getCollection_image())
+                .resize(120,150)
+                .into(holder.collectionImage);
 
     }
 

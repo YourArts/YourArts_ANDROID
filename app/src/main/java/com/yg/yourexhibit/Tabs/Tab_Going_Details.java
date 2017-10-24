@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
+import com.squareup.picasso.Picasso;
 import com.yg.yourexhibit.Adapter.Home.TabGoingDetailAdapter;
 import com.yg.yourexhibit.App.ApplicationController;
 import com.yg.yourexhibit.R;
@@ -96,13 +97,19 @@ public class Tab_Going_Details extends Fragment{
 
     public void initFragment(){
         requestManager = Glide.with(this);
+
         setLike();
         name.setText(exhibitDetailResult.getExhibition_name());
         time.setText("시간 : " + exhibitDetailResult.getExhibition_start_time() + "~" + exhibitDetailResult.getExhibition_end_time());
         location.setText("장소 : " + exhibitDetailResult.getExhibition_location());
         date.setText("일시 : " + exhibitDetailResult.getExhibition_stard_date() + "~" + exhibitDetailResult.getExhibition_end_date());
         description.setText("소개 : " + exhibitDetailResult.getExhibition_description());
-        requestManager.load(exhibitDetailResult.getExhibition_picture()).into(represent);
+        Picasso.with(ApplicationController.getInstance().getApplicationContext())
+                .load(exhibitDetailResult.getExhibition_picture())
+                .resize(380,220)
+                .into(represent);
+
+        //requestManager.load(exhibitDetailResult.getExhibition_picture()).into(represent);
 
         preViewList.setHasFixedSize(true);
         linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);

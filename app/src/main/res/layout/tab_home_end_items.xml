@@ -16,16 +16,16 @@
             android:layout_width="match_parent"
             android:layout_height="102dp"
             android:id="@+id/end_items_img"
-            android:src="#00ffc4"
+            android:src="#212121"
             />
         <View
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#80ffffff"
+            android:background="#80000000"
             />
         <TextView
             android:id="@+id/end_items_date_txt"
-            android:layout_width="102dp"
+            android:layout_width="wrap_content"
             android:layout_height="17dp"
             android:layout_marginTop="31dp"
             android:layout_marginLeft="15dp"
@@ -34,6 +34,7 @@
             android:textColor="#ffffff"
             android:textSize="15sp"
             android:textStyle="bold"
+            android:background="#000000"
             android:includeFontPadding="false"
             />
         <TextView

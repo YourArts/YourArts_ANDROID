@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.facebook.CallbackManager;
@@ -17,8 +18,14 @@ import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
+import com.squareup.otto.Subscribe;
+import com.yg.yourexhibit.Activity.HomeActivity;
+import com.yg.yourexhibit.App.ApplicationController;
 import com.yg.yourexhibit.R;
 import com.yg.yourexhibit.Util.EventBus;
+import com.yg.yourexhibit.Util.EventCode;
+import com.yg.yourexhibit.Util.NetworkController;
+import com.yg.yourexhibit.Util.SharedPrefrernceController;
 
 import org.json.JSONObject;
 
@@ -36,10 +43,15 @@ public class LoginActivity extends AppCompatActivity {
     @BindView(R.id.editText_pw)
     EditText pw;
 
+    @BindView(R.id.login_auto)
+    ImageView auto;
+
     ImageButton signupbutton;
 
     TextView forgetIDPW;
     private CallbackManager callbackManager;
+    private NetworkController networkController;
+    private boolean autoLogin = false;
 
 
 
@@ -51,7 +63,7 @@ public class LoginActivity extends AppCompatActivity {
 
         EventBus.getInstance().register(this);
         ButterKnife.bind(this);
-
+        networkController = new NetworkController();
         //startActivity(new Intent(this,SplashActivity.class));
 
 
@@ -76,15 +88,43 @@ public class LoginActivity extends AppCompatActivity {
 
             }
         });
+    }
 
 
 
+    @Subscribe
+    public void onEventLoad(Integer code){
+        switch (code){
+            case EventCode.EVENT_CODE_LOGIN:
+                SharedPrefrernceController.setLoginId(this, id.getText().toString());
+                SharedPrefrernceController.setPasswd(this, pw.getText().toString());
+                Intent intent = new Intent(
+                        getApplicationContext(),HomeActivity.class);
+                startActivity(intent);
+                finish();
+                break;
+            case EventCode.EVENET_CODE_LOGIN_FAIL:
+                ApplicationController.getInstance().makeToast("존재하지 않는 정보입니다.");
+                break;
+        }
+    }
 
+    @OnClick(R.id.login_auto)
+    public void checkAuto(){
+        if(!autoLogin){
+            auto.setImageResource(R.drawable.login_auto_check_on);
+            autoLogin = true;
+            SharedPrefrernceController.setSelected(this, autoLogin);
+        }else{
+            auto.setImageResource(R.drawable.login_auto_check_off);
+            autoLogin = false;
+            SharedPrefrernceController.setSelected(this, autoLogin);
+        }
     }
 
     @OnClick(R.id.login_custom)
     public void clickLogin(){
-
+        networkController.login(id.getText().toString(), pw.getText().toString());
     }
 
     @OnClick(R.id.login_facebook)
@@ -134,6 +174,4 @@ public class LoginActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         callbackManager.onActivityResult(requestCode, resultCode, data);
     }
-
-
 }

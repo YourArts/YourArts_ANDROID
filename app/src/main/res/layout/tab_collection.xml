@@ -38,6 +38,8 @@
     </RelativeLayout>
 
 
+
+
     <LinearLayout
         android:layout_below="@+id/tab_collection_title"
         android:layout_width="match_parent"
@@ -45,6 +47,14 @@
         android:background="#212121"
         android:orientation="horizontal">
 
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            >
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/tab_collection_fisrt"
@@ -60,8 +70,9 @@
         android:id="@+id/tab_collection_second"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginLeft="10dp"
         android:layout_weight="1"
-        android:layout_marginLeft="9dp"
+
         >
 
     </android.support.v7.widget.RecyclerView>
@@ -72,10 +83,13 @@
         android:layout_height="match_parent"
         android:layout_marginRight="22dp"
         android:layout_weight="1"
-        android:layout_marginLeft="9dp"
+
         >
 
     </android.support.v7.widget.RecyclerView>
+
+        </LinearLayout>
+        </ScrollView>
     </LinearLayout>
 
     <TextView

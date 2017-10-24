@@ -1,12 +1,8 @@
 package com.yg.yourexhibit.Tabs;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.res.Configuration;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -25,6 +21,7 @@ import com.yg.yourexhibit.Adapter.Collection.TabCollectionThirdAdapter;
 import com.yg.yourexhibit.App.ApplicationController;
 import com.yg.yourexhibit.R;
 import com.yg.yourexhibit.Retrofit.RetrofitGet.ExhibitCollectionResult;
+import com.yg.yourexhibit.Util.CustomLinearLayout;
 import com.yg.yourexhibit.Util.EventBus;
 import com.yg.yourexhibit.Util.EventCode;
 import com.yg.yourexhibit.Util.NetworkController;
@@ -64,9 +61,9 @@ public class Tab_Collection extends Fragment{
     private RequestManager requestManagerSecond;
     private RequestManager requestManagerThird;
 
-    private LinearLayoutManager linearLayoutManagerFirst;
-    private LinearLayoutManager linearLayoutManagerSecond;
-    private LinearLayoutManager linearLayoutManagerThird;
+    private CustomLinearLayout linearLayoutManagerFirst;
+    private CustomLinearLayout linearLayoutManagerSecond;
+    private CustomLinearLayout linearLayoutManagerThird;
 
     private ArrayList<ExhibitCollectionResult> firstResult;
     private ArrayList<ExhibitCollectionResult> secondResult;
@@ -77,9 +74,15 @@ public class Tab_Collection extends Fragment{
         View v = inflater.inflate(R.layout.tab_collection, container, false);
         ButterKnife.bind(this, v);
         EventBus.getInstance().register(this);
+        ApplicationController.getInstance().setInDetail(false);
         networkController = new NetworkController();
+        requestManagerFirst = Glide.with(this);
+        requestManagerSecond = Glide.with(this);
+        requestManagerThird = Glide.with(this);
         Log.v("탭콜1", "탭콜1");
-
+        first.clearOnScrollListeners();
+        second.clearOnScrollListeners();
+        third.clearOnScrollListeners();
         //TODO : 여기에 원래 Shared에 저장한 아이디 들어가야 함
         networkController.getCollectionData(ApplicationController.getInstance().token);
 
@@ -88,15 +91,11 @@ public class Tab_Collection extends Fragment{
         return v;
     }
 
-
-
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        Log.v("탭콜", "탭콜");
+        Log.v("탭콜2", "탭콜2");
     }
-
-
 
     @Subscribe
     public void onEventLoad(Integer code){
@@ -105,10 +104,13 @@ public class Tab_Collection extends Fragment{
                 initFragment();
                 break;
             case EventCode.EVENT_CODE_COLLECTION_DETAIL:
+                //Fragment fragment = Tab_Collection_Detail.newInstance();
+
                 getFragmentManager()
                         .beginTransaction()
                         .addToBackStack(null)
-                        .replace(R.id.tab_collection_container, new Tab_Collection_Detail())
+                        .add(R.id.tab_collection_container, new Tab_Collection())
+                        .replace(R.id.tab_collection_container, new Tab_Collection_Detail(), "detial")
                         .commit();
                 break;
         }
@@ -119,17 +121,15 @@ public class Tab_Collection extends Fragment{
         secondResult = ApplicationController.getInstance().getExhibitCollectionResultSecond();
         thirdResult = ApplicationController.getInstance().getExhibitCollectionResultThird();
 
-        requestManagerFirst = Glide.with(this);
-        requestManagerSecond = Glide.with(this);
-        requestManagerThird = Glide.with(this);
 
-        linearLayoutManagerFirst = new LinearLayoutManager(getActivity());
+
+        linearLayoutManagerFirst = new CustomLinearLayout(getActivity());
         linearLayoutManagerFirst.setOrientation(LinearLayout.VERTICAL);
 
-        linearLayoutManagerSecond = new LinearLayoutManager(getActivity());
+        linearLayoutManagerSecond = new CustomLinearLayout(getActivity());
         linearLayoutManagerSecond.setOrientation(LinearLayout.VERTICAL);
 
-        linearLayoutManagerThird = new LinearLayoutManager(getActivity());
+        linearLayoutManagerThird = new CustomLinearLayout(getActivity());
         linearLayoutManagerThird.setOrientation(LinearLayout.VERTICAL);
         if(!firstResult.isEmpty()){
             first.setNestedScrollingEnabled(false);
@@ -167,6 +167,7 @@ public class Tab_Collection extends Fragment{
     public View.OnClickListener clickEventFirst = new View.OnClickListener() {
         public void onClick(View v) {
             int itemPosition = first.getChildPosition(v);
+            ApplicationController.getInstance().setFromEdit(false);
             ApplicationController.getInstance().makeToast(String.valueOf(itemPosition));
             int idx = firstResult.get(itemPosition).getCollection_idx();
             ApplicationController.getInstance().setCollectionIdx(idx);
@@ -178,6 +179,7 @@ public class Tab_Collection extends Fragment{
     public View.OnClickListener clickEventSecond = new View.OnClickListener() {
         public void onClick(View v) {
             int itemPosition = second.getChildPosition(v);
+            ApplicationController.getInstance().setFromEdit(false);
             ApplicationController.getInstance().makeToast(String.valueOf(itemPosition));
             int idx = secondResult.get(itemPosition).getCollection_idx();
             ApplicationController.getInstance().setCollectionIdx(idx);
@@ -189,6 +191,7 @@ public class Tab_Collection extends Fragment{
     public View.OnClickListener clickEventThird = new View.OnClickListener() {
         public void onClick(View v) {
             int itemPosition = third.getChildPosition(v);
+            ApplicationController.getInstance().setFromEdit(false);
             ApplicationController.getInstance().makeToast(String.valueOf(itemPosition));
             int idx = thirdResult.get(itemPosition).getCollection_idx();
             ApplicationController.getInstance().setCollectionIdx(idx);
@@ -199,82 +202,18 @@ public class Tab_Collection extends Fragment{
     @OnClick(R.id.tab_collection_edit)
     public void toEdit(){
         ApplicationController.getInstance().setFromDetail(false);
-//        getActivity()
-//                .getSupportFragmentManager()
-//                .beginTransaction()
-//                .add(R.id.tab_collection_container, new Tab_Collection(), "base")
-//                .add(R.id.tab_collection_container, new Tab_Collection_Edit(), "edit")
-//                .commit();
-
-//        getFragmentManager()
-//                .beginTransaction()
-//                .add(R.id.tab_collection_container, new Tab_Collection(), "base")
-//                .add(R.id.tab_collection_container, new Tab_Collection_Edit(), "edit")
-//                .commit();
 
         getFragmentManager()
                 .beginTransaction()
                 .addToBackStack(null)
-                .add(R.id.collection_detail_container, new Tab_Collection_Detail(), "base")
-                .replace(R.id.collection_detail_container, new Tab_Collection_Edit(), "edit")
+                .add(R.id.tab_collection_container, new Tab_Collection())
+                .replace(R.id.tab_collection_container, new Tab_Collection_Edit(), "edit")
                 .commit();
-
-//        Fragment fromFrag = null, toFrag = null;
-//        fromFrag = getActivity().getSupportFragmentManager().findFragmentByTag("base");
-//        toFrag = getActivity().getSupportFragmentManager().findFragmentByTag("edit");
-//        final android.support.v4.app.FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-//        ft.detach(fromFrag);
-//        ft.attach(toFrag);
-//        ft.commit();
-
-        //EventBus.getInstance().post(EventCode.EVENT_CODE_COLLECTION_EDIT1);
-    }
-
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        Log.v("탭콜2", "탭콜2");
-
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        Log.v("탭콜3", "탭콜3");
-
-    }
-
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        Log.v("탭콜4", "탭콜4");
-
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        Log.v("탭콜5", "탭콜5");
-
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        Log.v("탭콜6", "탭콜6");
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        Log.v("탭콜7", "탭콜7");
-
-    }
-
-    @Override
-    public void onAttachFragment(Fragment childFragment) {
-        super.onAttachFragment(childFragment);
-        Log.v("탭콜8", "탭콜8");
-
+        //EventBus.getInstance().unregister(this);
     }
 }

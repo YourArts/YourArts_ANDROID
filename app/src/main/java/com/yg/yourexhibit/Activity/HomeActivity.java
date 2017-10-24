@@ -9,10 +9,8 @@ import com.squareup.otto.Subscribe;
 import com.yg.yourexhibit.Adapter.Home.HomeTabAdapter;
 import com.yg.yourexhibit.R;
 import com.yg.yourexhibit.Util.BaseActivity;
-import com.yg.yourexhibit.Util.EventBus;
 import com.yg.yourexhibit.Util.NetworkController;
 import com.yg.yourexhibit.Util.SwipeViewPager;
-import com.yg.yourexhibit.Util.onKeyBackPressedListener;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -29,7 +27,7 @@ public class HomeActivity extends BaseActivity {
 //    TextView totleText;
 
     private NetworkController networkController;
-    private onKeyBackPressedListener mOnKeyBackPressedListener;
+//    private OnKeyBackPressedListener mOnKeyBackPressedListener;
 
     //풀 하고 이 문구가 잘 보이면 됨
     @Override
@@ -38,7 +36,7 @@ public class HomeActivity extends BaseActivity {
         setContentView(R.layout.activity_home);
         //networkController = new NetworkController();
         //getData();
-        EventBus.getInstance().register(this);
+        //EventBus.getInstance().register(this);
         ButterKnife.bind(this);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING);
 
@@ -58,6 +56,7 @@ public class HomeActivity extends BaseActivity {
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
+                viewPager.clearAnimation();
                 viewPager.setCurrentItem(tab.getPosition());
                 switch (tab.getPosition()) {
                     case 0:
@@ -113,20 +112,8 @@ public class HomeActivity extends BaseActivity {
 
     @Override
     public void onDestroy() {
-        EventBus.getInstance().unregister(this);
+        //EventBus.getInstance().unregister(this);
         super.onDestroy();
     }
 
-    public void setOnKeyBackPressedListener(onKeyBackPressedListener listener) {
-        mOnKeyBackPressedListener = listener;
-    }
-
-    @Override
-    public void onBackPressed() {
-        if (mOnKeyBackPressedListener != null) {
-            mOnKeyBackPressedListener.onBack();
-        } else {
-            super.onBackPressed();
-        }
-    }
 }

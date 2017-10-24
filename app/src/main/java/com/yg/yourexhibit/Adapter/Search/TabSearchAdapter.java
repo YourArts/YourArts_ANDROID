@@ -29,6 +29,8 @@ public class TabSearchAdapter extends RecyclerView.Adapter<TabSearchViewHolder>{
     public TabSearchViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.tab_search_items, parent,false);
         TabSearchViewHolder viewHolder = new TabSearchViewHolder(itemView);
+        itemView.setOnClickListener(onItemClick);
+
         return viewHolder;
     }
 
