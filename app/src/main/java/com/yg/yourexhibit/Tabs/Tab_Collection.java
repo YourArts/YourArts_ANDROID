@@ -214,6 +214,6 @@ public class Tab_Collection extends Fragment{
     @Override
     public void onDetach() {
         super.onDetach();
-        //EventBus.getInstance().unregister(this);
+        EventBus.getInstance().unregister(this);
     }
 }

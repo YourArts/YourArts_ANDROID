@@ -2,7 +2,6 @@ package com.yg.yourexhibit.Tabs;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +17,7 @@ import com.yg.yourexhibit.App.ApplicationController;
 import com.yg.yourexhibit.R;
 import com.yg.yourexhibit.Retrofit.RetrofitGet.ExhibitDetailImages;
 import com.yg.yourexhibit.Retrofit.RetrofitGet.ExhibitDetailResult;
+import com.yg.yourexhibit.Util.CustomLinearLayout;
 import com.yg.yourexhibit.Util.EventBus;
 import com.yg.yourexhibit.Util.EventCode;
 import com.yg.yourexhibit.Util.NetworkController;
@@ -41,7 +41,7 @@ public class Tab_Going_Preview extends Fragment{
 
     private ExhibitDetailResult exhibitDetailResult;
     private RequestManager requestManagerFirst, requestManagerSecond;
-    private LinearLayoutManager linearLayoutManagerFirst, linearLayoutManagerSecond;
+    private CustomLinearLayout linearLayoutManagerFirst, linearLayoutManagerSecond;
     private TabGoingPreviewFirstAdapter firstAdapter;
     private TabGoingPreviewSecondAdapter secondAdapter;
     private NetworkController networkController;
@@ -55,7 +55,7 @@ public class Tab_Going_Preview extends Fragment{
         ButterKnife.bind(this, v);
         networkController = new NetworkController();
         EventBus.getInstance().register(this);
-        EventBus.getInstance().post(EventCode.EVENT_CODE_GOING_PREVIEW);
+        //EventBus.getInstance().post(EventCode.EVENT_CODE_GOING_PREVIEW);
         exhibitDetailResult = ApplicationController.getInstance().getExhibitDetailResult();
         firstList = new ArrayList<ExhibitDetailImages>();
         secondList = new ArrayList<ExhibitDetailImages>();
@@ -83,7 +83,7 @@ public class Tab_Going_Preview extends Fragment{
         if(!firstList.isEmpty()) {
             requestManagerFirst = Glide.with(this);
             first.setHasFixedSize(true);
-            linearLayoutManagerFirst = new LinearLayoutManager(getActivity());
+            linearLayoutManagerFirst = new CustomLinearLayout(getActivity());
             linearLayoutManagerFirst.setOrientation(LinearLayout.VERTICAL);
             first.setLayoutManager(linearLayoutManagerFirst);
             firstAdapter = new TabGoingPreviewFirstAdapter(firstList, requestManagerFirst, clickEventFirst);
@@ -93,7 +93,7 @@ public class Tab_Going_Preview extends Fragment{
         if(!secondList.isEmpty()) {
             requestManagerSecond = Glide.with(this);
             second.setHasFixedSize(true);
-            linearLayoutManagerSecond = new LinearLayoutManager(getActivity());
+            linearLayoutManagerSecond = new CustomLinearLayout(getActivity());
             linearLayoutManagerSecond.setOrientation(LinearLayout.VERTICAL);
             second.setLayoutManager(linearLayoutManagerSecond);
             secondAdapter = new TabGoingPreviewSecondAdapter(secondList, requestManagerSecond, clickEventSecond);
@@ -130,5 +130,11 @@ public class Tab_Going_Preview extends Fragment{
                         .commit();
                 break;
         }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        EventBus.getInstance().unregister(this);
     }
 }

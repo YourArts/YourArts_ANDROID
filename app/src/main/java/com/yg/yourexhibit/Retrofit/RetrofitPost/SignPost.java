@@ -13,5 +13,6 @@ public class SignPost {
     String id;
     String pw1;
     String pw2;
+    String email;
     String nickname;
 }

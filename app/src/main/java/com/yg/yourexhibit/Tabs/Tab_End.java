@@ -156,4 +156,10 @@ public class Tab_End extends Fragment{
 //        startActivity(intent);
     }
 
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        EventBus.getInstance().unregister(this);
+    }
+
 }
