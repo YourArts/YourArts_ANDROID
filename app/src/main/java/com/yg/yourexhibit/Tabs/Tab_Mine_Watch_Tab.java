@@ -30,6 +30,7 @@ import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
 /**
  * Created by 김민경 on 2017-10-15.
  */
@@ -40,6 +41,11 @@ public class Tab_Mine_Watch_Tab extends Fragment {
 
     @BindView(R.id.txtWatchCount)
     TextView watchCount;
+
+    @BindView(R.id.tabWatch)
+    LinearLayout tabWatch;
+
+
 
     NetworkService networkService;
     ArrayList<TabMineWatchData> dataList;
@@ -79,14 +85,42 @@ public class Tab_Mine_Watch_Tab extends Fragment {
         tabWatchResultCall.enqueue(new Callback<TabWatchResult>() {
             @Override
             public void onResponse(Call<TabWatchResult> call, Response<TabWatchResult> response) {
-                for (TabMineWatchData data:response.body().result) {
-                    dataList.add(data);
-                    Log.d("myTag",data.exhibition_name);
+                if(response.body().result.size() == 0){
+                    tabWatch.removeAllViewsInLayout();
+                    LinearLayout newLayout = new LinearLayout(getContext());
+//                    LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+//                    lp.gravity = Gravity.CENTER;
+                    TextView tv = new TextView(newLayout.getContext());
+                    tv.setText("아직 본 전시가 없습니다!");
+                    tv.setTextSize(18);
+                    LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                            ViewGroup.LayoutParams.WRAP_CONTENT,
+                            ViewGroup.LayoutParams.WRAP_CONTENT);
+                    lp.setMargins(450,500,0,0);
+                    tv.setLayoutParams(lp);
+
+//                    tv.setGravity(Gravity.CENTER);
+//                    tv.setGravity(View.TEXT_ALIGNMENT_CENTER);
+//                    tv.setLayoutParams(lp);
+                    newLayout.addView(tv);
+                    tabWatch.addView(newLayout);
+                    //마진 속성을 부여합니다. 마진은 addView 이후에 지정해주어야 제대로 적용됩니다.
+//                    ViewGroup.MarginLayoutParams margin =
+//                            new ViewGroup.MarginLayoutParams(tv.getLayoutParams());
+//                    margin.setMargins(0, 30, 0, 0);
+//                    tv.setLayoutParams(new LinearLayout.LayoutParams(margin));
+
+
+                }else{
+                    for (TabMineWatchData data:response.body().result) {
+                        dataList.add(data);
+                        Log.d("myTag",data.exhibition_name);
+                    }
+                    watchCount.setText(String.valueOf(dataList.size()));
+                    watchList.setLayoutManager(linearLayoutManager);
+                    tabWatchAdapter = new TabWatchAdapter(dataList,clickListener,requestManager);
+                    watchList.setAdapter(tabWatchAdapter);
                 }
-                watchCount.setText(String.valueOf(dataList.size()));
-                watchList.setLayoutManager(linearLayoutManager);
-                tabWatchAdapter = new TabWatchAdapter(dataList,clickListener,requestManager);
-                watchList.setAdapter(tabWatchAdapter);
             }
 
             @Override
