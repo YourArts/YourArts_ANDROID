@@ -31,6 +31,7 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by 2yg on 2017. 10. 8..
@@ -54,6 +55,8 @@ public class Tab_Search extends Fragment{
     private LinearLayoutManager linearLayoutManager;
     private NetworkController networkController;
     private ArrayList<ExhibitSearchResponse> searchList;
+    private ArrayList<ExhibitSearchResponse> searchListShowing;
+    private boolean clickList = false;
     private int idx;
 
 
@@ -63,7 +66,6 @@ public class Tab_Search extends Fragment{
         ButterKnife.bind(this, v);
         EventBus.getInstance().register(this);
         networkController = new NetworkController();
-        search.clearComposingText();
         search.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -72,15 +74,17 @@ public class Tab_Search extends Fragment{
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                result.setVisibility(View.VISIBLE);
-                image.setVisibility(View.GONE);
-                text.setVisibility(View.GONE);
-                if(search.getText().length()!=0) {
-                    networkController.getSearchData(search.getText().toString());
-//                }else{
-//                    searchList.clear();
-                }else{
-                }
+
+
+                    if (search.getText().length() != 0) {
+                        result.setVisibility(View.VISIBLE);
+                        image.setVisibility(View.GONE);
+                        text.setVisibility(View.GONE);
+                        networkController.getSearchData(search.getText().toString());
+                    }else{
+                        searchList.clear();
+                    }
+
             }
 
             @Override
@@ -104,6 +108,10 @@ public class Tab_Search extends Fragment{
 
     public View.OnClickListener clickEvent = new View.OnClickListener() {
         public void onClick(View v) {
+            Log.v("택", "택");
+            clickList = true;
+            searchListShowing = new ArrayList<>();
+            searchListShowing.addAll(searchList);
             result.setVisibility(View.GONE);
             image.setVisibility(View.VISIBLE);
             text.setVisibility(View.VISIBLE);
@@ -111,23 +119,28 @@ public class Tab_Search extends Fragment{
 
             int itemPosition = result.getChildPosition(v);
             //idx = searchList.get(itemPosition).getExhibition_idx();
-            text.setText(searchList.get(itemPosition).getExhibition_name());
+            text.setText(searchListShowing.get(itemPosition).getExhibition_name());
 //            Glide.with(ApplicationController.getInstance().getApplicationContext())
 //                    .load(searchList.get(itemPosition).getExhibition_picture()).into(image);
 
             //search.setText(searchList.get(itemPosition).getExhibition_name());
             Glide.with(ApplicationController.getInstance().getApplicationContext())
-                    .load(searchList.get(itemPosition).getExhibition_picture()).into(image);
+                    .load(searchListShowing.get(itemPosition).getExhibition_picture()).into(image);
 
             InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(search.getWindowToken(), 0);
             search.setCursorVisible(false);
-            //search.setText("");
-            //searchList.clear();
+            search.setText("");
 
-            //networkController.getDetailData(0, idx);
         }
     };
+
+    @OnClick(R.id.tab_search_search)
+    public void clickSearch(){
+        search.setCursorVisible(true);
+        text.setVisibility(View.GONE);
+
+    }
 
     @Subscribe
     public void onEventLoad(Integer code){

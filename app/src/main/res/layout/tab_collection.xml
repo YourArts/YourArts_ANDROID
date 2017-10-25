@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/tab_collection_container"
-    android:background="#212121"
+    android:background="#121212"
     android:clickable="true"
     android:tag="base"
     >
@@ -19,7 +19,7 @@
             android:id="@+id/tab_collection_realtitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="20sp"
+            android:textSize="17sp"
             android:textStyle="bold"
             android:includeFontPadding="false"
             android:layout_centerInParent="true"
@@ -44,7 +44,7 @@
         android:layout_below="@+id/tab_collection_title"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#212121"
+        android:background="#121212"
         android:orientation="horizontal">
 
         <ScrollView
@@ -99,7 +99,7 @@
         android:text="콜렉션을 시작하세요!"
         android:layout_centerInParent="true"
         android:textColor="#666666"
-        android:textSize="16sp"
+        android:textSize="13sp"
         android:visibility="gone"
         />
     </RelativeLayout>

@@ -63,10 +63,17 @@ public class ApplicationController extends Application{
 
     public static String token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFrc2d1ciIsIm5pY2tuYW1lIjoiIiwiaWF0IjoxNTA4OTIxNzQ0LCJleHAiOjE1MDg5NTc3NDR9.dad32Gyteqits3t0ZkD8Ff19ewZatIEMtIPVX-S68qM";
 
+    public static String token;
+
+
+
 
     private boolean fromDetail = false;
     private boolean fromEdit = false;
 
+
+
+    private boolean fromWork = false;
 
 
     private boolean inDetail = false;
@@ -235,5 +242,13 @@ public class ApplicationController extends Application{
 
     public void setInDetail(boolean inDetail) {
         this.inDetail = inDetail;
+    }
+
+    public boolean isFromWork() {
+        return fromWork;
+    }
+
+    public void setFromWork(boolean fromWork) {
+        this.fromWork = fromWork;
     }
 }

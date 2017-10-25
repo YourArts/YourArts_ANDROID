@@ -79,9 +79,8 @@ public class Tab_Collection_Detail extends Fragment {
 
             getFragmentManager()
                     .beginTransaction()
-                    .addToBackStack(null)
-                    .add(R.id.collection_detail_container, new Tab_Collection_Detail())
-                    .replace(R.id.collection_detail_container, new Tab_Collection_Edit(), "edit")
+                    .addToBackStack("toEdit")
+                    .replace(R.id.collection_detail_container, new Tab_Collection_Edit())
                     .commit();
 
 

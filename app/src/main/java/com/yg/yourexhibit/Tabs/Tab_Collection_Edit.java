@@ -129,9 +129,18 @@ public class Tab_Collection_Edit extends Fragment{
 
     public void initFragment(){
         detailResult = ApplicationController.getInstance().getExhibitCollectionDetailResult();
-        if(ApplicationController.getInstance().isFromDetail()){
+        if(ApplicationController.getInstance().isFromWork()){
+            text.setVisibility(View.GONE);
+            searchText.setText(detailResult.getExhibition_name());
+            Glide.with(this).load(detailResult.getCollection_image()).into(editImg);
+            context.setText(detailResult.getCollection_content());
+            networkController.getCollectionSearchData(detailResult.getExhibition_name());
+
+        }
+        else if(ApplicationController.getInstance().isFromDetail()){
             //디테일에서 옴
             text.setVisibility(View.GONE);
+            searchText.setText(detailResult.getExhibition_name());
             Glide.with(this).load(detailResult.getCollection_image()).into(editImg);
             context.setText(detailResult.getCollection_content());
         }else{
@@ -143,12 +152,14 @@ public class Tab_Collection_Edit extends Fragment{
     public void saveEdit(){
         ApplicationController.getInstance().setFromEdit(true);
         ApplicationController.getInstance().setEditContent(context.getText().toString());
-        if(ApplicationController.getInstance().isFromDetail()){
+        if(ApplicationController.getInstance().isFromWork()){
+
+        } else if(ApplicationController.getInstance().isFromDetail()){
             //디테일로부터 옴->얜 수정 해야 함
             networkController.putCollection(ApplicationController.getInstance().token, context.getText().toString(),
                     ApplicationController.getInstance().getCollectionIdx());
 
-        }else{
+        } else{
             RequestBody colIdx = RequestBody.create(MediaType.parse("text/pain"), String.valueOf(idx));
             RequestBody name = RequestBody.create(MediaType.parse("text/pain"), searchText.getText().toString());
             RequestBody content = RequestBody.create(MediaType.parse("text/pain"), context.getText().toString());
@@ -237,7 +248,11 @@ public class Tab_Collection_Edit extends Fragment{
     public void onEventLoad(Integer code){
         switch (code){
             case EventCode.EVENT_CODE_COLLECTION_SEARCH:
-                setResultList();
+                if(!ApplicationController.getInstance().isFromWork())
+                    setResultList();
+                else{
+                    idx = ApplicationController.getInstance().getExhibitSearchResult().get(0).getExhibition_idx();
+                }
                 break;
             case EventCode.EVENT_CODE_COLLECTION_POST:
                 returnFrag();
@@ -250,13 +265,18 @@ public class Tab_Collection_Edit extends Fragment{
 
     public void returnFrag(){
         if(ApplicationController.getInstance().isFromDetail()){
+            Fragment fr = null;
+            fr = getActivity().getSupportFragmentManager().findFragmentByTag("toEdit");
             getActivity()
                     .getSupportFragmentManager()
                     .beginTransaction()
                     .disallowAddToBackStack()
-                    .add(R.id.collection_edit_container, new Tab_Collection_Edit())
                     .replace(R.id.collection_edit_container, new Tab_Collection_Detail())
                     .commit();
+
+            getActivity()
+                    .getSupportFragmentManager()
+                    .popBackStack();
 //
             }else{
             //그냥 콜렉션으로부 옴

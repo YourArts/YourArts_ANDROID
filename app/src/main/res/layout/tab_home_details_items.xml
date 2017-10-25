@@ -7,7 +7,7 @@
         android:id="@+id/end_details_item_preview"
         android:layout_width="74dp"
         android:layout_height="54dp"
-        android:src="#212121"
+        android:src="#121212"
         android:layout_marginRight="23dp"
         />
 

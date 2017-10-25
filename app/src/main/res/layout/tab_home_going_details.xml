@@ -19,7 +19,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="20sp"
+                android:textSize="17sp"
                 android:textStyle="bold"
                 android:includeFontPadding="false"
                 android:layout_centerInParent="true"
@@ -33,13 +33,13 @@
         android:id="@+id/going_details_mainframe"
         android:layout_width="match_parent"
         android:layout_height="204dp"
-        android:background="#212121"
+        android:background="#121212"
         >
         <ImageView
             android:id="@+id/going_details_img"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#212121"
+            android:background="#121212"
             />
 
         <TextView
@@ -47,7 +47,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textStyle="bold"
-            android:textSize="15sp"
+            android:textSize="12sp"
             android:textColor="#ffffff"
             android:layout_marginTop="164dp"
             android:layout_marginLeft="28dp"
@@ -143,6 +143,8 @@
         android:layout_below="@+id/going_details_fill_balnk"
         >
 
+
+
         <ScrollView
             android:layout_above="@+id/going_details_listframe"
             android:layout_width="match_parent"
@@ -152,8 +154,8 @@
             >
 
             <LinearLayout
-                android:layout_width="305dp"
-                android:layout_height="151dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_centerHorizontal="true"
                 android:orientation="vertical"
                 >
@@ -168,9 +170,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="adsasasasasasasa"
-                        android:textSize="16sp"
+                        android:textSize="12sp"
                         android:textColor="#000000"
-
+                        android:lineSpacingExtra="2dp"
                         android:includeFontPadding="false"
                         />
                 </LinearLayout>
@@ -186,7 +188,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="adsasasasasasasa"
-                        android:textSize="16sp"
+                        android:textSize="12sp"
                         android:textColor="#000000"
                         android:includeFontPadding="false"
                         />
@@ -203,9 +205,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="adsasasasasasasa"
-                        android:textSize="16sp"
+                        android:textSize="12sp"
                         android:textColor="#000000"
                         android:includeFontPadding="false"
+                        android:lineSpacingExtra="4dp"
                         />
                 </LinearLayout>
 
@@ -221,11 +224,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="adsasasasasasasa"
-                        android:textSize="16sp"
+                        android:textSize="12sp"
                         android:textColor="#000000"
+                        android:lineSpacingMultiplier="1"
+                        android:lineSpacingExtra="4dp"
                         android:includeFontPadding="false"
                         />
                 </LinearLayout>
+
 
             </LinearLayout>
         </ScrollView>
