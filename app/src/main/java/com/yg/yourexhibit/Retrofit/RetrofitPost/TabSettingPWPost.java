@@ -9,4 +9,11 @@ public class TabSettingPWPost {
     String email;
     String pw1;
     String pw2;
+
+    public TabSettingPWPost(String id, String email, String pw1, String pw2) {
+        this.id = id;
+        this.email = email;
+        this.pw1 = pw1;
+        this.pw2 = pw2;
+    }
 }

@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.yg.yourexhibit.App.ApplicationController;
 import com.yg.yourexhibit.R;
@@ -20,6 +21,7 @@ import com.yg.yourexhibit.Retrofit.RetrofitPost.TabSettingPWPost;
 import com.yg.yourexhibit.Retrofit.RetrofitPost.TabSettingPWResponse;
 import com.yg.yourexhibit.Retrofit.RetrofitPut.TabSettingNamePut;
 import com.yg.yourexhibit.Retrofit.RetrofitPut.TabSettingNameResponse;
+import com.yg.yourexhibit.Util.SharedPrefrernceController;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -53,6 +55,10 @@ public class Tab_Setting extends Fragment {
 
     NetworkService networkService;
     String nickname;
+    String userID;
+    String userEmail;
+    String userPW1;
+    String userPW2;
 
     @Nullable
     @Override
@@ -63,6 +69,11 @@ public class Tab_Setting extends Fragment {
 
         networkService = ApplicationController.getInstance().getNetworkService();
         nickname = newName.getText().toString();
+
+        userID = SharedPrefrernceController.getLoginId(this.getContext());
+        userEmail = SharedPrefrernceController.getUserEmail(this.getContext());
+        userPW1 = newPW.getText().toString();
+        userPW2 = checkPW.getText().toString();
 
         settingName.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,7 +119,24 @@ public class Tab_Setting extends Fragment {
             @Override
             public void onClick(View view) {
                 if(settingCheckPW.getCurrentTextColor() == Color.parseColor("#00FFC4")){
-                    Call<TabSettingPWResponse> settingPWResponseCall = networkService.postPW(new TabSettingPWPost())
+                    Call<TabSettingPWResponse> settingPWResponseCall = networkService.postPW(new TabSettingPWPost(userID,userEmail,userPW1,userPW2));
+                    settingPWResponseCall.enqueue(new Callback<TabSettingPWResponse>() {
+                        @Override
+                        public void onResponse(Call<TabSettingPWResponse> call, Response<TabSettingPWResponse> response) {
+                            Log.d("changePW",response.body().message);
+                            if(response.isSuccessful()){
+                                settingPW.setTextColor(Color.parseColor("#00FFC4"));
+                                settingPW.setText("완료");
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<TabSettingPWResponse> call, Throwable t) {
+
+                        }
+                    });
+                }else{
+                    Toast.makeText(getContext(),"비밀번호 확인이 일치하지 않습니다.",Toast.LENGTH_SHORT).show();
                 }
             }
         });
