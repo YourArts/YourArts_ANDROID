@@ -108,7 +108,7 @@ public class Tab_Setting extends Fragment {
             @Override
             public void onClick(View view) {
                 if(settingCheckPW.getCurrentTextColor() == Color.parseColor("#00FFC4")){
-                    Call<TabSettingPWResponse> settingPWResponseCall = networkService.postPW(new TabSettingPWPost())
+                    Call<TabSettingPWResponse> settingPWResponseCall = networkService.postPW(new TabSettingPWPost());
                 }
             }
         });

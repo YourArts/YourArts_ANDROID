@@ -2,7 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#212121"
+    android:background="#121212"
     android:clickable="true"
     android:id="@+id/tab_preview_container"
     >
@@ -20,7 +20,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="20sp"
+                android:textSize="17sp"
                 android:textStyle="bold"
                 android:includeFontPadding="false"
                 android:layout_centerInParent="true"
