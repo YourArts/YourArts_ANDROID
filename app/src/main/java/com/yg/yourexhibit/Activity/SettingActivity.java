@@ -1,9 +1,7 @@
 package com.yg.yourexhibit.Activity;
 
-import android.Manifest;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -39,7 +37,10 @@ public class SettingActivity extends AppCompatActivity {
     EditText checkPW;
 
     @BindView(R.id.txtCheckPW)
-    TextView settingPW;
+    TextView settingCheckPW;
+
+    @BindView(R.id.txtSettingPW)
+    EditText settingPW;
 
     NetworkService networkService;
     String nickname;
@@ -81,9 +82,9 @@ public class SettingActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 if(newPW.getText().toString().equals(checkPW.getText().toString())){
-                    settingPW.setTextColor(Color.parseColor("#00FFC4"));
+                    settingCheckPW.setTextColor(Color.parseColor("#00FFC4"));
                 }else{
-                    settingPW.setTextColor(Color.parseColor("#666666"));
+                    settingCheckPW.setTextColor(Color.parseColor("#666666"));
                 }
             }
 
@@ -92,7 +93,14 @@ public class SettingActivity extends AppCompatActivity {
 
             }
         });
-        int permissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE);
+
+        settingPW.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+//        int permissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE);
 
     }
 }
