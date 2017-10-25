@@ -115,7 +115,7 @@ public class Tab_End extends Fragment{
     public String endPeriod(String start, String end){
         String tempStart = start.split("\\.")[1] + "/" + start.split("\\.")[2];
         String tempEnd = end.split("\\.")[1] + "/" + start.split("\\.")[2];
-        return tempStart + " - " + tempEnd;
+        return " " + tempStart + " - " + tempEnd +" ";
     }
 
     @Override

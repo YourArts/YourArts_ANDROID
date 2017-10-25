@@ -44,7 +44,7 @@ public class TabGoingAdapter extends RecyclerView.Adapter<TabGoingViewHolder> {
         //requestManager.load(goingResult.get(position).getExhibitImage()).into(holder.goingItemImage);
         Picasso.with(ApplicationController.getInstance().getApplicationContext())
                 .load(goingResult.get(position).getExhibitImage())
-                .resize(360, 500)
+                .resize(420, 520)
                 .into(holder.goingItemImage);
         holder.goingItemPerioid.setText(goingResult.get(position).getExhibitPeriod());
         holder.goingItemName.setText(goingResult.get(position).getExhibitName());
@@ -55,5 +55,4 @@ public class TabGoingAdapter extends RecyclerView.Adapter<TabGoingViewHolder> {
         return (goingResult != null) ? goingResult.size():0;
 
     }
-
 }

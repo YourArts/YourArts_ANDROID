@@ -13,6 +13,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
 import com.yg.yourexhibit.App.ApplicationController;
 import com.yg.yourexhibit.R;
+import com.yg.yourexhibit.Retrofit.RetrofitGet.ExhibitCollectionDetailResult;
 import com.yg.yourexhibit.Retrofit.RetrofitGet.ExhibitWorkResult;
 import com.yg.yourexhibit.Util.EventBus;
 
@@ -60,6 +61,7 @@ public class Tab_Work extends Fragment{
         View v = inflater.inflate(R.layout.tab_work, container, false);
         ButterKnife.bind(this, v);
         EventBus.getInstance().register(this);
+        moveToCollection.setImageResource(R.drawable.move_to_collection_off);
         //EventBus.getInstance().post(EventCode.EVENT_CODE_GOING_PREVIEW);
         workResult = ApplicationController.getInstance().getExhibitWorkResult();
 
@@ -81,12 +83,32 @@ public class Tab_Work extends Fragment{
     @OnClick(R.id.tab_work_move)
     public void toCollection(){
         moveToCollection.setImageResource(R.drawable.move_to_collection_on);
+        ApplicationController.getInstance().setFromWork(true);
 
+        int collection_idx;
+        int user_idx;
+        String exhibition_name;
+        String collection_content;
+        String collection_image;
+        ApplicationController.getInstance().setExhibitCollectionDetailResult(new ExhibitCollectionDetailResult(
+                0,
+                0,
+                workResult.get(0).getWork_name(),
+                "",
+                workResult.get(0).getWork_image()
+        ));
+        getFragmentManager()
+                .beginTransaction()
+                .addToBackStack(null)
+                .add(R.id.tab_work_container, new Tab_Work())
+                .replace(R.id.tab_work_container, new Tab_Collection_Edit())
+                .commit();
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
         EventBus.getInstance().unregister(this);
+        moveToCollection.setImageResource(R.drawable.move_to_collection_off);
     }
 }

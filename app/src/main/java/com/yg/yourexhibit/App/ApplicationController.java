@@ -66,6 +66,9 @@ public class ApplicationController extends Application{
 
 
 
+    private boolean fromWork = false;
+
+
     private boolean inDetail = false;
 
     private String editContent = "";
@@ -232,5 +235,13 @@ public class ApplicationController extends Application{
 
     public void setInDetail(boolean inDetail) {
         this.inDetail = inDetail;
+    }
+
+    public boolean isFromWork() {
+        return fromWork;
+    }
+
+    public void setFromWork(boolean fromWork) {
+        this.fromWork = fromWork;
     }
 }

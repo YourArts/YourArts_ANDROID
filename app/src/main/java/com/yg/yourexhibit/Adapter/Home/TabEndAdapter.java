@@ -44,7 +44,7 @@ public class TabEndAdapter extends RecyclerView.Adapter<TabEndViewHolder>{
             //requestManager.load(endResult.get(position).getExhibitImage()).into(holder.endItemImage);
         Picasso.with(ApplicationController.getInstance().getApplicationContext())
                 .load(endResult.get(position).getExhibitImage())
-                .resize(360, 120)
+                .resize(400, 300)
                 .into(holder.endItemImage);
 
 
