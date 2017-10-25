@@ -61,10 +61,7 @@ public class ApplicationController extends Application{
 
 
 
-    public static String token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFrc2d1ciIsIm5pY2tuYW1lIjoiIiwiaWF0IjoxNTA4OTIxNzQ0LCJleHAiOjE1MDg5NTc3NDR9.dad32Gyteqits3t0ZkD8Ff19ewZatIEMtIPVX-S68qM";
-
-    public static String token;
-
+    public static String token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFrc2d1ciIsIm5pY2tuYW1lIjoiIiwiaWF0IjoxNTA4OTQ3OTI3LCJleHAiOjE1MDg5ODM5Mjd9.FVSwcZtE2BHQH59oCFs_as-E_tBxPEq--UplCjoZ294";
 
 
 

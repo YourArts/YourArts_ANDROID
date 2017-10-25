@@ -137,7 +137,6 @@ public class Tab_Setting extends Fragment {
                     });
                 }else{
                     Toast.makeText(getContext(),"비밀번호 확인이 일치하지 않습니다.",Toast.LENGTH_SHORT).show();
-                    Call<TabSettingPWResponse> settingPWResponseCall = networkService.postPW(new TabSettingPWPost());
                 }
             }
         });
