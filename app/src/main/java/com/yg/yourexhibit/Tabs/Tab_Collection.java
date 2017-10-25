@@ -108,9 +108,9 @@ public class Tab_Collection extends Fragment{
 
                 getFragmentManager()
                         .beginTransaction()
-                        .addToBackStack(null)
+                        .addToBackStack("toDetail")
                         .add(R.id.tab_collection_container, new Tab_Collection())
-                        .replace(R.id.tab_collection_container, new Tab_Collection_Detail(), "detial")
+                        .replace(R.id.tab_collection_container, new Tab_Collection_Detail())
                         .commit();
                 break;
         }

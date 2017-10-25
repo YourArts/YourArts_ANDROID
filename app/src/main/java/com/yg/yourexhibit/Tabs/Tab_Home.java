@@ -8,7 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.squareup.otto.Subscribe;
@@ -37,7 +37,7 @@ public class Tab_Home extends Fragment {
     ViewPager viewPager;
 
     @BindView(R.id.tab_home_frame)
-    LinearLayout frame;
+    RelativeLayout frame;
 
     @BindView(R.id.tab_home_title)
     TextView title;
@@ -59,7 +59,9 @@ public class Tab_Home extends Fragment {
 
         tabLayout.addTab(tabLayout.newTab().setCustomView(getActivity().getLayoutInflater().inflate(R.layout.view_on_exhibit,null)));
         tabLayout.addTab(tabLayout.newTab().setCustomView(getActivity().getLayoutInflater().inflate(R.layout.view_coming_exhibit,null)));
-        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+        tabLayout.setTabGravity(TabLayout.GRAVITY_CENTER);
+
+       // tabLayout.getChildAt(0).findViewById(R.)
 
         HomeExhibitTabAdapter pagerAdapter = new HomeExhibitTabAdapter(getActivity().getSupportFragmentManager(),tabLayout.getTabCount());
         viewPager.setAdapter(pagerAdapter);
@@ -148,11 +150,9 @@ public class Tab_Home extends Fragment {
                 .commit();
     }
 
-
-
     @Override
-    public void onDestroy() {
+    public void onDetach() {
+        super.onDetach();
         EventBus.getInstance().unregister(this);
-        super.onDestroy();
     }
 }

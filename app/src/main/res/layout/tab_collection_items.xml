@@ -7,13 +7,13 @@
         android:id="@+id/tab_collection_items"
         android:layout_width="match_parent"
         android:layout_height="131dp"
-        android:src="#212121"
+        android:src="#121212"
         />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#212121"
+        android:background="#121212"
         />
 
 
