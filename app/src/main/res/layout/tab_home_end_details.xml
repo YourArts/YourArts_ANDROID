@@ -28,13 +28,13 @@
         android:id="@+id/end_details_mainframe"
         android:layout_width="match_parent"
         android:layout_height="204dp"
-        android:background="#212121"
+        android:background="#0d0d0d"
         >
         <ImageView
             android:id="@+id/end_details_img"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#212121"
+            android:background="#0d0d0d"
             />
 
         <TextView

@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/tab_collection_container"
-    android:background="#121212"
+    android:background="#0d0d0d"
     android:clickable="true"
     android:tag="base"
     >
@@ -44,7 +44,8 @@
         android:layout_below="@+id/tab_collection_title"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#121212"
+        android:background="#0d0d0d"
+        android:layout_marginTop="14dp"
         android:orientation="horizontal">
 
         <ScrollView
