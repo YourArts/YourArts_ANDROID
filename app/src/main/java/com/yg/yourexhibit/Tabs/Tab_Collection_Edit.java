@@ -23,6 +23,7 @@ import com.bumptech.glide.Glide;
 import com.squareup.otto.Subscribe;
 import com.yg.yourexhibit.Adapter.Collection.TabCollectionEditAdapter;
 import com.yg.yourexhibit.App.ApplicationController;
+import com.yg.yourexhibit.Dialog.GalleryDialog;
 import com.yg.yourexhibit.R;
 import com.yg.yourexhibit.Retrofit.RetrofitGet.ExhibitCollectionDetailResult;
 import com.yg.yourexhibit.Retrofit.RetrofitGet.ExhibitSearchResponse;
@@ -75,6 +76,15 @@ public class Tab_Collection_Edit extends Fragment{
 
     @BindView(R.id.collection_edit_search_text)
     TextView searchText;
+
+    @BindView(R.id.collection_edit_container_frame)
+    LinearLayout containerFrame;
+
+    @BindView(R.id.collection_edit_icon)
+    ImageView icon;
+
+    private GalleryDialog galleryDialog;
+
 
     private ExhibitCollectionDetailResult detailResult;
     final int REQ_CODE_SELECT_IMAGE = 100;
@@ -176,6 +186,8 @@ public class Tab_Collection_Edit extends Fragment{
 
     @OnClick(R.id.collection_edit_pic)
     public void changeImage(){
+        //if(SharedPrefrernceController.get)
+        //해당 변수 만들면 그때 여기로
         Intent intent = new Intent(Intent.ACTION_PICK);
         intent.setType(android.provider.MediaStore.Images.Media.CONTENT_TYPE);
         intent.setData(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -312,5 +324,41 @@ public class Tab_Collection_Edit extends Fragment{
     public void onDetach() {
         super.onDetach();
         EventBus.getInstance().unregister(this);
+    }
+
+    private View.OnClickListener leftListener = new View.OnClickListener() {
+        public void onClick(View v) {
+            //Toast.makeText(getApplicationContext(), "취소 클릭",
+            //Toast.LENGTH_SHORT).show();
+            galleryDialog.dismiss();
+
+        }
+    };
+
+    private View.OnClickListener rightListener = new View.OnClickListener() {
+        public void onClick(View v) {
+            galleryDialog.dismiss();
+            changeImage();
+        }
+    };
+
+    @OnClick(R.id.collection_edit_container_frame)
+    public void onClickFrame(){
+        searchText.setText(search.getText().toString());
+        search.setText("");
+        search.clearFocus();
+        frame.setVisibility(View.VISIBLE);
+        frame2.setVisibility(View.VISIBLE);
+        result.setVisibility(View.GONE);
+    }
+
+    @OnClick(R.id.collection_edit_icon)
+    public void onClickIcon(){
+        searchText.setText(search.getText().toString());
+        search.setText("");
+        search.clearFocus();
+        frame.setVisibility(View.VISIBLE);
+        frame2.setVisibility(View.VISIBLE);
+        result.setVisibility(View.GONE);
     }
 }

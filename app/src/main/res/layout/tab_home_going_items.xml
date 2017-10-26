@@ -14,7 +14,7 @@
             android:id="@+id/going_items_img"
             android:layout_width="match_parent"
             android:layout_height="416dp"
-            android:background="#121212"/>
+            android:background="#0d0d0d"/>
 
         <TextView
             android:id="@+id/going_items_perioid"
