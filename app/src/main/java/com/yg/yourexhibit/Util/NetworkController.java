@@ -463,7 +463,7 @@ public class NetworkController {
         });
     }
 
-    public void sign(final String id, final String pw1, String pw2, final String email, String nickname){
+    public void sign(final String id, final String pw1, String pw2, final String email, final String nickname){
         Call<SignPostResponse> postSignResponse = networkService.postSign(new SignPost(id, pw1, pw2, email, nickname));
         postSignResponse.enqueue(new Callback<SignPostResponse>() {
             @Override
@@ -477,6 +477,8 @@ public class NetworkController {
                     SharedPrefrernceController.setPasswd(ApplicationController.getInstance().getApplicationContext(), pw1);
 
                     SharedPrefrernceController.setUserEmail(ApplicationController.getInstance().getApplicationContext(), email);
+
+                    SharedPrefrernceController.setUserNickname(ApplicationController.getInstance().getApplicationContext(), nickname);
 
                     EventBus.getInstance().post(EventCode.EVENT_CODE_SIGN);
                 }else{

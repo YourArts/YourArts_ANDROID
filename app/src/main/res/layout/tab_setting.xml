@@ -56,6 +56,8 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="38dp"
             android:hint="입력"
+            android:lines = "1"
+            android:textCursorDrawable="@null"
             android:background="@android:color/transparent"
             android:textColor="#666666"
             android:textSize="16sp"
@@ -65,7 +67,8 @@
             android:id="@+id/txtSettingName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="145dp"
+            android:layout_marginLeft="115dp"
+            android:layout_alignParentRight="true"
             android:text="수정"
             android:textColor="#666666"
             android:textSize="16sp"
@@ -76,6 +79,7 @@
         android:layout_width="296dp"
         android:layout_height="1dp"
         android:background="#95989A"
+        android:layout_marginTop="9dp"
         android:layout_marginBottom="22dp"
         android:layout_marginLeft="33dp"/>
     <LinearLayout
@@ -94,10 +98,13 @@
         <EditText
             android:id="@+id/editSettingPW"
             android:layout_marginLeft="38dp"
-            android:layout_width="wrap_content"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:hint="입력"
+            android:lines = "1"
+            android:textCursorDrawable="@null"
             android:background="@android:color/transparent"
+            android:inputType="textPassword"
             android:textStyle="bold"
             android:textSize="16sp"
             android:textColor="#666666"/>
@@ -106,7 +113,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="수정"
-            android:layout_marginLeft="140dp"
+            android:layout_marginLeft="15dp"
             android:textStyle="bold"
             android:textSize="16sp"
             android:textColor="#666666"/>
@@ -115,6 +122,7 @@
         android:layout_width="296dp"
         android:layout_height="1dp"
         android:background="#95989A"
+        android:layout_marginTop="9dp"
         android:layout_marginBottom="22dp"
         android:layout_marginLeft="33dp"/>
     <LinearLayout
@@ -133,9 +141,12 @@
         <EditText
             android:id="@+id/editSettingCheckPW"
             android:layout_marginLeft="38dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="150dp"
+            android:layout_height="20dp"
             android:hint="입력"
+            android:lines = "1"
+            android:textCursorDrawable="@null"
+            android:inputType="textPassword"
             android:background="@android:color/transparent"
             android:textStyle="bold"
             android:textSize="16sp"
@@ -145,7 +156,7 @@
             android:id="@+id/txtCheckPW"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="130dp"
+            android:layout_marginLeft="1dp"
             android:text="correct!"
             android:textColor="#666666"
             android:textSize="16sp" />
@@ -154,6 +165,7 @@
         android:layout_width="296dp"
         android:layout_height="1dp"
         android:background="#95989A"
+        android:layout_marginTop="9dp"
         android:layout_marginBottom="22dp"
         android:layout_marginLeft="33dp"/>
 
@@ -186,6 +198,7 @@
         android:layout_width="296dp"
         android:layout_height="1dp"
         android:background="#95989A"
+        android:layout_marginTop="9dp"
         android:layout_marginBottom="22dp"
         android:layout_marginLeft="33dp"/>
 
@@ -217,6 +230,7 @@
         android:layout_width="296dp"
         android:layout_height="1dp"
         android:background="#95989A"
+        android:layout_marginTop="9dp"
         android:layout_marginBottom="22dp"
         android:layout_marginLeft="33dp"/>
 
