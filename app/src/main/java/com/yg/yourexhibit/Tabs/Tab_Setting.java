@@ -105,19 +105,23 @@ public class Tab_Setting extends Fragment {
         settingName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Call<TabSettingNameResponse> tabSettingNameResponseCall = networkService.putName(ApplicationController.getToken(),new TabSettingNamePut(nickname));
-                tabSettingNameResponseCall.enqueue(new Callback<TabSettingNameResponse>() {
-                    @Override
-                    public void onResponse(Call<TabSettingNameResponse> call, Response<TabSettingNameResponse> response) {
-                        settingName.setTextColor(Color.parseColor("#00FFC4"));
-                        settingName.setText("완료");
-                        Log.d("nickCheck",response.body().message);
-                    }
+                if(newName.getText().length()==0) Toast.makeText(getContext(),"닉네임을 입력해주세요.",Toast.LENGTH_LONG).show();
+                else{
+                    Call<TabSettingNameResponse> tabSettingNameResponseCall = networkService.putName(ApplicationController.getToken(),new TabSettingNamePut(nickname));
+                    tabSettingNameResponseCall.enqueue(new Callback<TabSettingNameResponse>() {
+                        @Override
+                        public void onResponse(Call<TabSettingNameResponse> call, Response<TabSettingNameResponse> response) {
+                            settingName.setTextColor(Color.parseColor("#00FFC4"));
+                            settingName.setText("완료");
+                            SharedPrefrernceController.setUserNickname(getContext(),nickname);
+                            Log.d("nickCheck",response.body().message);
+                        }
 
-                    @Override
-                    public void onFailure(Call<TabSettingNameResponse> call, Throwable t) {
-                    }
-                });
+                        @Override
+                        public void onFailure(Call<TabSettingNameResponse> call, Throwable t) {
+                        }
+                    });
+                }
             }
         });
 
@@ -154,6 +158,7 @@ public class Tab_Setting extends Fragment {
                             if(response.isSuccessful()){
                                 settingPW.setTextColor(Color.parseColor("#00FFC4"));
                                 settingPW.setText("완료");
+                                SharedPrefrernceController.setPasswd(getContext(),userPW1);
                             }
                         }
 
@@ -163,7 +168,8 @@ public class Tab_Setting extends Fragment {
                         }
                     });
                 }else{
-                    Toast.makeText(getContext(),"비밀번호 확인이 일치하지 않습니다.",Toast.LENGTH_SHORT).show();
+                    if(newPW.getText().length()==0) Toast.makeText(getContext(),"비밀번호를 입력해주세요.",Toast.LENGTH_LONG).show();
+                    else Toast.makeText(getContext(),"비밀번호 확인이 일치하지 않습니다.",Toast.LENGTH_LONG).show();
                 }
             }
         });
