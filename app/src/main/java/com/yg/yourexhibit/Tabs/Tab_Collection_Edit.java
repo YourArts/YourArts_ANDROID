@@ -10,6 +10,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +28,7 @@ import com.yg.yourexhibit.Dialog.GalleryDialog;
 import com.yg.yourexhibit.R;
 import com.yg.yourexhibit.Retrofit.RetrofitGet.ExhibitCollectionDetailResult;
 import com.yg.yourexhibit.Retrofit.RetrofitGet.ExhibitSearchResponse;
+import com.yg.yourexhibit.Retrofit.RetrofitGet.ExhibitWorkResult;
 import com.yg.yourexhibit.Util.EventBus;
 import com.yg.yourexhibit.Util.EventCode;
 import com.yg.yourexhibit.Util.NetworkController;
@@ -88,6 +90,8 @@ public class Tab_Collection_Edit extends Fragment{
 
 
     private ExhibitCollectionDetailResult detailResult;
+    private ArrayList<ExhibitWorkResult> workResult;
+
     final int REQ_CODE_SELECT_IMAGE = 100;
     private Uri data;
     private MultipartBody.Part profile_pic;
@@ -140,12 +144,37 @@ public class Tab_Collection_Edit extends Fragment{
 
     public void initFragment(){
         detailResult = ApplicationController.getInstance().getExhibitCollectionDetailResult();
+        workResult = ApplicationController.getInstance().getExhibitWorkResult();
+
         if(ApplicationController.getInstance().isFromWork()){
             text.setVisibility(View.GONE);
-            searchText.setText(detailResult.getExhibition_name());
-            Glide.with(this).load(detailResult.getCollection_image()).into(editImg);
-            context.setText(detailResult.getCollection_content());
-            networkController.getCollectionSearchData(detailResult.getExhibition_name());
+            searchText.setText(workResult.get(0).getWork_name());
+            Glide.with(this).load(workResult.get(0).getWork_image()).into(editImg);
+            idx = workResult.get(0).getWork_idx();
+
+            Uri uri = Uri.parse(workResult.get(0).getWork_image());
+
+            BitmapFactory.Options options = new BitmapFactory.Options();
+//            Glide.with(this).
+            InputStream in = null; // here, you need to get your context.
+            try {
+                in = getActivity().getContentResolver().openInputStream(uri);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+
+            Bitmap bitmap = BitmapFactory.decodeStream(in, null, options); // InputStream 으로부터 Bitmap 을 만들어 준다.
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 20, baos);
+            RequestBody photoBody = RequestBody.create(MediaType.parse("image/jpg"), baos.toByteArray());
+            File photo = new File(uri.toString()); // 가져온 파일의 이름을 알아내려고 사용합니다
+
+            ///RequestBody photoBody = RequestBody.create(MediaType.parse("image/jpg"), baos.toByteArray());
+            // MultipartBody.Part 실제 파일의 이름을 보내기 위해 사용!!
+            profile_pic = MultipartBody.Part.createFormData("collection_image", photo.getName(), photoBody);
+
+
+
 
         }
         else if(ApplicationController.getInstance().isFromDetail()){
@@ -153,9 +182,10 @@ public class Tab_Collection_Edit extends Fragment{
             text.setVisibility(View.GONE);
             searchText.setText(detailResult.getExhibition_name());
             Glide.with(this).load(detailResult.getCollection_image()).into(editImg);
+            Log.v("이미지",detailResult.getCollection_image());
             context.setText(detailResult.getCollection_content());
         }else{
-            //콜렉션 메인에서 홈
+            //콜렉션 메인에서 옴
         }
     }
 
@@ -164,7 +194,13 @@ public class Tab_Collection_Edit extends Fragment{
         ApplicationController.getInstance().setFromEdit(true);
         ApplicationController.getInstance().setEditContent(context.getText().toString());
         if(ApplicationController.getInstance().isFromWork()){
+            RequestBody colIdx = RequestBody.create(MediaType.parse("text/pain"), String.valueOf(idx));
+            RequestBody name = RequestBody.create(MediaType.parse("text/pain"), searchText.getText().toString());
+            RequestBody content = RequestBody.create(MediaType.parse("text/pain"), context.getText().toString());
 
+
+
+            networkController.postCollection(ApplicationController.getInstance().token, colIdx, content, profile_pic);
         } else if(ApplicationController.getInstance().isFromDetail()){
             //디테일로부터 옴->얜 수정 해야 함
             networkController.putCollection(ApplicationController.getInstance().token, context.getText().toString(),
@@ -208,7 +244,9 @@ public class Tab_Collection_Edit extends Fragment{
         if (requestCode == REQ_CODE_SELECT_IMAGE) {
             if (resultCode == getActivity().RESULT_OK) {
                 try {
+                    //if(ApplicationController.getInstance().is)
                     this.data = data.getData();
+                   Log.v("이미지", this.data.toString());
 
                     BitmapFactory.Options options = new BitmapFactory.Options();
 
@@ -268,11 +306,7 @@ public class Tab_Collection_Edit extends Fragment{
     public void onEventLoad(Integer code){
         switch (code){
             case EventCode.EVENT_CODE_COLLECTION_SEARCH:
-                if(!ApplicationController.getInstance().isFromWork())
-                    setResultList();
-                else{
-                    idx = ApplicationController.getInstance().getExhibitSearchResult().get(0).getExhibition_idx();
-                }
+                setResultList();
                 break;
             case EventCode.EVENT_CODE_COLLECTION_POST:
                 returnFrag();

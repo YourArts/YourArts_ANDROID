@@ -80,7 +80,12 @@ public class Tab_Coming_Details extends Fragment{
         time.setText("시간 : " + exhibitDetailResult.getExhibition_start_time() + "~" + exhibitDetailResult.getExhibition_end_time());
         location.setText("장소 : " + exhibitDetailResult.getExhibition_location());
         date.setText("일시 : " + exhibitDetailResult.getExhibition_stard_date() + "~" + exhibitDetailResult.getExhibition_end_date());
-        description.setText("소개 : " + exhibitDetailResult.getExhibition_description());
+        String tempString = exhibitDetailResult.getExhibition_description();
+        String tempString2 = "소개 : " + tempString.replace(" ", "\u00a0");
+        //Log.v("문자", tempString);
+        //Log.v("문자2", tempString.replace(" ", "\u00a0"));
+
+        description.setText(tempString2);
         requestManager.load(exhibitDetailResult.getExhibition_picture()).into(represent);
 
         preViewList.setHasFixedSize(true);
