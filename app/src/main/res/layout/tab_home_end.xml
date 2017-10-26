@@ -6,14 +6,23 @@
     android:id="@+id/tab_end_fragment"
     >
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/tab_end_list"
+    <ScrollView
+        android:id="@+id/tab_end_scroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_marginLeft="21dp"
-        android:layout_marginRight="21dp"
+        android:layout_marginRight="21dp">
+
+
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_marginTop="30dp"
+        android:id="@+id/tab_end_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
     </android.support.v7.widget.RecyclerView>
 
+    </ScrollView>
 
 </LinearLayout>

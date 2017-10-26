@@ -68,5 +68,5 @@ dependencies {
     compile 'com.facebook.android:facebook-android-sdk:4.0.0'
     compile 'com.android.support:multidex:1.0.0'
     compile 'com.squareup.picasso:picasso:2.3.3'
-
+    compile 'jp.wasabeef:glide-transformations:2.0.0'
 }
