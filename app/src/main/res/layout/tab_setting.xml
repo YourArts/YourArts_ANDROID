@@ -220,4 +220,12 @@
         android:layout_marginBottom="22dp"
         android:layout_marginLeft="33dp"/>
 
+    <Button
+        android:id="@+id/settingLogout"
+        android:background="@drawable/logout_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="50dp"/>
+
 </LinearLayout>
