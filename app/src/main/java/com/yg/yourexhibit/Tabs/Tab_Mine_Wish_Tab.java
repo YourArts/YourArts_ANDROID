@@ -74,11 +74,21 @@ public class Tab_Mine_Wish_Tab extends Fragment{
 
             if(dataList.get(itemPosition).flag.toString().equals("done")) status=0;
             else if(dataList.get(itemPosition).flag.toString().equals("doing")) status=1;
-            else if(dataList.get(itemPosition).flag.toString().equals("todo")) status=2;
+            else if(dataList.get(itemPosition).flag.toString().equals("todo")){
+                status=2;
+//                networkController.getDetailData(status, ApplicationController.getToken(), idx);
+//                getFragmentManager()
+//                        .beginTransaction()
+//                        .addToBackStack(null)
+//                        .replace(R.id.tabWish, new Tab_Coming_Details())
+//                        .commit();
+            }
 
             Log.d("statusCheck",String.valueOf(status));
             Log.d("tokenCheck",String.valueOf(ApplicationController.getToken()));
             networkController.getDetailData(status, ApplicationController.getToken(), idx);
+
+
         }
     };
 

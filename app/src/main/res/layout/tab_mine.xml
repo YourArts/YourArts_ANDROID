@@ -17,17 +17,59 @@
             android:layout_width="match_parent"
             android:background="#000000"
             android:layout_height="48dp">
-            <TextView
-                android:id="@+id/내전시"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:includeFontPadding="false"
-                android:layout_centerInParent="true"
-                android:text="내 전시"
-                android:textColor="#ffffff"
+                android:orientation="horizontal"
+                android:layout_marginLeft="127dp"
+                android:layout_marginTop="12dp">
+                <TextView
+                    android:id="@+id/leftmark"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:includeFontPadding="false"
+                    android:layout_centerInParent="true"
+                    android:text="'"
+                    android:textColor="#ffffff"
+                    />
+                <TextView
+                    android:id="@+id/topbarName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:includeFontPadding="false"
+                    android:layout_centerInParent="true"
+                    android:text="이름"
+                    android:textColor="#ffffff"
+                    />
+                <TextView
+                    android:id="@+id/rightmark"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:includeFontPadding="false"
+                    android:layout_centerInParent="true"
+                    android:text="'"
+                    android:textColor="#ffffff"
+                    />
                 />
+                <TextView
+                    android:id="@+id/sWatch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:includeFontPadding="false"
+                    android:layout_centerInParent="true"
+                    android:text="의 전시"
+                    android:textColor="#ffffff"
+                    />
+            </LinearLayout>
+
             <ImageButton
                 android:id="@+id/btnGoSetting"
                 android:src="@drawable/ic_settings"

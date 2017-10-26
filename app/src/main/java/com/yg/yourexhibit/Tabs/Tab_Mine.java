@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.yg.yourexhibit.R;
+import com.yg.yourexhibit.Util.SharedPrefrernceController;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -39,11 +40,18 @@ public class Tab_Mine extends Fragment{
     @BindView(R.id.btnGoSetting)
     ImageButton goSetting;
 
+    @BindView(R.id.topbarName)
+    TextView topName;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.tab_mine, container, false);
         ButterKnife.bind(this, v);
+
+        topName.setText(SharedPrefrernceController.getUserNickname(getContext()));
+
+
         // Initializing the TabLayout
         tabLayout.addTab(tabLayout.newTab().setText("WATCH"));
         tabLayout.addTab(tabLayout.newTab().setText("WISH"));

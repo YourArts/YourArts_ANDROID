@@ -9,6 +9,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.RequestManager;
+import com.squareup.picasso.Picasso;
+import com.yg.yourexhibit.App.ApplicationController;
 import com.yg.yourexhibit.Datas.TabMineWatchData;
 import com.yg.yourexhibit.R;
 
@@ -49,7 +51,11 @@ public class TabWatchAdapter extends RecyclerView.Adapter<TabWatchAdapter.WatchV
 
         holder.txtWatchDate.setText(date);
         holder.txtWatchName.setText(dataList.get(position).exhibition_name);
-        requestManager.load(dataList.get(position).exhibition_picture).into(holder.WatchItemPicture);
+//        requestManager.load(dataList.get(position).exhibition_picture).into(holder.WatchItemPicture);
+        Picasso.with(ApplicationController.getInstance().getApplicationContext())
+                .load(dataList.get(position).exhibition_picture)
+                .resize(90, 90)
+                .into(holder.WatchItemPicture);
 //        for (int i = 0; i <dataList.size() ; i++) {
             switch(dataList.get(position).like_count){
                 case 5:

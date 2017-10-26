@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.RequestManager;
+import com.squareup.picasso.Picasso;
+import com.yg.yourexhibit.App.ApplicationController;
 import com.yg.yourexhibit.Datas.TabMineWishData;
 import com.yg.yourexhibit.R;
 
@@ -39,7 +41,10 @@ public class TabWishAdapter extends RecyclerView.Adapter<TabWishAdapter.WishView
 
     @Override
     public void onBindViewHolder(WishViewHolder holder, int position) {
-        requestManager.load(dataList.get(position).exhibition_picture).into(holder.WishItemPicture);
+        Picasso.with(ApplicationController.getInstance().getApplicationContext())
+                .load(dataList.get(position).exhibition_picture)
+                .resize(100, 131)
+                .into(holder.WishItemPicture);
     }
 
     @Override
@@ -54,6 +59,7 @@ public class TabWishAdapter extends RecyclerView.Adapter<TabWishAdapter.WishView
         public WishViewHolder(View itemView) {
             super(itemView);
            WishItemPicture = (ImageView)itemView.findViewById(R.id.imgWishItemPicture);
+
         }
     }
 }
