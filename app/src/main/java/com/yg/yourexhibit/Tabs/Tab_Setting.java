@@ -1,7 +1,6 @@
 package com.yg.yourexhibit.Tabs;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -32,11 +31,10 @@ import com.yg.yourexhibit.Util.SharedPrefrernceController;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-import static android.content.Context.MODE_PRIVATE;
 
 /**
  * Created by 김민경 on 2017-10-24.
@@ -68,6 +66,9 @@ public class Tab_Setting extends Fragment {
     @BindView(R.id.txtSettinOut)
     TextView goSignout;
 
+    @BindView(R.id.txtSettingGallery)
+    TextView gallerySetting;
+
     NetworkService networkService;
     String nickname;
     String userID;
@@ -76,6 +77,7 @@ public class Tab_Setting extends Fragment {
     String userPW2;
     LogoutDialog logoutDialog;
     SignoutDialog signoutDialog;
+    private boolean gallery = false;
 
 
     @Nullable
@@ -93,6 +95,13 @@ public class Tab_Setting extends Fragment {
         userPW1 = newPW.getText().toString();
         userPW2 = checkPW.getText().toString();
 
+        gallery = SharedPrefrernceController.getGallery(this.getContext());
+
+        if(gallery){
+            gallerySetting.setTextColor(Color.parseColor("#00ffc4"));
+        }else{
+            gallerySetting.setTextColor(Color.parseColor("#666666"));
+        }
         settingName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -167,7 +176,9 @@ public class Tab_Setting extends Fragment {
         };
          final View.OnClickListener rightListener = new View.OnClickListener() {
             public void onClick(View v) {
-                SharedPrefrernceController.setSelected(getContext(),false);
+                SharedPrefrernceController.setLoginId(getActivity(), "");
+                SharedPrefrernceController.setSelected(getActivity(), false);
+                SharedPrefrernceController.setPasswd(getActivity(), "");
                 logoutDialog.dismiss();
 
                 startActivity(new Intent(getContext(), SplashActivity.class));
@@ -199,6 +210,12 @@ public class Tab_Setting extends Fragment {
                     public void onResponse(Call<TabSettingDeleteUserResponse> call, Response<TabSettingDeleteUserResponse> response) {
                         if(response.isSuccessful()){
                             Log.d("Signout","succuess");
+                            SharedPrefrernceController.setLoginId(getActivity(), "");
+                            SharedPrefrernceController.setSelected(getActivity(), false);
+                            SharedPrefrernceController.setPasswd(getActivity(), "");
+                            signoutDialog.dismiss();
+                            getActivity().finish();
+                            startActivity(new Intent(getContext(), SplashActivity.class));
                         }else{
                             Log.d("Signout","fail");
                         }
@@ -209,13 +226,7 @@ public class Tab_Setting extends Fragment {
 
                     }
                 });
-                SharedPreferences pref = getContext().getSharedPreferences("user", MODE_PRIVATE);
-                SharedPreferences.Editor editor = pref.edit();
-                editor.clear();
-                editor.commit();
-                signoutDialog.dismiss();
-                getActivity().finish();
-                startActivity(new Intent(getContext(), SplashActivity.class));
+
             }
         };
 
@@ -231,5 +242,22 @@ public class Tab_Setting extends Fragment {
 
         return v;
 
+    }
+
+    @OnClick(R.id.txtSettingGallery)
+    public void onClickGallery(){
+        if(gallery){
+            //갤러리 트루일 때
+            SharedPrefrernceController.setGallery(getContext(), false);
+            gallerySetting.setTextColor(Color.parseColor("#666666"));
+            gallerySetting.setText("OFF");
+            gallery = false;
+        }else{
+            //갤러리 퍼스일 때
+            SharedPrefrernceController.setGallery(getContext(), true);
+            gallerySetting.setTextColor(Color.parseColor("#00ffc4"));
+            gallerySetting.setText("ON");
+            gallery = true;
+        }
     }
 }

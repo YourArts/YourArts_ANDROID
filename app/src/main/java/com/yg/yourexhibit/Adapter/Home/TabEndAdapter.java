@@ -6,12 +6,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.bumptech.glide.RequestManager;
-import com.squareup.picasso.Picasso;
 import com.yg.yourexhibit.App.ApplicationController;
 import com.yg.yourexhibit.Datas.TabEndData;
 import com.yg.yourexhibit.R;
 
 import java.util.ArrayList;
+
+import jp.wasabeef.glide.transformations.CropTransformation;
 
 /**
  * Created by 2yg on 2017. 10. 9..
@@ -41,11 +42,14 @@ public class TabEndAdapter extends RecyclerView.Adapter<TabEndViewHolder>{
 
     @Override
     public void onBindViewHolder(TabEndViewHolder holder, final int position) {
-            //requestManager.load(endResult.get(position).getExhibitImage()).into(holder.endItemImage);
-        Picasso.with(ApplicationController.getInstance().getApplicationContext())
+        requestManager
                 .load(endResult.get(position).getExhibitImage())
-                .resize(400, 300)
+                .bitmapTransform(new CropTransformation(ApplicationController.getInstance().getApplicationContext()))
                 .into(holder.endItemImage);
+//        Picasso.with(ApplicationController.getInstance().getApplicationContext())
+//                .load(endResult.get(position).getExhibitImage())
+//                .resize(400, 300)
+//                .into(holder.endItemImage);
 
 
             holder.endItemPerioid.setText(endResult.get(position).getExhibitPeriod());

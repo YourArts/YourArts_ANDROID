@@ -2,13 +2,13 @@ package com.yg.yourexhibit.Tabs;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
@@ -18,6 +18,7 @@ import com.yg.yourexhibit.App.ApplicationController;
 import com.yg.yourexhibit.Datas.TabEndData;
 import com.yg.yourexhibit.R;
 import com.yg.yourexhibit.Retrofit.RetrofitGet.ExhibitEndResult;
+import com.yg.yourexhibit.Util.CustomLinearLayout;
 import com.yg.yourexhibit.Util.EventBus;
 import com.yg.yourexhibit.Util.EventCode;
 import com.yg.yourexhibit.Util.NetworkController;
@@ -35,6 +36,9 @@ public class Tab_End extends Fragment{
 
     @BindView(R.id.tab_end_list)
     RecyclerView endList;
+
+    @BindView(R.id.tab_end_scroll)
+    ScrollView scrollView;
 //
 //    @BindView(R.id.tab_end_container)
 //    FrameLayout container;
@@ -42,7 +46,7 @@ public class Tab_End extends Fragment{
     private static final String TAG = "LOG::Tab_End";
     private TabEndAdapter tabEndAdapter;
     private RequestManager requestManager;
-    private LinearLayoutManager linearLayoutManager;
+    private CustomLinearLayout linearLayoutManager;
     private NetworkController networkController;
     private ArrayList<TabEndData> endDatas;
     private int idx;
@@ -56,6 +60,7 @@ public class Tab_End extends Fragment{
         EventBus.getInstance().post(EventCode.EVENT_CODE_TAB_END);
         networkController = new NetworkController();
         networkController.getEndData();
+        scrollView.fullScroll(ScrollView.FOCUS_UP);
         return v;
     }
 
@@ -67,7 +72,7 @@ public class Tab_End extends Fragment{
     public void initFragment(){
         requestManager = Glide.with(this);
         endList.setHasFixedSize(true);
-        linearLayoutManager = new LinearLayoutManager(getActivity());
+        linearLayoutManager = new CustomLinearLayout(getActivity());
         linearLayoutManager.setOrientation(LinearLayout.VERTICAL);
         endList.setLayoutManager(linearLayoutManager);
         editData();
