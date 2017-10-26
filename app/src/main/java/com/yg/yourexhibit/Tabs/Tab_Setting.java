@@ -1,5 +1,7 @@
 package com.yg.yourexhibit.Tabs;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,13 +12,18 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.yg.yourexhibit.App.ApplicationController;
+import com.yg.yourexhibit.Dialog.LogoutDialog;
+import com.yg.yourexhibit.Dialog.SignoutDialog;
+import com.yg.yourexhibit.Login.SplashActivity;
 import com.yg.yourexhibit.R;
 import com.yg.yourexhibit.Retrofit.NetworkService;
+import com.yg.yourexhibit.Retrofit.RetrofitDelete.TabSettingDeleteUserResponse;
 import com.yg.yourexhibit.Retrofit.RetrofitPost.TabSettingPWPost;
 import com.yg.yourexhibit.Retrofit.RetrofitPost.TabSettingPWResponse;
 import com.yg.yourexhibit.Retrofit.RetrofitPut.TabSettingNamePut;
@@ -28,6 +35,8 @@ import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static android.content.Context.MODE_PRIVATE;
 
 /**
  * Created by 김민경 on 2017-10-24.
@@ -53,12 +62,21 @@ public class Tab_Setting extends Fragment {
     @BindView(R.id.txtSettingPW)
     TextView settingPW;
 
+    @BindView(R.id.settingLogout)
+    Button goLogout;
+
+    @BindView(R.id.txtSettinOut)
+    TextView goSignout;
+
     NetworkService networkService;
     String nickname;
     String userID;
     String userEmail;
     String userPW1;
     String userPW2;
+    LogoutDialog logoutDialog;
+    SignoutDialog signoutDialog;
+
 
     @Nullable
     @Override
@@ -140,10 +158,78 @@ public class Tab_Setting extends Fragment {
                 }
             }
         });
-//        int permissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE);
+
+         final View.OnClickListener leftListener = new View.OnClickListener() {
+            public void onClick(View v) {
+                logoutDialog.dismiss();
+
+            }
+        };
+         final View.OnClickListener rightListener = new View.OnClickListener() {
+            public void onClick(View v) {
+                SharedPrefrernceController.setSelected(getContext(),false);
+                logoutDialog.dismiss();
+
+                startActivity(new Intent(getContext(), SplashActivity.class));
+                getActivity().finish();
+            }
+        };
+
+        goLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                logoutDialog = new LogoutDialog(getContext(),
+                        leftListener, // 왼쪽 버튼 이벤트
+                        rightListener); // 오른쪽 버튼 이벤트
+                logoutDialog.show();
+            }
+        });
+
+        final View.OnClickListener leftListener2 = new View.OnClickListener() {
+            public void onClick(View v) {
+                signoutDialog.dismiss();
+
+            }
+        };
+        final View.OnClickListener rightListener2 = new View.OnClickListener() {
+            public void onClick(View v) {
+                Call<TabSettingDeleteUserResponse> tabSettingDeleteUserResponseCall = networkService.deleteUser(ApplicationController.getToken());
+                tabSettingDeleteUserResponseCall.enqueue(new Callback<TabSettingDeleteUserResponse>() {
+                    @Override
+                    public void onResponse(Call<TabSettingDeleteUserResponse> call, Response<TabSettingDeleteUserResponse> response) {
+                        if(response.isSuccessful()){
+                            Log.d("Signout","succuess");
+                        }else{
+                            Log.d("Signout","fail");
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<TabSettingDeleteUserResponse> call, Throwable t) {
+
+                    }
+                });
+                SharedPreferences pref = getContext().getSharedPreferences("user", MODE_PRIVATE);
+                SharedPreferences.Editor editor = pref.edit();
+                editor.clear();
+                editor.commit();
+                signoutDialog.dismiss();
+                getActivity().finish();
+                startActivity(new Intent(getContext(), SplashActivity.class));
+            }
+        };
+
+        goSignout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                signoutDialog = new SignoutDialog(getContext(),
+                        leftListener2, // 왼쪽 버튼 이벤트
+                        rightListener2); // 오른쪽 버튼 이벤트
+                signoutDialog.show();
+            }
+        });
 
         return v;
-
 
     }
 }
