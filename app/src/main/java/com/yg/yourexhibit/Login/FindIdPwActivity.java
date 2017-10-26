@@ -36,6 +36,8 @@ public class FindIdPwActivity extends AppCompatActivity {
 
         idpwbackbutton = (ImageButton) findViewById(R.id.backbtn_idpw);
 
+
+
       //       Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 //        setSupportActionBar(toolbar);
 
@@ -123,6 +125,8 @@ public class FindIdPwActivity extends AppCompatActivity {
             return POSITION_NONE;
         }
     }
+
+
 
 }
 

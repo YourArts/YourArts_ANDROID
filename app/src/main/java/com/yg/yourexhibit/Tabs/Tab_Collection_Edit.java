@@ -30,6 +30,7 @@ import com.yg.yourexhibit.Retrofit.RetrofitGet.ExhibitSearchResponse;
 import com.yg.yourexhibit.Util.EventBus;
 import com.yg.yourexhibit.Util.EventCode;
 import com.yg.yourexhibit.Util.NetworkController;
+import com.yg.yourexhibit.Util.SharedPrefrernceController;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -186,12 +187,19 @@ public class Tab_Collection_Edit extends Fragment{
 
     @OnClick(R.id.collection_edit_pic)
     public void changeImage(){
-        //if(SharedPrefrernceController.get)
-        //해당 변수 만들면 그때 여기로
-        Intent intent = new Intent(Intent.ACTION_PICK);
-        intent.setType(android.provider.MediaStore.Images.Media.CONTENT_TYPE);
-        intent.setData(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        startActivityForResult(intent, REQ_CODE_SELECT_IMAGE);
+        if(SharedPrefrernceController.getGallery(getContext())) {
+            Intent intent = new Intent(Intent.ACTION_PICK);
+            intent.setType(android.provider.MediaStore.Images.Media.CONTENT_TYPE);
+            intent.setData(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            startActivityForResult(intent, REQ_CODE_SELECT_IMAGE);
+        }else{
+            galleryDialog = new GalleryDialog(getActivity(),
+                    "당신의 갤러리에 접근합니다.\n이후 설정에서 변경 가능합니다.",
+                    leftListener, // 왼쪽 버튼 이벤트
+                    rightListener); // 오른쪽 버튼 이벤트
+            galleryDialog.show();
+            SharedPrefrernceController.setGallery(getContext(), true);
+        }
     }
 
     @Override

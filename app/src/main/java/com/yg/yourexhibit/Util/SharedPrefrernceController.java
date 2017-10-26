@@ -15,7 +15,9 @@ public class SharedPrefrernceController {
     private static final String EMAIL = "email";
     private static final String PASSWD = "passwd";
     private static final String IMAGE = "image";
-    private static final String SELETED = "seleted";
+    private static final String SELETED = "seleted";//얘가 자동로그인
+    private static final String GALLERY = "gallery";
+
 
 
 
@@ -100,5 +102,17 @@ public class SharedPrefrernceController {
     public static boolean getSelected(Context context){
         SharedPreferences pref = context.getSharedPreferences(USER, Context.MODE_PRIVATE);
         return pref.getBoolean(SELETED, false);
+    }
+
+    public static void setGallery(Context context, boolean selected){
+        SharedPreferences pref = context.getSharedPreferences(USER, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putBoolean(GALLERY, selected);
+        editor.commit();
+    }
+
+    public static boolean getGallery(Context context){
+        SharedPreferences pref = context.getSharedPreferences(USER, Context.MODE_PRIVATE);
+        return pref.getBoolean(GALLERY, false);
     }
 }

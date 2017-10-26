@@ -36,7 +36,7 @@ public class GalleryDialog extends Dialog{
         lpWindow.dimAmount = 0.8f;
         getWindow().setAttributes(lpWindow);
 
-        setContentView(R.layout.dialog_join);
+        setContentView(R.layout.dialog_gallery);
 
         mContentView = (TextView) findViewById(R.id.dialog_join_txt_content);
         mLeftButton = (Button) findViewById(R.id.dialog_join_btn_no);
@@ -66,4 +66,7 @@ public class GalleryDialog extends Dialog{
         this.mRightClickListener = rightListener;
 
     }
+
+
+
 }
