@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="152dp"
     android:layout_height="222dp"
-    android:background="#121212"
+    android:background="#0d0d0d"
     >
     <ImageView
         android:id="@+id/tab_preview_items"
@@ -12,6 +12,6 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="22dp"
-        android:background="#121212"
+        android:background="#0d0d0d"
         />
 </LinearLayout>
