@@ -37,6 +37,12 @@
             android:background="#0d0d0d"
             />
 
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/black_gra_box"
+            />
+
         <TextView
             android:id="@+id/end_details_name"
             android:layout_width="wrap_content"
@@ -237,6 +243,12 @@
 
             </android.support.v7.widget.RecyclerView>
         </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:layout_alignParentBottom="true"
+            android:background="#000000"
+            />
 
     </RelativeLayout>
 
