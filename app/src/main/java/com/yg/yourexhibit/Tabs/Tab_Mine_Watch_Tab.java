@@ -42,12 +42,39 @@ public class Tab_Mine_Watch_Tab extends Fragment {
     @BindView(R.id.txtWatchCount)
     TextView watchCount;
 
+//    @Override
+//    public void onAttachFragment(Fragment childFragment) {
+//        super.onAttachFragment(childFragment);
+//        Call<TabWatchResult> tabWatchResultCall = networkService.getWatch(ApplicationController.getToken());
+//        tabWatchResultCall.enqueue(new Callback<TabWatchResult>() {
+//            @Override
+//            public void onResponse(Call<TabWatchResult> call, Response<TabWatchResult> response) {
+//                for (TabMineWatchData data:response.body().result) {
+//                    dataList.add(data);
+//                    Log.d("myTag",data.exhibition_name);
+//                }
+//                watchCount.setText(String.valueOf(dataList.size()));
+//                watchList.setLayoutManager(linearLayoutManager);
+//
+//                watchList.setAdapter(tabWatchAdapter);
+//            }
+//
+//            @Override
+//            public void onFailure(Call<TabWatchResult> call, Throwable t) {
+//
+//            }
+//        });
+//    }
+
     @BindView(R.id.tabWatch)
     LinearLayout tabWatch;
 
 
 
     NetworkService networkService;
+
+
+
     ArrayList<TabMineWatchData> dataList;
     TabWatchAdapter tabWatchAdapter;
     RequestManager requestManager;
@@ -62,6 +89,7 @@ public class Tab_Mine_Watch_Tab extends Fragment {
         linearLayoutManager = new LinearLayoutManager(this.getContext());
         linearLayoutManager.setOrientation(LinearLayout.VERTICAL);
         networkController = new NetworkController();
+        tabWatchAdapter = new TabWatchAdapter(dataList,clickListener,requestManager);
     }
 
     View.OnClickListener clickListener = new View.OnClickListener() {
@@ -74,6 +102,40 @@ public class Tab_Mine_Watch_Tab extends Fragment {
         }
     };
 
+//    @Override
+//    public void onResume() {
+//        super.onResume();
+//        HomeTabAdapter homeTabAdapter = new HomeTabAdapter(getFragmentManager(),3);
+////        HomeTabAdapter.flagChange = true;
+//        homeTabAdapter.notifyDataSetChanged();
+////        tabWatchAdapter.notifyDataSetChanged();
+//    }
+//
+//    @Override
+//    public void onStart() {
+//        super.onStart();
+//        Call<TabWatchResult> tabWatchResultCall = networkService.getWatch(ApplicationController.getToken());
+//        tabWatchResultCall.enqueue(new Callback<TabWatchResult>() {
+//            @Override
+//            public void onResponse(Call<TabWatchResult> call, Response<TabWatchResult> response) {
+//                for (TabMineWatchData data:response.body().result) {
+//                    dataList.add(data);
+//                    Log.d("myTag",data.exhibition_name);
+//                }
+//                watchCount.setText(String.valueOf(dataList.size()));
+//                watchList.setLayoutManager(linearLayoutManager);
+//
+//                watchList.setAdapter(tabWatchAdapter);
+//            }
+//
+//            @Override
+//            public void onFailure(Call<TabWatchResult> call, Throwable t) {
+//
+//            }
+//        });
+//
+//    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -81,7 +143,9 @@ public class Tab_Mine_Watch_Tab extends Fragment {
         ButterKnife.bind(this, view);
         initTab();
 
-        Call<TabWatchResult> tabWatchResultCall = networkService.getWatch(ApplicationController.getToken());
+        Log.d("myTag","onCreateView 호출");
+
+        final Call<TabWatchResult> tabWatchResultCall = networkService.getWatch(ApplicationController.getToken());
         tabWatchResultCall.enqueue(new Callback<TabWatchResult>() {
             @Override
             public void onResponse(Call<TabWatchResult> call, Response<TabWatchResult> response) {
@@ -118,7 +182,9 @@ public class Tab_Mine_Watch_Tab extends Fragment {
                     }
                     watchCount.setText(String.valueOf(dataList.size()));
                     watchList.setLayoutManager(linearLayoutManager);
-                    tabWatchAdapter = new TabWatchAdapter(dataList,clickListener,requestManager);
+//                    watchList.setAdapter(tabWatchAdapter);
+//                    tabWatchAdapter.setAdapter(dataList);
+                    tabWatchAdapter.notifyDataSetChanged();
                     watchList.setAdapter(tabWatchAdapter);
                 }
             }
@@ -128,6 +194,8 @@ public class Tab_Mine_Watch_Tab extends Fragment {
 
             }
         });
+
+
         return view;
     }
 }
