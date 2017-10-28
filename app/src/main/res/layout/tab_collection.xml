@@ -5,7 +5,6 @@
     android:id="@+id/tab_collection_container"
     android:background="#0d0d0d"
     android:clickable="true"
-    android:tag="base"
     >
     <RelativeLayout
         android:layout_width="match_parent"

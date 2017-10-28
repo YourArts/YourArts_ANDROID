@@ -110,10 +110,5 @@ public class HomeActivity extends BaseActivity {
         networkController.getEndData();
     }
 
-    @Override
-    public void onDestroy() {
-        //EventBus.getInstance().unregister(this);
-        super.onDestroy();
-    }
 
 }

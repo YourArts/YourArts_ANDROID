@@ -69,13 +69,21 @@ public class ApplicationController extends Application{
     private boolean fromEdit = false;
 
 
-
     private boolean fromWork = false;
 
 
     private boolean inDetail = false;
 
     private String editContent = "";
+
+
+
+    private boolean collectionEventSwtich = false;
+
+
+
+    private boolean colDetailSwitch = false;
+    private boolean colEditSwitch = false;
 
     @Override public void onCreate() {
         super.onCreate();
@@ -247,5 +255,29 @@ public class ApplicationController extends Application{
 
     public void setFromWork(boolean fromWork) {
         this.fromWork = fromWork;
+    }
+
+    public boolean isCollectionEventSwtich() {
+        return collectionEventSwtich;
+    }
+
+    public void setCollectionEventSwtich(boolean collectionEventSwtich) {
+        this.collectionEventSwtich = collectionEventSwtich;
+    }
+
+    public boolean isColDetailSwitch() {
+        return colDetailSwitch;
+    }
+
+    public void setColDetailSwitch(boolean colDetailSwitch) {
+        this.colDetailSwitch = colDetailSwitch;
+    }
+
+    public boolean isColEditSwitch() {
+        return colEditSwitch;
+    }
+
+    public void setColEditSwitch(boolean colEditSwitch) {
+        this.colEditSwitch = colEditSwitch;
     }
 }

@@ -107,14 +107,18 @@ public class Tab_Setting extends Fragment {
             public void onClick(View view) {
                 if(newName.getText().length()==0) Toast.makeText(getContext(),"닉네임을 입력해주세요.",Toast.LENGTH_LONG).show();
                 else{
+
                     Call<TabSettingNameResponse> tabSettingNameResponseCall = networkService.putName(ApplicationController.getToken(),new TabSettingNamePut(newName.getText().toString()));
+
                     tabSettingNameResponseCall.enqueue(new Callback<TabSettingNameResponse>() {
                         @Override
                         public void onResponse(Call<TabSettingNameResponse> call, Response<TabSettingNameResponse> response) {
                             settingName.setTextColor(Color.parseColor("#00FFC4"));
                             settingName.setText("완료");
+
                             SharedPrefrernceController.setUserNickname(getContext(),newName.getText().toString());
                             Log.d("nickChangeCheck",newName.getText().toString());
+
                             Log.d("nickCheck",response.body().message);
                         }
 
