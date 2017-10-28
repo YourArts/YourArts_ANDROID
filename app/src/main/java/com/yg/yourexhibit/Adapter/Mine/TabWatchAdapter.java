@@ -34,6 +34,10 @@ public class TabWatchAdapter extends RecyclerView.Adapter<TabWatchAdapter.WatchV
     View.OnClickListener clickListener;
     RequestManager requestManager;
 
+    public void setAdapter(ArrayList<TabMineWatchData> dataList){
+        this.dataList = dataList;
+        notifyDataSetChanged();
+    }
 
     @Override
     public WatchViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -59,35 +63,35 @@ public class TabWatchAdapter extends RecyclerView.Adapter<TabWatchAdapter.WatchV
 //        for (int i = 0; i <dataList.size() ; i++) {
             switch(dataList.get(position).like_count){
                 case 5:
-                    holder.WatchViewFirst.setBackgroundColor(Color.parseColor("#00FFC4"));
-                    holder.WatchViewSecond.setBackgroundColor(Color.parseColor("#00FFC4"));
-                    holder.WatchViewThird.setBackgroundColor(Color.parseColor("#00FFC4"));
-                    holder.WatchViewFourth.setBackgroundColor(Color.parseColor("#00FFC4"));
-                    holder.WatchViewFifth.setBackgroundColor(Color.parseColor("#00FFC4"));
+                    holder.WatchViewFirst.setBackgroundColor(Color.parseColor("#9900FFC4"));
+                    holder.WatchViewSecond.setBackgroundColor(Color.parseColor("#9900FFC4"));
+                    holder.WatchViewThird.setBackgroundColor(Color.parseColor("#9900FFC4"));
+                    holder.WatchViewFourth.setBackgroundColor(Color.parseColor("#9900FFC4"));
+                    holder.WatchViewFifth.setBackgroundColor(Color.parseColor("#9900FFC4"));
                     break;
                 case 4:
-                    holder.WatchViewFirst.setBackgroundColor(Color.parseColor("#00FFC4"));
-                    holder.WatchViewSecond.setBackgroundColor(Color.parseColor("#00FFC4"));
-                    holder.WatchViewThird.setBackgroundColor(Color.parseColor("#00FFC4"));
-                    holder.WatchViewFourth.setBackgroundColor(Color.parseColor("#00FFC4"));
+                    holder.WatchViewFirst.setBackgroundColor(Color.parseColor("#9900FFC4"));
+                    holder.WatchViewSecond.setBackgroundColor(Color.parseColor("#9900FFC4"));
+                    holder.WatchViewThird.setBackgroundColor(Color.parseColor("#9900FFC4"));
+                    holder.WatchViewFourth.setBackgroundColor(Color.parseColor("#9900FFC4"));
                     holder.WatchViewFifth.setBackgroundColor(Color.parseColor("#666666"));
                     break;
                 case 3:
-                    holder.WatchViewFirst.setBackgroundColor(Color.parseColor("#00FFC4"));
-                    holder.WatchViewSecond.setBackgroundColor(Color.parseColor("#00FFC4"));
-                    holder.WatchViewThird.setBackgroundColor(Color.parseColor("#00FFC4"));
+                    holder.WatchViewFirst.setBackgroundColor(Color.parseColor("#9900FFC4"));
+                    holder.WatchViewSecond.setBackgroundColor(Color.parseColor("#9900FFC4"));
+                    holder.WatchViewThird.setBackgroundColor(Color.parseColor("#9900FFC4"));
                     holder.WatchViewFourth.setBackgroundColor(Color.parseColor("#666666"));
                     holder.WatchViewFifth.setBackgroundColor(Color.parseColor("#666666"));
                     break;
                 case 2:
-                    holder.WatchViewFirst.setBackgroundColor(Color.parseColor("#00FFC4"));
-                    holder.WatchViewSecond.setBackgroundColor(Color.parseColor("#00FFC4"));
+                    holder.WatchViewFirst.setBackgroundColor(Color.parseColor("#9900FFC4"));
+                    holder.WatchViewSecond.setBackgroundColor(Color.parseColor("#9900FFC4"));
                     holder.WatchViewThird.setBackgroundColor(Color.parseColor("#666666"));
                     holder.WatchViewFourth.setBackgroundColor(Color.parseColor("#666666"));
                     holder.WatchViewFifth.setBackgroundColor(Color.parseColor("#666666"));
                     break;
                 case 1:
-                    holder.WatchViewFirst.setBackgroundColor(Color.parseColor("#00FFC4"));
+                    holder.WatchViewFirst.setBackgroundColor(Color.parseColor("#9900FFC4"));
                     holder.WatchViewSecond.setBackgroundColor(Color.parseColor("#666666"));
                     holder.WatchViewThird.setBackgroundColor(Color.parseColor("#666666"));
                     holder.WatchViewFourth.setBackgroundColor(Color.parseColor("#666666"));
