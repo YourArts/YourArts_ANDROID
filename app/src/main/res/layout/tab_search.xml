@@ -63,7 +63,7 @@
         android:layout_below="@+id/tab_search_search"
         android:layout_marginLeft="33dp"
         android:layout_marginRight="33dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="10dp"
         android:background="#0d0d0d"
         />
 

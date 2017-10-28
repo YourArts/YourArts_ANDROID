@@ -44,6 +44,7 @@ public class Tab_Collection_Detail extends Fragment {
     @BindView(R.id.collection_detail_edit)
     TextView edit;
 
+    private static final String TAG = "LOG::CollectionDetail";
     private ExhibitCollectionDetailResult detailResult;
     private NetworkController networkController;
 
@@ -51,13 +52,17 @@ public class Tab_Collection_Detail extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.tab_collection_detail, container, false);
         ButterKnife.bind(this, v);
-        EventBus.getInstance().register(this);
+        Log.v(TAG, "create");
+        ApplicationController.getInstance().setCollectionEventSwtich(false);
+        ApplicationController.getInstance().setColEditSwitch(false);
+
+        if(ApplicationController.getInstance().isColDetailSwitch()){
+            EventBus.getInstance().unregister(this);
+            ApplicationController.getInstance().setColDetailSwitch(false);
+        }
         ApplicationController.getInstance().setInDetail(true);
         detailResult = ApplicationController.getInstance().getExhibitCollectionDetailResult();
         networkController = new NetworkController();
-        Log.v("탭콜디1", "탭콜디1");
-       // ((BaseActivity) getActivity()).setOnKeyBackPressedListener(this);
-        //ApplicationController.getInstance().setFromEdit(false);
         initFragment();
         return v;
     }
@@ -82,8 +87,6 @@ public class Tab_Collection_Detail extends Fragment {
                     .addToBackStack("toEdit")
                     .replace(R.id.collection_detail_container, new Tab_Collection_Edit())
                     .commit();
-
-
     }
 
     @Override
@@ -120,12 +123,12 @@ public class Tab_Collection_Detail extends Fragment {
             case EventCode.EVENT_CODE_BACK:
                 ApplicationController.getInstance().setInDetail(false);
 
-                    getFragmentManager()
-                            .beginTransaction()
-                            .disallowAddToBackStack()
-                            .add(R.id.collection_detail_container, new Tab_Collection_Detail())
-                            .replace(R.id.collection_detail_container, new Tab_Collection())
-                            .commit();
+//                    getFragmentManager()
+//                            .beginTransaction()
+//                            .disallowAddToBackStack()
+//                            .add(R.id.collection_detail_container, new Tab_Collection_Detail())
+//                            .replace(R.id.collection_detail_container, new Tab_Collection())
+//                            .commit();
 
                 break;
 
@@ -137,9 +140,18 @@ public class Tab_Collection_Detail extends Fragment {
         getFragmentManager()
                 .beginTransaction()
                 .disallowAddToBackStack()
-                .add(R.id.collection_detail_container, new Tab_Collection_Detail())
                 .replace(R.id.collection_detail_container, new Tab_Collection())
                 .commit();
+
+
+//            Fragment fromFrag = null, toFrag = null;
+//            fromFrag = getActivity().getSupportFragmentManager().findFragmentByTag("base");
+//            toFrag = getActivity().getSupportFragmentManager().findFragmentByTag("detail");
+//            final android.support.v4.app.FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+//            ft.detach(fromFrag);
+//            ft.attach(toFrag);
+//            ft.commit();
+
     }
 
 //    @Override
@@ -158,8 +170,37 @@ public class Tab_Collection_Detail extends Fragment {
     }
 
     @Override
+    public void onDestroy() {
+        Log.v(TAG,"destroy");
+        super.onDestroy();
+//        EventBus.getInstance().unregister(this);
+    }
+
+    @Override
     public void onDetach() {
+        Log.v(TAG,"detach");
         super.onDetach();
-        EventBus.getInstance().unregister(this);
+       // EventBus.getInstance().unregister(this);
+    }
+
+    @Override
+    public void onPause() {
+        Log.v(TAG,"pause");
+        if(ApplicationController.getInstance().isColDetailSwitch()){
+            EventBus.getInstance().unregister(this);
+            ApplicationController.getInstance().setColDetailSwitch(false);
+        }
+        super.onPause();
+    }
+
+    @Override
+    public void onResume() {
+        Log.v(TAG, "resume");
+        //EventBus.getInstance().register(this);
+        super.onResume();
+        if(!ApplicationController.getInstance().isColDetailSwitch()){
+            EventBus.getInstance().register(this);
+            ApplicationController.getInstance().setColDetailSwitch(true);
+        }
     }
 }

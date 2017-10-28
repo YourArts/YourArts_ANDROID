@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -37,7 +38,10 @@ import com.yg.yourexhibit.Util.SharedPrefrernceController;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 
 import butterknife.BindView;
@@ -86,6 +90,8 @@ public class Tab_Collection_Edit extends Fragment{
     @BindView(R.id.collection_edit_icon)
     ImageView icon;
 
+    private static final String TAG = "LOG::CollectionEdit";
+
     private GalleryDialog galleryDialog;
 
 
@@ -106,8 +112,14 @@ public class Tab_Collection_Edit extends Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.tab_collection_edit, container, false);
         ButterKnife.bind(this, v);
-        EventBus.getInstance().register(this);
+        if(!ApplicationController.getInstance().isColEditSwitch()){
+            EventBus.getInstance().register(this);
+            ApplicationController.getInstance().setColEditSwitch(true);
+        }
+        Log.v(TAG, "createView");
         networkController = new NetworkController();
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
         initFragment();
         ApplicationController.getInstance().setInDetail(false);
         ApplicationController.getInstance().setFromEdit(true);
@@ -148,26 +160,37 @@ public class Tab_Collection_Edit extends Fragment{
 
         if(ApplicationController.getInstance().isFromWork()){
             text.setVisibility(View.GONE);
-            searchText.setText(workResult.get(0).getWork_name());
+            searchText.setText(ApplicationController.getInstance().getExhibitDetailResult().getExhibition_name());
             Glide.with(this).load(workResult.get(0).getWork_image()).into(editImg);
-            idx = workResult.get(0).getWork_idx();
+            idx = ApplicationController.getInstance().getExhibitDetailResult().getExhibition_idx();
 
             Uri uri = Uri.parse(workResult.get(0).getWork_image());
-
-            BitmapFactory.Options options = new BitmapFactory.Options();
-//            Glide.with(this).
-            InputStream in = null; // here, you need to get your context.
+            URL url = null;
             try {
-                in = getActivity().getContentResolver().openInputStream(uri);
-            } catch (FileNotFoundException e) {
+                url = new URL(workResult.get(0).getWork_image());
+                Log.v("이미지", url.toString());
+            } catch (MalformedURLException e) {
                 e.printStackTrace();
             }
 
-            Bitmap bitmap = BitmapFactory.decodeStream(in, null, options); // InputStream 으로부터 Bitmap 을 만들어 준다.
+            File photo = new File(uri.getPath());
+
+            BitmapFactory.Options options = new BitmapFactory.Options();
+//
+
+            Bitmap bitmap = null;
+            try {
+                //bitmap = MediaStore.Images.Media.getBitmap(this.getActivity().getContentResolver(), uri2);
+                bitmap = BitmapFactory.decodeStream(url.openConnection().getInputStream(), null, options);
+                //BitmapFactory.decodeStream()
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            //Bitmap bitmap = BitmapFactory.decodeStream(in, null, options); // InputStream 으로부터 Bitmap 을 만들어 준다.
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             bitmap.compress(Bitmap.CompressFormat.JPEG, 20, baos);
             RequestBody photoBody = RequestBody.create(MediaType.parse("image/jpg"), baos.toByteArray());
-            File photo = new File(uri.toString()); // 가져온 파일의 이름을 알아내려고 사용합니다
+           // File photo = new File(uri.toString()); // 가져온 파일의 이름을 알아내려고 사용합니다
 
             ///RequestBody photoBody = RequestBody.create(MediaType.parse("image/jpg"), baos.toByteArray());
             // MultipartBody.Part 실제 파일의 이름을 보내기 위해 사용!!
@@ -194,6 +217,11 @@ public class Tab_Collection_Edit extends Fragment{
         ApplicationController.getInstance().setFromEdit(true);
         ApplicationController.getInstance().setEditContent(context.getText().toString());
         if(ApplicationController.getInstance().isFromWork()){
+            Log.v("보낼 것", String.valueOf(idx));
+            Log.v("보낼 것", searchText.getText().toString());
+            Log.v("보낼 것", context.getText().toString());
+            Log.v("보낼 것", profile_pic.toString());
+
             RequestBody colIdx = RequestBody.create(MediaType.parse("text/pain"), String.valueOf(idx));
             RequestBody name = RequestBody.create(MediaType.parse("text/pain"), searchText.getText().toString());
             RequestBody content = RequestBody.create(MediaType.parse("text/pain"), context.getText().toString());
@@ -203,6 +231,7 @@ public class Tab_Collection_Edit extends Fragment{
             networkController.postCollection(ApplicationController.getInstance().token, colIdx, content, profile_pic);
         } else if(ApplicationController.getInstance().isFromDetail()){
             //디테일로부터 옴->얜 수정 해야 함
+
             networkController.putCollection(ApplicationController.getInstance().token, context.getText().toString(),
                     ApplicationController.getInstance().getCollectionIdx());
 
@@ -353,7 +382,12 @@ public class Tab_Collection_Edit extends Fragment{
 
     @Override
     public void onResume() {
+        Log.v(TAG, "resume");
         super.onResume();
+        if(!ApplicationController.getInstance().isColEditSwitch()){
+            EventBus.getInstance().register(this);
+            ApplicationController.getInstance().setColEditSwitch(true);
+        }
 
     }
 
@@ -364,8 +398,27 @@ public class Tab_Collection_Edit extends Fragment{
 
     @Override
     public void onDetach() {
+        Log.v(TAG,"detach");
+
         super.onDetach();
-        EventBus.getInstance().unregister(this);
+        //EventBus.getInstance().unregister(this);
+    }
+
+    @Override
+    public void onDestroy() {
+        Log.v(TAG,"destroy");
+        super.onDestroy();
+    }
+
+    @Override
+    public void onPause() {
+        Log.v(TAG,"pause");
+        if(ApplicationController.getInstance().isColEditSwitch()){
+            EventBus.getInstance().unregister(this);
+
+            ApplicationController.getInstance().setColEditSwitch(false);
+        }
+        super.onPause();
     }
 
     private View.OnClickListener leftListener = new View.OnClickListener() {

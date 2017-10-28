@@ -127,7 +127,7 @@ public class Tab_Going extends Fragment{
     @Override
     public void onDetach() {
         super.onDetach();
-        EventBus.getInstance().unregister(this);
+        //EventBus.getInstance().unregister(this);
     }
 
 }

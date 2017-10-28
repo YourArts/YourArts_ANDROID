@@ -2,6 +2,7 @@ package com.yg.yourexhibit.Tabs;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -53,6 +54,8 @@ public class Tab_Collection extends Fragment{
     @BindView(R.id.tab_collection_edit)
     ImageView edit;
 
+    private static final String TAG = "LOG::Collection";
+
     private NetworkController networkController;
     private TabCollectionFirstAdapter tabCollectionFirstAdapter;
     private TabCollectionSecondAdapter tabCollectionSecondAdapter;
@@ -73,13 +76,18 @@ public class Tab_Collection extends Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.tab_collection, container, false);
         ButterKnife.bind(this, v);
-        EventBus.getInstance().register(this);
+        Log.v(TAG, "createView");
+        if(!ApplicationController.getInstance().isCollectionEventSwtich()){
+            Log.v(TAG, "register");
+            EventBus.getInstance().register(this);
+            ApplicationController.getInstance().setCollectionEventSwtich(true);
+        }
         ApplicationController.getInstance().setInDetail(false);
+        ApplicationController.getInstance().setFromWork(false);
         networkController = new NetworkController();
         requestManagerFirst = Glide.with(this);
         requestManagerSecond = Glide.with(this);
         requestManagerThird = Glide.with(this);
-        Log.v("탭콜1", "탭콜1");
         first.clearOnScrollListeners();
         second.clearOnScrollListeners();
         third.clearOnScrollListeners();
@@ -92,9 +100,16 @@ public class Tab_Collection extends Fragment{
     }
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Log.v(TAG, "create");
+
+    }
+
+    @Override
     public void onAttach(Context context) {
+        Log.v(TAG, "attach");
         super.onAttach(context);
-        Log.v("탭콜2", "탭콜2");
     }
 
     @Subscribe
@@ -105,12 +120,12 @@ public class Tab_Collection extends Fragment{
                 break;
             case EventCode.EVENT_CODE_COLLECTION_DETAIL:
                 //Fragment fragment = Tab_Collection_Detail.newInstance();
-
+                Log.v(TAG, "toDetail");
                 getFragmentManager()
                         .beginTransaction()
-                        .addToBackStack("toDetail")
-                        .add(R.id.tab_collection_container, new Tab_Collection())
-                        .replace(R.id.tab_collection_container, new Tab_Collection_Detail())
+                        .addToBackStack(null)
+                        .add(R.id.tab_collection_container, new Tab_Collection(), "base")
+                        .replace(R.id.tab_collection_container, new Tab_Collection_Detail(), "detail")
                         .commit();
                 break;
         }
@@ -166,6 +181,7 @@ public class Tab_Collection extends Fragment{
 
     public View.OnClickListener clickEventFirst = new View.OnClickListener() {
         public void onClick(View v) {
+            Log.v(TAG, "first");
             int itemPosition = first.getChildPosition(v);
             ApplicationController.getInstance().setFromEdit(false);
             ApplicationController.getInstance().makeToast(String.valueOf(itemPosition));
@@ -178,6 +194,7 @@ public class Tab_Collection extends Fragment{
 
     public View.OnClickListener clickEventSecond = new View.OnClickListener() {
         public void onClick(View v) {
+            Log.v(TAG, "second");
             int itemPosition = second.getChildPosition(v);
             ApplicationController.getInstance().setFromEdit(false);
             ApplicationController.getInstance().makeToast(String.valueOf(itemPosition));
@@ -190,6 +207,7 @@ public class Tab_Collection extends Fragment{
 
     public View.OnClickListener clickEventThird = new View.OnClickListener() {
         public void onClick(View v) {
+            Log.v(TAG, "third");
             int itemPosition = third.getChildPosition(v);
             ApplicationController.getInstance().setFromEdit(false);
             ApplicationController.getInstance().makeToast(String.valueOf(itemPosition));
@@ -213,7 +231,37 @@ public class Tab_Collection extends Fragment{
 
     @Override
     public void onDetach() {
+        Log.v(TAG,"detach");
         super.onDetach();
-        EventBus.getInstance().unregister(this);
+       // EventBus.getInstance().unregister(this);
+    }
+
+    @Override
+    public void onDestroy() {
+        Log.v(TAG,"destroy");
+        super.onDestroy();
+        //EventBus.getInstance().unregister(this);
+    }
+
+    @Override
+    public void onPause() {
+        Log.v(TAG,"pause");
+        super.onPause();
+        if(ApplicationController.getInstance().isCollectionEventSwtich()){
+            EventBus.getInstance().unregister(this);
+            Log.v(TAG, "unregister");
+            ApplicationController.getInstance().setCollectionEventSwtich(false);
+        }
+    }
+
+    @Override
+    public void onResume() {
+        Log.v(TAG, "resume");
+        super.onResume();
+        if(!ApplicationController.getInstance().isCollectionEventSwtich()){
+            EventBus.getInstance().register(this);
+            Log.v(TAG, "register");
+            ApplicationController.getInstance().setCollectionEventSwtich(true);
+        }
     }
 }

@@ -13,6 +13,8 @@ import com.yg.yourexhibit.Retrofit.RetrofitGet.ExhibitWorkResponse;
 import com.yg.yourexhibit.Retrofit.RetrofitGet.TabWatchResult;
 import com.yg.yourexhibit.Retrofit.RetrofitGet.TabWishResult;
 import com.yg.yourexhibit.Retrofit.RetrofitPost.ExhibitCollectionPostResponse;
+import com.yg.yourexhibit.Retrofit.RetrofitPost.ExhibitFacebookLoginPost;
+import com.yg.yourexhibit.Retrofit.RetrofitPost.ExhibitFacebookSignPost;
 import com.yg.yourexhibit.Retrofit.RetrofitPost.ExhibitHeartPost;
 import com.yg.yourexhibit.Retrofit.RetrofitPost.ExhibitHeartPostResponse;
 import com.yg.yourexhibit.Retrofit.RetrofitPost.ExhibitLikePost;
@@ -154,4 +156,10 @@ public interface NetworkService {
     // 회원 탈퇴
     @DELETE("users")
     Call<TabSettingDeleteUserResponse> deleteUser(@Header("token") String token);
+
+    @POST("users/fb/register")
+    Call<SignPostResponse> facebookSign(@Body ExhibitFacebookSignPost exhibitFacebookSignPost);
+
+    @POST("users/fb/login")
+    Call<LoginPostResponse> facebookLogin(@Body ExhibitFacebookLoginPost exhibitFacebookLoginPost);
 }

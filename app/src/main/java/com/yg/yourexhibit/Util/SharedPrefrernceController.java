@@ -19,8 +19,6 @@ public class SharedPrefrernceController {
     private static final String GALLERY = "gallery";
 
 
-
-
     public static void setLoginId(Context context, String loginType){
         SharedPreferences pref = context.getSharedPreferences(USER,Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = pref.edit();
