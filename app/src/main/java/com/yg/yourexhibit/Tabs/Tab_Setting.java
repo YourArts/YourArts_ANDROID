@@ -97,6 +97,8 @@ public class Tab_Setting extends Fragment {
 
         gallery = SharedPrefrernceController.getGallery(this.getContext());
 
+        newName.setHint(SharedPrefrernceController.getUserNickname(getContext()));
+
         if(gallery){
             gallerySetting.setTextColor(Color.parseColor("#00ffc4"));
         }else{

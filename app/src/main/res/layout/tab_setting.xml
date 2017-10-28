@@ -10,29 +10,30 @@
     android:id="@+id/tabSetting">
 
     <RelativeLayout
-        android:layout_width="368dp"
+        android:layout_width="match_parent"
         android:layout_height="48dp"
         android:background="#000000">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
             android:includeFontPadding="false"
             android:text="설정"
             android:textColor="#ffffff"
-            android:textSize="20sp"
+            android:textSize="17sp"
             android:textStyle="bold" />
 
-        <ImageButton
-            android:id="@+id/btnGoSetting"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="21dp"
-            android:layout_marginTop="12dp"
-            android:background="@null"
-            android:src="@drawable/ic_settings" />
+        <!--<ImageButton-->
+            <!--android:id="@+id/btnGoSetting"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:layout_marginRight="21dp"-->
+            <!--android:layout_marginTop="12dp"-->
+            <!--android:background="@null"-->
+            <!--android:src="@drawable/ic_settings" />-->
     </RelativeLayout>
 
     <LinearLayout
@@ -47,20 +48,21 @@
             android:layout_height="wrap_content"
             android:text="닉네임 수정"
             android:textColor="#FFFFFF"
-            android:textSize="16sp"
+            android:textSize="13sp"
             android:textStyle="bold" />
 
         <EditText
             android:id="@+id/editSettingName"
-            android:layout_width="150dp"
+            android:layout_width="170dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="18dp"
             android:hint="입력"
+            android:textColorHint="#666666"
             android:lines = "1"
             android:textCursorDrawable="@null"
             android:background="@android:color/transparent"
             android:textColor="#666666"
-            android:textSize="16sp"
+            android:textSize="13sp"
             android:textStyle="bold" />
 
         <TextView
@@ -71,7 +73,7 @@
             android:layout_alignParentRight="true"
             android:text="수정"
             android:textColor="#666666"
-            android:textSize="16sp"
+            android:textSize="13sp"
             android:textStyle="bold" />
     </LinearLayout>
 
@@ -93,20 +95,21 @@
             android:layout_height="wrap_content"
             android:text="PW 수정"
             android:textStyle="bold"
-            android:textSize="16sp"
+            android:textSize="13sp"
             android:textColor="#FFFFFF"/>
         <EditText
             android:id="@+id/editSettingPW"
             android:layout_marginLeft="38dp"
-            android:layout_width="150dp"
+            android:layout_width="165dp"
             android:layout_height="wrap_content"
             android:hint="입력"
+            android:textColorHint="#666666"
             android:lines = "1"
             android:textCursorDrawable="@null"
             android:background="@android:color/transparent"
             android:inputType="textPassword"
             android:textStyle="bold"
-            android:textSize="16sp"
+            android:textSize="13sp"
             android:textColor="#666666"/>
         <TextView
             android:id="@+id/txtSettingPW"
@@ -115,7 +118,7 @@
             android:text="수정"
             android:layout_marginLeft="15dp"
             android:textStyle="bold"
-            android:textSize="16sp"
+            android:textSize="13sp"
             android:textColor="#666666"/>
     </LinearLayout>
     <View
@@ -136,7 +139,7 @@
             android:layout_height="wrap_content"
             android:text="PW 확인"
             android:textStyle="bold"
-            android:textSize="16sp"
+            android:textSize="13sp"
             android:textColor="#FFFFFF"/>
         <EditText
             android:id="@+id/editSettingCheckPW"
@@ -144,22 +147,23 @@
             android:layout_width="150dp"
             android:layout_height="20dp"
             android:hint="입력"
+            android:textColorHint="#666666"
             android:lines = "1"
             android:textCursorDrawable="@null"
             android:inputType="textPassword"
             android:background="@android:color/transparent"
             android:textStyle="bold"
-            android:textSize="16sp"
+            android:textSize="13sp"
             android:textColor="#666666"/>
 
         <TextView
             android:id="@+id/txtCheckPW"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="1dp"
+            android:layout_marginLeft="15dp"
             android:text="correct!"
             android:textColor="#666666"
-            android:textSize="16sp" />
+            android:textSize="13sp" />
     </LinearLayout>
     <View
         android:layout_width="296dp"
@@ -180,7 +184,7 @@
             android:layout_height="wrap_content"
             android:text="갤러리 접근"
             android:textStyle="bold"
-            android:textSize="16sp"
+            android:textSize="13sp"
             android:textColor="#FFFFFF"/>
 
         <TextView
@@ -188,9 +192,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="OFF"
-            android:layout_marginLeft="190dp"
+            android:layout_marginLeft="195dp"
             android:textStyle="bold"
-            android:textSize="16sp"
+            android:textSize="13sp"
             android:textColor="#666666"/>
     </LinearLayout>
 
@@ -211,7 +215,7 @@
             android:layout_height="wrap_content"
             android:text="'당신'의 전시 그만하기"
             android:textStyle="bold"
-            android:textSize="16sp"
+            android:textSize="13sp"
             android:textColor="#FFFFFF"/>
 
         <TextView
@@ -219,9 +223,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="탈퇴하기"
-            android:layout_marginLeft="80dp"
+            android:layout_marginLeft="110dp"
             android:textStyle="bold"
-            android:textSize="16sp"
+            android:textSize="13sp"
             android:textColor="#666666"/>
     </LinearLayout>
 
