@@ -55,7 +55,7 @@
                 android:background="#000000"
                 android:text="언제 - 언제"
                 android:textStyle="bold"
-                android:textSize="12sp"
+                android:textSize="9sp"
                 android:textAlignment="center"
                 android:textColor="#FFFFFF"
                 >
@@ -67,7 +67,7 @@
                 android:layout_marginLeft="12dp"
                 android:layout_marginTop="10dp"
                 android:lineSpacingExtra="23sp"
-                android:textSize="20sp"
+                android:textSize="17sp"
                 android:textColor="#FFFFFF"/>
         </LinearLayout>
     </RelativeLayout>

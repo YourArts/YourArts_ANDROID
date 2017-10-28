@@ -72,7 +72,7 @@ public class Tab_Mine extends Fragment{
                 viewPager.setCurrentItem(tab.getPosition());
                 TextView txt = (TextView)(((LinearLayout)((LinearLayout)tabLayout.getChildAt(0)).getChildAt(tab.getPosition())).getChildAt(1));
                 txt.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
-                txt.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20f);
+                txt.setTextSize(TypedValue.COMPLEX_UNIT_SP, 17f);
                 txt.setTextColor(Color.parseColor("#00FFC4"));
                 txt.setTypeface(txt.getTypeface(), Typeface.BOLD);
             }
@@ -82,7 +82,7 @@ public class Tab_Mine extends Fragment{
                 viewPager.setCurrentItem(tab.getPosition());
                 TextView txt = (TextView)(((LinearLayout)((LinearLayout)tabLayout.getChildAt(0)).getChildAt(tab.getPosition())).getChildAt(1));
                 txt.setPaintFlags(Paint.HINTING_OFF);
-                txt.setTextSize(TypedValue.COMPLEX_UNIT_SP, 80);
+                txt.setTextSize(TypedValue.COMPLEX_UNIT_SP, 17f);
                 txt.setTextColor(Color.parseColor("#FFFFFF"));
             }
 
