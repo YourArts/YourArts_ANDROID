@@ -15,7 +15,8 @@
             android:id="@+id/당신은"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="당신은"/>
+            android:text="당신은"
+            android:textSize="14sp"/>
 
         <TextView
             android:id="@+id/txtWishCount"
@@ -24,14 +25,16 @@
             app:layout_constraintLeft_toRightOf="@id/당신은"
             android:layout_marginLeft="10dp"
             android:textColor="#00FFC4"
-            android:text="몇"/>
+            android:text="몇"
+            android:textSize="14sp"/>
 
         <TextView
             android:id="@+id/개의전시를보았습니다"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintLeft_toRightOf="@id/txtWishCount"
-            android:text="개의 전시를 볼 예정입니다."/>
+            android:text="개의 전시를 볼 예정입니다."
+            android:textSize="14sp"/>
     </android.support.constraint.ConstraintLayout>
 
     <android.support.v7.widget.RecyclerView

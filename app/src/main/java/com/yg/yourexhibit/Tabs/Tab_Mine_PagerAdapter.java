@@ -18,6 +18,11 @@ public class Tab_Mine_PagerAdapter extends FragmentStatePagerAdapter {
     }
 
     @Override
+    public int getItemPosition(Object object) {
+        return POSITION_NONE;
+    }
+
+    @Override
     public Fragment getItem(int position) {
         switch (position){
             case 0:
