@@ -1,5 +1,7 @@
 package com.yg.yourexhibit.Tabs;
 
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
@@ -7,6 +9,7 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,10 +48,29 @@ public class Tab_Mine extends Fragment{
 
 
     @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.d("tabmine","onActivityResult!!");
+    }
+
+    @Override
+    public void onAttachFragment(Fragment childFragment) {
+        super.onAttachFragment(childFragment);
+        Log.d("tabmine","onAttachFragment!!");
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        Log.d("tabmine","onAttach!!");
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.tab_mine, container, false);
         ButterKnife.bind(this, v);
 
+        Log.d("tabmine","oncreateView!!");
         topName.setText(SharedPrefrernceController.getUserNickname(getContext()));
 
 
@@ -109,6 +131,42 @@ public class Tab_Mine extends Fragment{
 //        });
 
         return v;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Log.d("tabmine","onStart!!");
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.d("tabmine","onResume!!");
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.d("tabmine","onPause!!");
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        Log.d("tabmine","onStop!!");
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.d("tabmine","onDestroy!!");
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        Log.d("tabmine","onDetach!!");
     }
 
     @OnClick(R.id.btnGoSetting)

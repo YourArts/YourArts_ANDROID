@@ -98,14 +98,12 @@ public class Tab_Mine_Watch_Tab extends Fragment {
             Toast.makeText(getContext(),"시계는 와치 시계는 와치",Toast.LENGTH_SHORT).show();
             int itemPosition = watchList.getChildPosition(view);
             int idx = dataList.get(itemPosition).exhibition_idx;
-
             int status=0;
 
             if(dataList.get(itemPosition).flag.toString().equals("done")) status=0;
             else if(dataList.get(itemPosition).flag.toString().equals("doing")) status=1;
-            else if(dataList.get(itemPosition).flag.toString().equals("todo")){
-                status=2;
-            }
+            else if(dataList.get(itemPosition).flag.toString().equals("todo")) status=2;
+
             NetworkController.setIsFrom("watch");
             networkController.getDetailData(status, ApplicationController.getInstance().token, idx);
         }
@@ -206,5 +204,10 @@ public class Tab_Mine_Watch_Tab extends Fragment {
 //        HomeTabAdapter.flagChange = true;
 //        homeTabAdapter.notifyDataSetChanged();
         tabWatchAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
     }
 }
