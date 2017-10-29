@@ -95,11 +95,19 @@ public class Tab_Mine_Watch_Tab extends Fragment {
     View.OnClickListener clickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            Toast.makeText(getContext(),"ㅎㅇㅎㅇ",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(),"시계는 와치 시계는 와치",Toast.LENGTH_SHORT).show();
             int itemPosition = watchList.getChildPosition(view);
-//            int idx = ApplicationController.getInstance().getCollectionIdx();
             int idx = dataList.get(itemPosition).exhibition_idx;
-            networkController.getDetailData(1, ApplicationController.getInstance().token, idx);
+
+            int status=0;
+
+            if(dataList.get(itemPosition).flag.toString().equals("done")) status=0;
+            else if(dataList.get(itemPosition).flag.toString().equals("doing")) status=1;
+            else if(dataList.get(itemPosition).flag.toString().equals("todo")){
+                status=2;
+            }
+            NetworkController.setIsFrom("watch");
+            networkController.getDetailData(status, ApplicationController.getInstance().token, idx);
         }
     };
 

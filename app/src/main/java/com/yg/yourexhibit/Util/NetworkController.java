@@ -54,9 +54,19 @@ public class NetworkController {
     private ArrayList<ExhibitCollectionResult> firstResult;
     private ArrayList<ExhibitCollectionResult> secondResult;
     private ArrayList<ExhibitCollectionResult> thirdResult;
+    private static String isFrom = "";
+
 
     public NetworkController(){
         this.networkService = ApplicationController.getInstance().getNetworkService();
+    }
+
+    public static String getIsFrom() {
+        return isFrom;
+    }
+
+    public static void setIsFrom(String isFrom) {
+        NetworkController.isFrom = isFrom;
     }
 
     public void getEndData(){

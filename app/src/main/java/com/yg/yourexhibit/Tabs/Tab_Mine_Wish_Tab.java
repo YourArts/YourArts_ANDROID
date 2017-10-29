@@ -63,6 +63,8 @@ public class Tab_Mine_Wish_Tab extends Fragment{
         networkController = new NetworkController();
     }
 
+
+
     View.OnClickListener clickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
@@ -76,19 +78,11 @@ public class Tab_Mine_Wish_Tab extends Fragment{
             else if(dataList.get(itemPosition).flag.toString().equals("doing")) status=1;
             else if(dataList.get(itemPosition).flag.toString().equals("todo")){
                 status=2;
-//                networkController.getDetailData(status, ApplicationController.getToken(), idx);
-//                getFragmentManager()
-//                        .beginTransaction()
-//                        .addToBackStack(null)
-//                        .replace(R.id.tabWish, new Tab_Coming_Details())
-//                        .commit();
             }
-
+            NetworkController.setIsFrom("wish");
             Log.d("statusCheck",String.valueOf(status));
             Log.d("tokenCheck",String.valueOf(ApplicationController.getToken()));
             networkController.getDetailData(status, ApplicationController.getToken(), idx);
-
-
         }
     };
 

@@ -125,29 +125,53 @@ public class Tab_Home extends Fragment {
 
     public void toEndDetail(){
         Log.v(TAG, "toEndDetail");
-        getFragmentManager()
-                .beginTransaction()
-                .addToBackStack(null)
-                .replace(R.id.tab_home_container, new Tab_End_Details())
-                .commit();
+        if(NetworkController.getIsFrom().equals("watch") || NetworkController.getIsFrom().equals("wish")){
+            getFragmentManager()
+                    .beginTransaction()
+                    .addToBackStack(null)
+                    .replace(R.id.topLayout, new Tab_End_Details())
+                    .commit();
+        }else{
+            getFragmentManager()
+                    .beginTransaction()
+                    .addToBackStack(null)
+                    .replace(R.id.tab_home_container, new Tab_End_Details())
+                    .commit();
+        }
     }
 
     public void toGoingDetail(){
         Log.v(TAG, "toGoingDetail");
-        getFragmentManager()
-                .beginTransaction()
-                .addToBackStack(null)
-                .replace(R.id.tab_home_container, new Tab_Going_Details())
-                .commit();
+        if(NetworkController.getIsFrom().equals("watch") || NetworkController.getIsFrom().equals("wish")){
+            getFragmentManager()
+                    .beginTransaction()
+                    .addToBackStack(null)
+                    .replace(R.id.topLayout, new Tab_Going_Details())
+                    .commit();
+        }else{
+            getFragmentManager()
+                    .beginTransaction()
+                    .addToBackStack(null)
+                    .replace(R.id.tab_home_container, new Tab_Going_Details())
+                    .commit();
+        }
     }
 
     public void toComingDetail(){
         Log.v(TAG, "toComingDetail");
-        getFragmentManager()
-                .beginTransaction()
-                .addToBackStack(null)
-                .replace(R.id.tab_home_container, new Tab_Coming_Details())
-                .commit();
+        if(NetworkController.getIsFrom().equals("watch") || NetworkController.getIsFrom().equals("wish")){
+            getFragmentManager()
+                    .beginTransaction()
+                    .addToBackStack(null)
+                    .replace(R.id.topLayout, new Tab_Coming_Details())
+                    .commit();
+        }else{
+            getFragmentManager()
+                    .beginTransaction()
+                    .addToBackStack(null)
+                    .replace(R.id.tab_home_container, new Tab_Coming_Details())
+                    .commit();
+        }
     }
 
     @Override
