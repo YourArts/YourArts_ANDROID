@@ -1,6 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center">
+
+
+    <LinearLayout
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/popup_onebutton_white"
+        android:orientation="vertical" >
+
+
+        <TextView
+            android:id="@+id/dialog_err_txt_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginRight="32dp"
+            android:gravity="center"
+            android:textColor="#000000"
+            android:text="인증번호가 틀렸습니다\n인증번호 재전송 후 다시 입력하세요."
+            android:textSize="16sp" />
+
+        <LinearLayout
+            android:layout_marginTop="25dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/dialog_err_btn_no"
+                android:layout_width="match_parent"
+                android:background="#00ff0000"
+                android:layout_height="wrap_content"
+                android:textColor="#666666"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:layout_gravity="center"
+                android:text="확인" />
+
+        </LinearLayout>
+    </LinearLayout>
+
 
 </LinearLayout>

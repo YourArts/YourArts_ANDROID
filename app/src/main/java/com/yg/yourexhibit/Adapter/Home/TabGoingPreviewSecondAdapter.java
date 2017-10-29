@@ -38,7 +38,10 @@ public class TabGoingPreviewSecondAdapter extends RecyclerView.Adapter<TabGoingP
 
     @Override
     public void onBindViewHolder(TabGoingPreviewViewHolder holder, int position) {
-        requestManager.load(previewList.get(position).getWork_image()).into(holder.preView);
+        requestManager
+                .load(previewList.get(position).getWork_image())
+                .centerCrop()
+                .into(holder.preView);
     }
 
     @Override

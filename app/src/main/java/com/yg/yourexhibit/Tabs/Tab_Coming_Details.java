@@ -86,7 +86,7 @@ public class Tab_Coming_Details extends Fragment{
         //Log.v("문자2", tempString.replace(" ", "\u00a0"));
 
         description.setText(tempString2);
-        requestManager.load(exhibitDetailResult.getExhibition_picture()).into(represent);
+        requestManager.load(exhibitDetailResult.getExhibition_picture()).centerCrop().into(represent);
 
         preViewList.setHasFixedSize(true);
         linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);

@@ -19,7 +19,6 @@ import com.yg.yourexhibit.R;
 import com.yg.yourexhibit.Util.EventBus;
 import com.yg.yourexhibit.Util.EventCode;
 import com.yg.yourexhibit.Util.NetworkController;
-import com.yg.yourexhibit.Util.ResourcesUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -113,10 +112,7 @@ public class SignupActivity extends AppCompatActivity {
             Toast.makeText(this, "비밀번호를 확인해주세요!", Toast.LENGTH_SHORT).show();
             return;
         }
-        if(!ResourcesUtil.checkEmail(editTextEmail.getText().toString())){
-            Toast.makeText(this, "이메일을 확인해주세요!", Toast.LENGTH_SHORT).show();
-            return;
-        }
+
 
 
         networkController.sign(editTextID.getText().toString(), editTextPW.getText().toString(),

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -86,6 +87,7 @@ public class Tab_Collection extends Fragment{
 //            EventBus.getInstance().register(this);
 //            ApplicationController.getInstance().setCollectionEventSwtich(true);
 //        }
+        beforInit();
         networkService = ApplicationController.getInstance().getNetworkService();
         ApplicationController.getInstance().setInDetail(false);
         ApplicationController.getInstance().setFromWork(false);
@@ -103,6 +105,23 @@ public class Tab_Collection extends Fragment{
 
         return v;
     }
+    public void beforInit(){
+        if (ApplicationController.getInstance().isFromEdit()) {
+            android.support.v4.app.FragmentManager fm = getFragmentManager();
+
+            FragmentTransaction ft = getFragmentManager().beginTransaction();
+
+            ft.detach(this).attach(this).commit();
+
+//            for (int i = 0; i < fm.getBackStackEntryCount(); ++i) {
+//                Log.v(TAG, "count");
+//                fm.popBackStack();
+//            }
+            ApplicationController.getInstance().setFromEdit(false);
+        }
+
+    }
+
 
     public void getCollectionDatas(String token){
         //NetworkService networkService = ApplicationController.getInstance().getNetworkService();
@@ -279,9 +298,11 @@ public class Tab_Collection extends Fragment{
                     Log.v(TAG, "toDetail");
                  getFragmentManager()
                         .beginTransaction()
-                        .addToBackStack(null)
+                        .disallowAddToBackStack()
                         .replace(R.id.tab_collection_container, new Tab_Collection_Detail())
                         .commit();
+
+
                     Log.v(TAG, "getCollectionDetailSuccess");
                 }else{
                     Log.v(TAG, "getCollectionDetailFail");
@@ -299,7 +320,8 @@ public class Tab_Collection extends Fragment{
         ApplicationController.getInstance().setFromDetail(false);
         getFragmentManager()
                 .beginTransaction()
-                .addToBackStack(null)
+                .disallowAddToBackStack()
+                .add(R.id.tab_collection_container, new Tab_Collection(), "base")
                 .replace(R.id.tab_collection_container, new Tab_Collection_Edit(), "edit")
                 .commit();
     }

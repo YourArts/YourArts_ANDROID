@@ -3,6 +3,7 @@ package com.yg.yourexhibit.Tabs;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -74,7 +75,7 @@ public class Tab_Collection_Detail extends Fragment {
     }
 
     public void initFragment(){
-        Glide.with(this).load(detailResult.getCollection_image()).into(detailImg);
+        Glide.with(this).load(detailResult.getCollection_image()).centerCrop().into(detailImg);
         name.setText("전시 이름");
         name.setText(detailResult.getExhibition_name());
         if(ApplicationController.getInstance().isFromEdit())
@@ -88,11 +89,11 @@ public class Tab_Collection_Detail extends Fragment {
     public void toEdit(){
         ApplicationController.getInstance().setFromDetail(true);
 
-        getFragmentManager()
-                .beginTransaction()
-                .disallowAddToBackStack()
-                .replace(R.id.collection_detail_container, new Tab_Collection_Edit())
-                .commit();
+//        getFragmentManager()
+//                .beginTransaction()
+//                .disallowAddToBackStack()
+//                .replace(R.id.collection_detail_container, new Tab_Collection_Edit())
+//                .commit();
             getFragmentManager()
                     .beginTransaction()
                     .addToBackStack("toEdit")
@@ -176,6 +177,8 @@ public class Tab_Collection_Detail extends Fragment {
 
 
         Fragment fromFrag = null, toFrag = null;
+
+
 //        fromFrag = getActivity().getSupportFragmentManager().findFragmentByTag("base");
 ////            toFrag = getActivity().getSupportFragmentManager().findFragmentByTag("detail");
 //        final FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
@@ -217,6 +220,9 @@ public class Tab_Collection_Detail extends Fragment {
     public void onDetach() {
         Log.v(TAG,"detach");
         super.onDetach();
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+
+        ft.attach(new Tab_Collection()).commit();
        // EventBus.getInstance().unregister(this);
     }
 

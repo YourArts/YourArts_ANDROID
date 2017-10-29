@@ -39,7 +39,10 @@ public class TabGoingDetailAdapter extends RecyclerView.Adapter<TabDetailViewHol
 
     @Override
     public void onBindViewHolder(TabDetailViewHolder holder, int position) {
-        requestManager.load(previewList.get(position).getWork_image()).into(holder.preView);
+        requestManager
+                .load(previewList.get(position).getWork_image())
+                .centerCrop()
+                .into(holder.preView);
     }
 
     @Override

@@ -51,6 +51,7 @@
         android:textColor="#ffffff"
         />
     <View
+        android:visibility="invisible"
         android:id="@+id/tab_work_underline"
         android:layout_width="20dp"
         android:layout_height="2dp"

@@ -13,7 +13,6 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
-import com.squareup.picasso.Picasso;
 import com.yg.yourexhibit.Adapter.Home.TabGoingDetailAdapter;
 import com.yg.yourexhibit.App.ApplicationController;
 import com.yg.yourexhibit.R;
@@ -109,12 +108,12 @@ public class Tab_Going_Details extends Fragment{
         //Log.v("문자2", tempString.replace(" ", "\u00a0"));
 
         description.setText(tempString2);
-        Picasso.with(ApplicationController.getInstance().getApplicationContext())
-                .load(exhibitDetailResult.getExhibition_picture())
-                .resize(380,220)
-                .into(represent);
+//        Picasso.with(ApplicationController.getInstance().getApplicationContext())
+//                .load(exhibitDetailResult.getExhibition_picture())
+//                .resize(380,220)
+//                .into(represent);
 
-        //requestManager.load(exhibitDetailResult.getExhibition_picture()).into(represent);
+        requestManager.load(exhibitDetailResult.getExhibition_picture()).centerCrop().into(represent);
 
         preViewList.setHasFixedSize(true);
         linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);

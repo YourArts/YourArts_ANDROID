@@ -69,7 +69,7 @@ public class Tab_Work extends Fragment{
     }
 
     public void initFragment(){
-        Glide.with(this).load(workResult.get(0).getWork_image()).into(workImg);
+        Glide.with(this).load(workResult.get(0).getWork_image()).centerCrop().into(workImg);
         workName.setText(workResult.get(0).getWork_name());
         workWhen.setText("사조 : " + workResult.get(0).getWork_idea());
         workHow.setText("기법 : " + workResult.get(0).getWork_style());
