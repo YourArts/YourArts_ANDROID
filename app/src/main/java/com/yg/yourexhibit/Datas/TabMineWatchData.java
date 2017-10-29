@@ -10,5 +10,8 @@ public class TabMineWatchData {
     public String exhibition_picture;
     public String exhibition_stard_date;
     public String exhibition_end_date;
+    public Integer start_date;
+    public Integer end_date;
     public Integer like_count;
+    public String flag;
 }
