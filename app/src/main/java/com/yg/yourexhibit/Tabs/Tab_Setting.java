@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -194,8 +195,14 @@ public class Tab_Setting extends Fragment {
                 SharedPrefrernceController.setPasswd(getActivity(), "");
                 logoutDialog.dismiss();
 
-                startActivity(new Intent(getContext(), SplashActivity.class));
-                getActivity().finish();
+//                getActivity().finish();
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                fragmentManager.beginTransaction().remove(Tab_Setting.this).commit();
+
+                Intent intent = new Intent(getContext(), SplashActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+
             }
         };
 
@@ -227,8 +234,15 @@ public class Tab_Setting extends Fragment {
                             SharedPrefrernceController.setSelected(getActivity(), false);
                             SharedPrefrernceController.setPasswd(getActivity(), "");
                             signoutDialog.dismiss();
-                            getActivity().finish();
-                            startActivity(new Intent(getContext(), SplashActivity.class));
+
+//                            getActivity().finish();
+//                            startActivity(new Intent(getContext(), SplashActivity.class));
+                            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                            fragmentManager.beginTransaction().remove(Tab_Setting.this).commit();
+
+                            Intent intent = new Intent(getContext(), SplashActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(intent);
                         }else{
                             Log.d("Signout","fail");
                         }

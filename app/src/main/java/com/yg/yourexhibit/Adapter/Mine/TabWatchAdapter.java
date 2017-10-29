@@ -34,10 +34,6 @@ public class TabWatchAdapter extends RecyclerView.Adapter<TabWatchAdapter.WatchV
     View.OnClickListener clickListener;
     RequestManager requestManager;
 
-    public void setAdapter(ArrayList<TabMineWatchData> dataList){
-        this.dataList = dataList;
-        notifyDataSetChanged();
-    }
 
     @Override
     public WatchViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {

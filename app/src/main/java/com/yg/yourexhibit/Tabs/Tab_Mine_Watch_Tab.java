@@ -97,19 +97,13 @@ public class Tab_Mine_Watch_Tab extends Fragment {
         public void onClick(View view) {
             Toast.makeText(getContext(),"ㅎㅇㅎㅇ",Toast.LENGTH_SHORT).show();
             int itemPosition = watchList.getChildPosition(view);
-            int idx = ApplicationController.getInstance().getCollectionIdx();
+//            int idx = ApplicationController.getInstance().getCollectionIdx();
+            int idx = dataList.get(itemPosition).exhibition_idx;
             networkController.getDetailData(1, ApplicationController.getInstance().token, idx);
         }
     };
 
-//    @Override
-//    public void onResume() {
-//        super.onResume();
-//        HomeTabAdapter homeTabAdapter = new HomeTabAdapter(getFragmentManager(),3);
-////        HomeTabAdapter.flagChange = true;
-//        homeTabAdapter.notifyDataSetChanged();
-////        tabWatchAdapter.notifyDataSetChanged();
-//    }
+
 //
 //    @Override
 //    public void onStart() {
@@ -182,8 +176,6 @@ public class Tab_Mine_Watch_Tab extends Fragment {
                     }
                     watchCount.setText(String.valueOf(dataList.size()));
                     watchList.setLayoutManager(linearLayoutManager);
-//                    watchList.setAdapter(tabWatchAdapter);
-//                    tabWatchAdapter.setAdapter(dataList);
                     tabWatchAdapter.notifyDataSetChanged();
                     watchList.setAdapter(tabWatchAdapter);
                 }
@@ -197,5 +189,14 @@ public class Tab_Mine_Watch_Tab extends Fragment {
 
 
         return view;
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.d("lifeCheck","onResume");
+//        HomeTabAdapter homeTabAdapter = new HomeTabAdapter(getFragmentManager(),3);
+//        HomeTabAdapter.flagChange = true;
+//        homeTabAdapter.notifyDataSetChanged();
+        tabWatchAdapter.notifyDataSetChanged();
     }
 }
