@@ -15,16 +15,16 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
-import com.squareup.otto.Subscribe;
 import com.yg.yourexhibit.Adapter.Collection.TabCollectionFirstAdapter;
 import com.yg.yourexhibit.Adapter.Collection.TabCollectionSecondAdapter;
 import com.yg.yourexhibit.Adapter.Collection.TabCollectionThirdAdapter;
 import com.yg.yourexhibit.App.ApplicationController;
 import com.yg.yourexhibit.R;
+import com.yg.yourexhibit.Retrofit.NetworkService;
+import com.yg.yourexhibit.Retrofit.RetrofitGet.ExhibitCollectionDetailResponse;
+import com.yg.yourexhibit.Retrofit.RetrofitGet.ExhibitCollectionResponse;
 import com.yg.yourexhibit.Retrofit.RetrofitGet.ExhibitCollectionResult;
 import com.yg.yourexhibit.Util.CustomLinearLayout;
-import com.yg.yourexhibit.Util.EventBus;
-import com.yg.yourexhibit.Util.EventCode;
 import com.yg.yourexhibit.Util.NetworkController;
 
 import java.util.ArrayList;
@@ -32,6 +32,9 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by 2yg on 2017. 10. 8..
@@ -63,6 +66,7 @@ public class Tab_Collection extends Fragment{
     private RequestManager requestManagerFirst;
     private RequestManager requestManagerSecond;
     private RequestManager requestManagerThird;
+    private NetworkService networkService;
 
     private CustomLinearLayout linearLayoutManagerFirst;
     private CustomLinearLayout linearLayoutManagerSecond;
@@ -77,11 +81,12 @@ public class Tab_Collection extends Fragment{
         View v = inflater.inflate(R.layout.tab_collection, container, false);
         ButterKnife.bind(this, v);
         Log.v(TAG, "createView");
-        if(!ApplicationController.getInstance().isCollectionEventSwtich()){
-            Log.v(TAG, "register");
-            EventBus.getInstance().register(this);
-            ApplicationController.getInstance().setCollectionEventSwtich(true);
-        }
+//        if(!ApplicationController.getInstance().isCollectionEventSwtich()){
+//            Log.v(TAG, "register");
+//            EventBus.getInstance().register(this);
+//            ApplicationController.getInstance().setCollectionEventSwtich(true);
+//        }
+        networkService = ApplicationController.getInstance().getNetworkService();
         ApplicationController.getInstance().setInDetail(false);
         ApplicationController.getInstance().setFromWork(false);
         networkController = new NetworkController();
@@ -92,11 +97,58 @@ public class Tab_Collection extends Fragment{
         second.clearOnScrollListeners();
         third.clearOnScrollListeners();
         //TODO : 여기에 원래 Shared에 저장한 아이디 들어가야 함
-        networkController.getCollectionData(ApplicationController.getInstance().token);
-
+        //networkController.getCollectionData(ApplicationController.getInstance().token);
+        getCollectionDatas(ApplicationController.getInstance().token);
 
 
         return v;
+    }
+
+    public void getCollectionDatas(String token){
+        //NetworkService networkService = ApplicationController.getInstance().getNetworkService();
+        firstResult = new ArrayList<ExhibitCollectionResult>();
+        secondResult = new ArrayList<ExhibitCollectionResult>();
+        thirdResult = new ArrayList<ExhibitCollectionResult>();
+
+        Call<ExhibitCollectionResponse> exhibitCollectionResponse = networkService.getCollectionResponse(token);
+        //final ArrayList<ExhibitCollectionResult> finalFirstResult = firstResult;
+        exhibitCollectionResponse.enqueue(new Callback<ExhibitCollectionResponse>() {
+            @Override
+            public void onResponse(Call<ExhibitCollectionResponse> call, Response<ExhibitCollectionResponse> response) {
+
+                if(response.body().isStatus()){
+                    ApplicationController.getInstance().setCollectionSize(response.body().getResult().size());
+                    Log.v(TAG, "getCollectionSuccess");
+                    for(int i = 0; i<response.body().getResult().size(); i++){
+                        switch(i%3){
+                            case 0:
+                                firstResult.add(response.body().getResult().get(i));
+                                break;
+                            case 1:
+                                secondResult.add(response.body().getResult().get(i));
+                                break;
+                            case 2:
+                                thirdResult.add(response.body().getResult().get(i));
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                    ApplicationController.getInstance().setExhibitCollectionResultFirst(firstResult);
+                    ApplicationController.getInstance().setExhibitCollectionResultSecond(secondResult);
+                    ApplicationController.getInstance().setExhibitCollectionResultThird(thirdResult);
+                    initFragment();
+                    //EventBus.getInstance().post(EventCode.EVENT_CODE_COLLECTION_GET);
+                }else{
+                    Log.v(TAG,"getCollectionFail");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ExhibitCollectionResponse> call, Throwable t) {
+                Log.v(TAG,"checkNetwork");
+            }
+        });
     }
 
     @Override
@@ -112,24 +164,24 @@ public class Tab_Collection extends Fragment{
         super.onAttach(context);
     }
 
-    @Subscribe
-    public void onEventLoad(Integer code){
-        switch(code){
-            case EventCode.EVENT_CODE_COLLECTION_GET:
-                initFragment();
-                break;
-            case EventCode.EVENT_CODE_COLLECTION_DETAIL:
-                //Fragment fragment = Tab_Collection_Detail.newInstance();
-                Log.v(TAG, "toDetail");
-                getFragmentManager()
-                        .beginTransaction()
-                        .addToBackStack(null)
-                        .add(R.id.tab_collection_container, new Tab_Collection(), "base")
-                        .replace(R.id.tab_collection_container, new Tab_Collection_Detail(), "detail")
-                        .commit();
-                break;
-        }
-    }
+//    @Subscribe
+//    public void onEventLoad(Integer code){
+//        switch(code){
+//            case EventCode.EVENT_CODE_COLLECTION_GET:
+//                initFragment();
+//                break;
+//            case EventCode.EVENT_CODE_COLLECTION_DETAIL:
+//                //Fragment fragment = Tab_Collection_Detail.newInstance();
+//                Log.v(TAG, "toDetail");
+//                getFragmentManager()
+//                        .beginTransaction()
+//                        .addToBackStack(null)
+//                        .add(R.id.tab_collection_container, new Tab_Collection(), "base")
+//                        .replace(R.id.tab_collection_container, new Tab_Collection_Detail(), "detail")
+//                        .commit();
+//                break;
+//        }
+//    }
 
     public void initFragment(){
         firstResult = ApplicationController.getInstance().getExhibitCollectionResultFirst();
@@ -184,10 +236,10 @@ public class Tab_Collection extends Fragment{
             Log.v(TAG, "first");
             int itemPosition = first.getChildPosition(v);
             ApplicationController.getInstance().setFromEdit(false);
-            ApplicationController.getInstance().makeToast(String.valueOf(itemPosition));
+            //ApplicationController.getInstance().makeToast(String.valueOf(itemPosition));
             int idx = firstResult.get(itemPosition).getCollection_idx();
             ApplicationController.getInstance().setCollectionIdx(idx);
-            networkController.getCollectionDetailData(ApplicationController.getInstance().token, idx);
+            getCollectionDetailData(ApplicationController.getInstance().token, idx);
 
         }
     };
@@ -197,10 +249,10 @@ public class Tab_Collection extends Fragment{
             Log.v(TAG, "second");
             int itemPosition = second.getChildPosition(v);
             ApplicationController.getInstance().setFromEdit(false);
-            ApplicationController.getInstance().makeToast(String.valueOf(itemPosition));
+            //ApplicationController.getInstance().makeToast(String.valueOf(itemPosition));
             int idx = secondResult.get(itemPosition).getCollection_idx();
             ApplicationController.getInstance().setCollectionIdx(idx);
-            networkController.getCollectionDetailData(ApplicationController.getInstance().token, idx);
+            getCollectionDetailData(ApplicationController.getInstance().token, idx);
 
         }
     };
@@ -210,21 +262,44 @@ public class Tab_Collection extends Fragment{
             Log.v(TAG, "third");
             int itemPosition = third.getChildPosition(v);
             ApplicationController.getInstance().setFromEdit(false);
-            ApplicationController.getInstance().makeToast(String.valueOf(itemPosition));
+            //ApplicationController.getInstance().makeToast(String.valueOf(itemPosition));
             int idx = thirdResult.get(itemPosition).getCollection_idx();
             ApplicationController.getInstance().setCollectionIdx(idx);
-            networkController.getCollectionDetailData(ApplicationController.getInstance().token, idx);
+            getCollectionDetailData(ApplicationController.getInstance().token, idx);
         }
     };
+
+    public void getCollectionDetailData(String token, int idx){
+        Call<ExhibitCollectionDetailResponse> detailResponse = networkService.getCollectionDetailResponse(token, idx);
+        detailResponse.enqueue(new Callback<ExhibitCollectionDetailResponse>() {
+            @Override
+            public void onResponse(Call<ExhibitCollectionDetailResponse> call, Response<ExhibitCollectionDetailResponse> response) {
+                if(response.body().isStatus()){
+                    ApplicationController.getInstance().setExhibitCollectionDetailResult(response.body().getResult());
+                    Log.v(TAG, "toDetail");
+                 getFragmentManager()
+                        .beginTransaction()
+                        .addToBackStack(null)
+                        .replace(R.id.tab_collection_container, new Tab_Collection_Detail())
+                        .commit();
+                    Log.v(TAG, "getCollectionDetailSuccess");
+                }else{
+                    Log.v(TAG, "getCollectionDetailFail");
+                }
+            }
+            @Override
+            public void onFailure(Call<ExhibitCollectionDetailResponse> call, Throwable t) {
+                Log.v(TAG,"checkNetwork");
+            }
+        });
+    }
 
     @OnClick(R.id.tab_collection_edit)
     public void toEdit(){
         ApplicationController.getInstance().setFromDetail(false);
-
         getFragmentManager()
                 .beginTransaction()
                 .addToBackStack(null)
-                .add(R.id.tab_collection_container, new Tab_Collection())
                 .replace(R.id.tab_collection_container, new Tab_Collection_Edit(), "edit")
                 .commit();
     }
@@ -247,21 +322,24 @@ public class Tab_Collection extends Fragment{
     public void onPause() {
         Log.v(TAG,"pause");
         super.onPause();
-        if(ApplicationController.getInstance().isCollectionEventSwtich()){
-            EventBus.getInstance().unregister(this);
-            Log.v(TAG, "unregister");
-            ApplicationController.getInstance().setCollectionEventSwtich(false);
-        }
+       // ApplicationController.getInstance().setCollectionEventSwtich(true);
+        //ApplicationController.getInstance().setCollectionEventSwtich(false);
+
+//        if(ApplicationController.getInstance().isCollectionEventSwtich()){
+//            EventBus.getInstance().unregister(this);
+//            Log.v(TAG, "unregister");
+//            ApplicationController.getInstance().setCollectionEventSwtich(false);
+//        }
     }
 
     @Override
     public void onResume() {
         Log.v(TAG, "resume");
         super.onResume();
-        if(!ApplicationController.getInstance().isCollectionEventSwtich()){
-            EventBus.getInstance().register(this);
-            Log.v(TAG, "register");
-            ApplicationController.getInstance().setCollectionEventSwtich(true);
-        }
+//        if(!ApplicationController.getInstance().isCollectionEventSwtich()){
+//            EventBus.getInstance().register(this);
+//            Log.v(TAG, "register");
+//            ApplicationController.getInstance().setCollectionEventSwtich(true);
+//        }
     }
 }

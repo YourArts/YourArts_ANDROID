@@ -42,9 +42,16 @@ public class SplashActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getInstance().unregister(this);
+    }
+
     @Subscribe
     public void onEventLoad(Integer code){
         switch (code){
+            case EventCode.EVENT_CODE_FB_LOGIN:
             case EventCode.EVENT_CODE_LOGIN:
                 Handler hd = new Handler();
                 hd.postDelayed(new Runnable() {
@@ -55,6 +62,9 @@ public class SplashActivity extends AppCompatActivity {
                         finish();
                     }
                 }, 2000);
+                break;
+            case EventCode.EVENET_CODE_LOGIN_FAIL:
+                networkController.facebookLogin(SharedPrefrernceController.getFacebookToken(SplashActivity.this));
                 break;
         }
     }

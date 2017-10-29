@@ -17,14 +17,18 @@ import com.bumptech.glide.Glide;
 import com.squareup.otto.Subscribe;
 import com.yg.yourexhibit.App.ApplicationController;
 import com.yg.yourexhibit.R;
+import com.yg.yourexhibit.Retrofit.NetworkService;
+import com.yg.yourexhibit.Retrofit.RetrofitDelete.ExhibitCollectionDeleteResponse;
 import com.yg.yourexhibit.Retrofit.RetrofitGet.ExhibitCollectionDetailResult;
-import com.yg.yourexhibit.Util.EventBus;
 import com.yg.yourexhibit.Util.EventCode;
 import com.yg.yourexhibit.Util.NetworkController;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by 2yg on 2017. 10. 17..
@@ -47,19 +51,21 @@ public class Tab_Collection_Detail extends Fragment {
     private static final String TAG = "LOG::CollectionDetail";
     private ExhibitCollectionDetailResult detailResult;
     private NetworkController networkController;
+    private NetworkService networkService;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.tab_collection_detail, container, false);
         ButterKnife.bind(this, v);
         Log.v(TAG, "create");
-        ApplicationController.getInstance().setCollectionEventSwtich(false);
-        ApplicationController.getInstance().setColEditSwitch(false);
+        //ApplicationController.getInstance().setCollectionEventSwtich(false);
+        //ApplicationController.getInstance().setColEditSwitch(false);
 
-        if(ApplicationController.getInstance().isColDetailSwitch()){
-            EventBus.getInstance().unregister(this);
-            ApplicationController.getInstance().setColDetailSwitch(false);
-        }
+//        if(ApplicationController.getInstance().isColDetailSwitch()){
+//            EventBus.getInstance().unregister(this);
+//            ApplicationController.getInstance().setColDetailSwitch(true);
+//        }
+        networkService = ApplicationController.getInstance().getNetworkService();
         ApplicationController.getInstance().setInDetail(true);
         detailResult = ApplicationController.getInstance().getExhibitCollectionDetailResult();
         networkController = new NetworkController();
@@ -82,6 +88,11 @@ public class Tab_Collection_Detail extends Fragment {
     public void toEdit(){
         ApplicationController.getInstance().setFromDetail(true);
 
+        getFragmentManager()
+                .beginTransaction()
+                .disallowAddToBackStack()
+                .replace(R.id.collection_detail_container, new Tab_Collection_Edit())
+                .commit();
             getFragmentManager()
                     .beginTransaction()
                     .addToBackStack("toEdit")
@@ -106,12 +117,35 @@ public class Tab_Collection_Detail extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case 0:
-                networkController.deleteCollection(ApplicationController.getInstance().token,
+                deleteCollection(ApplicationController.getInstance().token,
                         detailResult.getCollection_idx());
                 //ApplicationController.getInstance().makeToast("삭제 완료.");
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void deleteCollection(String token, int idx){
+        Call<ExhibitCollectionDeleteResponse> deleteCollectionResponse = networkService.deleteCollectionResponse(token, idx);
+        deleteCollectionResponse.enqueue(new Callback<ExhibitCollectionDeleteResponse>() {
+            @Override
+            public void onResponse(Call<ExhibitCollectionDeleteResponse> call, Response<ExhibitCollectionDeleteResponse> response) {
+                if(response.isSuccessful()){
+                    ApplicationController.getInstance().makeToast("삭제 완료.");
+                    //EventBus.getInstance().post(EventCode.EVENT_CODE_COLLECTION_DELETE);
+                    returnToCollection();
+
+                    Log.v(TAG,"deletetCollectionSuccess");
+                }else{
+                    Log.v(TAG,"deletetCollectionFail");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ExhibitCollectionDeleteResponse> call, Throwable t) {
+                Log.v(TAG,"checkNetwork");
+            }
+        });
     }
 
     @Subscribe
@@ -137,20 +171,28 @@ public class Tab_Collection_Detail extends Fragment {
 
     public void returnToCollection(){
 
+        android.support.v4.app.FragmentManager fm = getFragmentManager();
+
+
+
+        Fragment fromFrag = null, toFrag = null;
+//        fromFrag = getActivity().getSupportFragmentManager().findFragmentByTag("base");
+////            toFrag = getActivity().getSupportFragmentManager().findFragmentByTag("detail");
+//        final FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+//        ft.detach(fromFrag);
+//            ft.attach(toFrag);
+       // ft.commit();
         getFragmentManager()
                 .beginTransaction()
                 .disallowAddToBackStack()
                 .replace(R.id.collection_detail_container, new Tab_Collection())
                 .commit();
 
+        for(int i = 0; i < fm.getBackStackEntryCount(); ++i) {
+            Log.v(TAG, "count");
+            fm.popBackStack();
+        }
 
-//            Fragment fromFrag = null, toFrag = null;
-//            fromFrag = getActivity().getSupportFragmentManager().findFragmentByTag("base");
-//            toFrag = getActivity().getSupportFragmentManager().findFragmentByTag("detail");
-//            final android.support.v4.app.FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-//            ft.detach(fromFrag);
-//            ft.attach(toFrag);
-//            ft.commit();
 
     }
 
@@ -163,11 +205,6 @@ public class Tab_Collection_Detail extends Fragment {
 //        returnToCollection();
 //    }
 
-    public static Fragment newInstance()
-    {
-        Tab_Collection_Detail myFragment = new Tab_Collection_Detail();
-        return myFragment;
-    }
 
     @Override
     public void onDestroy() {
@@ -186,10 +223,11 @@ public class Tab_Collection_Detail extends Fragment {
     @Override
     public void onPause() {
         Log.v(TAG,"pause");
-        if(ApplicationController.getInstance().isColDetailSwitch()){
-            EventBus.getInstance().unregister(this);
-            ApplicationController.getInstance().setColDetailSwitch(false);
-        }
+//        ApplicationController.getInstance().setColDetailSwitch(true);
+//        if(ApplicationController.getInstance().isColDetailSwitch()){
+//            EventBus.getInstance().unregister(this);
+//            ApplicationController.getInstance().setColDetailSwitch(false);
+//        }
         super.onPause();
     }
 
@@ -197,10 +235,11 @@ public class Tab_Collection_Detail extends Fragment {
     public void onResume() {
         Log.v(TAG, "resume");
         //EventBus.getInstance().register(this);
+//        if(!ApplicationController.getInstance().isColDetailSwitch()){
+//            EventBus.getInstance().register(this);
+//            ApplicationController.getInstance().setColDetailSwitch(true);
+//        }
         super.onResume();
-        if(!ApplicationController.getInstance().isColDetailSwitch()){
-            EventBus.getInstance().register(this);
-            ApplicationController.getInstance().setColDetailSwitch(true);
-        }
+
     }
 }

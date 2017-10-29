@@ -6,7 +6,6 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.StrictMode;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -55,7 +54,7 @@ import okhttp3.RequestBody;
  * Created by 2yg on 2017. 10. 18..
  */
 
-public class Tab_Collection_Edit extends Fragment{
+public class Tab_Collection_Edit extends android.support.v4.app.Fragment{
 
     @BindView(R.id.collection_edit_img)
     ImageView editImg;
@@ -217,10 +216,6 @@ public class Tab_Collection_Edit extends Fragment{
         ApplicationController.getInstance().setFromEdit(true);
         ApplicationController.getInstance().setEditContent(context.getText().toString());
         if(ApplicationController.getInstance().isFromWork()){
-            Log.v("보낼 것", String.valueOf(idx));
-            Log.v("보낼 것", searchText.getText().toString());
-            Log.v("보낼 것", context.getText().toString());
-            Log.v("보낼 것", profile_pic.toString());
 
             RequestBody colIdx = RequestBody.create(MediaType.parse("text/pain"), String.valueOf(idx));
             RequestBody name = RequestBody.create(MediaType.parse("text/pain"), searchText.getText().toString());
@@ -240,7 +235,6 @@ public class Tab_Collection_Edit extends Fragment{
             RequestBody name = RequestBody.create(MediaType.parse("text/pain"), searchText.getText().toString());
             RequestBody content = RequestBody.create(MediaType.parse("text/pain"), context.getText().toString());
 
-            //returnFrag();
 
 
             networkController.postCollection(ApplicationController.getInstance().token, colIdx, content, profile_pic);
@@ -252,7 +246,7 @@ public class Tab_Collection_Edit extends Fragment{
 
     @OnClick(R.id.collection_edit_pic)
     public void changeImage(){
-        if(SharedPrefrernceController.getGallery(getContext())) {
+        if(SharedPrefrernceController.getGallery(getActivity())) {
             Intent intent = new Intent(Intent.ACTION_PICK);
             intent.setType(android.provider.MediaStore.Images.Media.CONTENT_TYPE);
             intent.setData(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -263,7 +257,7 @@ public class Tab_Collection_Edit extends Fragment{
                     leftListener, // 왼쪽 버튼 이벤트
                     rightListener); // 오른쪽 버튼 이벤트
             galleryDialog.show();
-            SharedPrefrernceController.setGallery(getContext(), true);
+            SharedPrefrernceController.setGallery(getActivity(), true);
         }
     }
 
@@ -348,18 +342,17 @@ public class Tab_Collection_Edit extends Fragment{
 
     public void returnFrag(){
         if(ApplicationController.getInstance().isFromDetail()){
-            Fragment fr = null;
-            fr = getActivity().getSupportFragmentManager().findFragmentByTag("toEdit");
-            getActivity()
-                    .getSupportFragmentManager()
+            android.app.Fragment fr = null;
+            fr = getActivity().getFragmentManager().findFragmentByTag("toEdit");
+           getFragmentManager()
                     .beginTransaction()
                     .disallowAddToBackStack()
                     .replace(R.id.collection_edit_container, new Tab_Collection_Detail())
                     .commit();
 
-            getActivity()
-                    .getSupportFragmentManager()
-                    .popBackStack();
+//            getActivity()
+//                    .getSupportFragmentManager()
+//                    .popBackStack();
 //
             }else{
             //그냥 콜렉션으로부 옴
@@ -370,11 +363,9 @@ public class Tab_Collection_Edit extends Fragment{
 //            ft.detach(fromFrag);
 //            ft.attach(toFrag);
 //            ft.commit();
-            getActivity()
-                    .getSupportFragmentManager()
+            getFragmentManager()
                     .beginTransaction()
                     .disallowAddToBackStack()
-                    .add(R.id.collection_edit_container, new Tab_Collection_Edit())
                     .replace(R.id.collection_edit_container, new Tab_Collection())
                     .commit();
         }

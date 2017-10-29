@@ -27,6 +27,7 @@ import com.yg.yourexhibit.Util.EventCode;
 import com.yg.yourexhibit.Util.NetworkController;
 import com.yg.yourexhibit.Util.SharedPrefrernceController;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Arrays;
@@ -46,13 +47,19 @@ public class LoginActivity extends AppCompatActivity {
     @BindView(R.id.login_auto)
     ImageView auto;
 
+//    @BindView(R.id.login_facebook)
+//    ImageButton facebookSign;
+
     ImageButton signupbutton;
 
     TextView forgetIDPW;
     private CallbackManager callbackManager;
     private NetworkController networkController;
     private boolean autoLogin = false;
+    private String fbToken = "";
+    private String fbNickName = "";
 
+    private static final String TAG = "LOG::LoginActivity";
 
 
     @Override
@@ -63,6 +70,7 @@ public class LoginActivity extends AppCompatActivity {
 
         EventBus.getInstance().register(this);
         ButterKnife.bind(this);
+        Log.v(TAG, "create");
         networkController = new NetworkController();
         //startActivity(new Intent(this,SplashActivity.class));
 
@@ -96,15 +104,38 @@ public class LoginActivity extends AppCompatActivity {
     public void onEventLoad(Integer code){
         switch (code){
             case EventCode.EVENT_CODE_LOGIN:
+                Log.v(TAG, "event1");
                 SharedPrefrernceController.setLoginId(this, id.getText().toString());
                 SharedPrefrernceController.setPasswd(this, pw.getText().toString());
                 Intent intent = new Intent(
                         getApplicationContext(),HomeActivity.class);
                 startActivity(intent);
                 finish();
+                //Log.v(TAG, "event1");
                 break;
             case EventCode.EVENET_CODE_LOGIN_FAIL:
                 ApplicationController.getInstance().makeToast("존재하지 않는 정보입니다.");
+                Log.v(TAG, "event2");
+                break;
+            case EventCode.EVENT_CODE_FB_LOGIN:
+                Log.v(TAG, "event3");
+                SharedPrefrernceController.setFacebookToken(this, fbToken);
+                SharedPrefrernceController.setUserNickname(this, fbNickName);
+                Intent intent2 = new Intent(
+                        getApplicationContext(),HomeActivity.class);
+                startActivity(intent2);
+                finish();
+                break;
+            case EventCode.EVENT_CODE_FB_LOGN_FAIL:
+                Log.v(TAG, "event4");
+                networkController.facebookSign(fbToken);
+                break;
+            case EventCode.EVENT_CODE_SIGN:
+
+                break;
+            case EventCode.EVENT_CDOE_FB_SIGN_FAIL:
+                Log.v(TAG, "event5");
+                ApplicationController.getInstance().makeToast("잘못된 토큰입니다.");
                 break;
         }
     }
@@ -129,6 +160,7 @@ public class LoginActivity extends AppCompatActivity {
 
     @OnClick(R.id.login_facebook)
     public void clickFacebook(){
+        Log.v(TAG, "facebook1");
         callbackManager = CallbackManager.Factory.create();
 
         LoginManager.getInstance().logInWithReadPermissions(LoginActivity.this,
@@ -137,34 +169,43 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onSuccess(final LoginResult result) {
+                Log.v(TAG, "facebook2");
+
+                Log.v(TAG, "token : " + result.getAccessToken().getToken());
 
                 GraphRequest request;
                 request = GraphRequest.newMeRequest(result.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
 
                     @Override
                     public void onCompleted(JSONObject user, GraphResponse response) {
-                        if (response.getError() != null) {
-
-                        } else {
-                            Log.i("TAG", "user: " + user.toString());
-                            Log.i("TAG", "AccessToken: " + result.getAccessToken().getToken());
-                            setResult(RESULT_OK);
-
-                            result.getAccessToken();
+                        try {
+                            fbToken = result.getAccessToken().getToken();
+                            networkController.facebookLogin(fbToken);
+                            Log.v(TAG, user.get("name").toString());
+                        } catch (JSONException e) {
+                            e.printStackTrace();
                         }
                     }
                 });
+                Bundle parameters = new Bundle();
+                parameters.putString("fields", "id,name,email,gender,birthday");
+                request.setParameters(parameters);
+                request.executeAsync();
+
+                //Log.v(TAG, request.getParameters().get("filed"));
             }
 
             @Override
             public void onError(FacebookException error) {
+                Log.v(TAG, "facebook5");
                 Log.e("test", "Error: " + error);
                 //finish();
             }
 
             @Override
             public void onCancel() {
-                //finish();
+                Log.v(TAG, "facebook6");
+//finish();
             }
         });
     }
@@ -173,5 +214,6 @@ public class LoginActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         callbackManager.onActivityResult(requestCode, resultCode, data);
+        Log.v(TAG, "facebook7");
     }
 }

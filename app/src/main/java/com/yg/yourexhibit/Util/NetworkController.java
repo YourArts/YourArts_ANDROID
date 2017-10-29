@@ -14,11 +14,17 @@ import com.yg.yourexhibit.Retrofit.RetrofitGet.ExhibitEndResponse;
 import com.yg.yourexhibit.Retrofit.RetrofitGet.ExhibitGoingResponse;
 import com.yg.yourexhibit.Retrofit.RetrofitGet.ExhibitSearchResponse;
 import com.yg.yourexhibit.Retrofit.RetrofitGet.ExhibitWorkResponse;
+import com.yg.yourexhibit.Retrofit.RetrofitPost.CheckAuthPost;
+import com.yg.yourexhibit.Retrofit.RetrofitPost.CheckAuthResponse;
 import com.yg.yourexhibit.Retrofit.RetrofitPost.ExhibitCollectionPostResponse;
+import com.yg.yourexhibit.Retrofit.RetrofitPost.ExhibitFacebookLoginPost;
+import com.yg.yourexhibit.Retrofit.RetrofitPost.ExhibitFacebookSignPost;
 import com.yg.yourexhibit.Retrofit.RetrofitPost.ExhibitHeartPost;
 import com.yg.yourexhibit.Retrofit.RetrofitPost.ExhibitHeartPostResponse;
 import com.yg.yourexhibit.Retrofit.RetrofitPost.ExhibitLikePost;
 import com.yg.yourexhibit.Retrofit.RetrofitPost.ExhibitLikePostResponse;
+import com.yg.yourexhibit.Retrofit.RetrofitPost.FindIdPost;
+import com.yg.yourexhibit.Retrofit.RetrofitPost.FindIdResponse;
 import com.yg.yourexhibit.Retrofit.RetrofitPost.LoginPost;
 import com.yg.yourexhibit.Retrofit.RetrofitPost.LoginPostResponse;
 import com.yg.yourexhibit.Retrofit.RetrofitPost.SignPost;
@@ -489,6 +495,87 @@ public class NetworkController {
 
             @Override
             public void onFailure(Call<SignPostResponse> call, Throwable t) {
+                Log.v(TAG,"checkNetwork");
+            }
+        });
+    }
+
+    public void facebookSign(String token){
+        Call<SignPostResponse> fbSignResponse = networkService.facebookSign(new ExhibitFacebookSignPost(token));
+        fbSignResponse.enqueue(new Callback<SignPostResponse>() {
+            @Override
+            public void onResponse(Call<SignPostResponse> call, Response<SignPostResponse> response) {
+                if(response.isSuccessful()){
+                    EventBus.getInstance().post(EventCode.EVENT_CODE_FB_SIGN);
+                    Log.v(TAG,"facebookSign");
+                }else{
+                    EventBus.getInstance().post(EventCode.EVENT_CDOE_FB_SIGN_FAIL);
+                    Log.v(TAG,"facebookSignFail");
+                }
+            }
+            @Override
+            public void onFailure(Call<SignPostResponse> call, Throwable t) {
+                Log.v(TAG,"checkNetwork");
+            }
+        });
+    }
+
+    public void facebookLogin(String token){
+        Call<LoginPostResponse> fbLoginResponse = networkService.facebookLogin(new ExhibitFacebookLoginPost(token));
+        fbLoginResponse.enqueue(new Callback<LoginPostResponse>() {
+            @Override
+            public void onResponse(Call<LoginPostResponse> call, Response<LoginPostResponse> response) {
+                if (response.isSuccessful()){
+                    ApplicationController.getInstance().token = response.body().getResult().getToken();
+                    EventBus.getInstance().post(EventCode.EVENT_CODE_FB_LOGIN);
+                    Log.v(TAG,"facebookLogin");
+                }else{
+                    EventBus.getInstance().post(EventCode.EVENT_CODE_FB_LOGN_FAIL);
+                    Log.v(TAG,"facebookLoginFail");
+                }
+            }
+            @Override
+            public void onFailure(Call<LoginPostResponse> call, Throwable t) {
+                Log.v(TAG,"checkNetwork");
+            }
+        });
+    }
+
+    public void postFindId(String name, String email){
+        Call<FindIdResponse> findIdResponse = networkService.findIdResponse(new FindIdPost(email, name));
+        findIdResponse.enqueue(new Callback<FindIdResponse>() {
+            @Override
+            public void onResponse(Call<FindIdResponse> call, Response<FindIdResponse> response) {
+                if(response.isSuccessful()){
+                    EventBus.getInstance().post(response.body().getResult().getUser_id());
+                }else{
+                    EventBus.getInstance().post("");
+                    Log.v(TAG,"fidnIdFail");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<FindIdResponse> call, Throwable t) {
+                Log.v(TAG,"checkNetwork");
+            }
+        });
+    }
+
+    public void postAuth(String code){
+        Call<CheckAuthResponse> checkAuthResponse = networkService.checkAuthResponse(new CheckAuthPost(code));
+        checkAuthResponse.enqueue(new Callback<CheckAuthResponse>() {
+            @Override
+            public void onResponse(Call<CheckAuthResponse> call, Response<CheckAuthResponse> response) {
+                if(response.isSuccessful()){
+                    EventBus.getInstance().post(true);
+                    Log.v(TAG,"authSuccess");
+                }else{
+                    EventBus.getInstance().post(false);
+                    Log.v(TAG,"authFail");
+                }
+            }
+            @Override
+            public void onFailure(Call<CheckAuthResponse> call, Throwable t) {
                 Log.v(TAG,"checkNetwork");
             }
         });
