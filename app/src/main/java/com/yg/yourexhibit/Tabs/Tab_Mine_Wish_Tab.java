@@ -70,27 +70,17 @@ public class Tab_Mine_Wish_Tab extends Fragment{
         public void onClick(View view) {
             Toast.makeText(getContext(),"위시위시",Toast.LENGTH_SHORT).show();
             int itemPosition = wishList.getChildPosition(view);
-            Log.d("positionCheck",String.valueOf(itemPosition));
             int idx = dataList.get(itemPosition).exhibition_idx;
             int status=0;
 
             if(dataList.get(itemPosition).flag.toString().equals("done")) status=0;
             else if(dataList.get(itemPosition).flag.toString().equals("doing")) status=1;
-            else if(dataList.get(itemPosition).flag.toString().equals("todo")){
-                status=2;
-            }
+            else if(dataList.get(itemPosition).flag.toString().equals("todo")) status=2;
+
             NetworkController.setIsFrom("wish");
-            Log.d("statusCheck",String.valueOf(status));
-            Log.d("tokenCheck",String.valueOf(ApplicationController.getToken()));
             networkController.getDetailData(status, ApplicationController.getToken(), idx);
         }
     };
-
-//    public void setStatus(){
-//        for(int i=0;i<dataList.size();i++){
-//            switch(dataList.get(i).flag)
-//        }
-//    }
 
     @Nullable
     @Override
