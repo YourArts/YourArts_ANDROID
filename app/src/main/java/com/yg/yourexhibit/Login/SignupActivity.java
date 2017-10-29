@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.otto.Subscribe;
 import com.yg.yourexhibit.Activity.HomeActivity;
@@ -18,6 +19,7 @@ import com.yg.yourexhibit.R;
 import com.yg.yourexhibit.Util.EventBus;
 import com.yg.yourexhibit.Util.EventCode;
 import com.yg.yourexhibit.Util.NetworkController;
+import com.yg.yourexhibit.Util.ResourcesUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -100,6 +102,23 @@ public class SignupActivity extends AppCompatActivity {
 
     @OnClick(R.id.btn_join)
     public void clickJoin(){
+
+        if(editTextEmail.getText().toString().isEmpty() || editTextNickName.getText().toString().isEmpty() ||
+                editTextID.getText().toString().isEmpty() || editTextPW.getText().toString().isEmpty() ||
+                editTextPWcorrect.getText().toString().isEmpty()){
+            Toast.makeText(this, "모든 입력란을 채워주세요!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if(!editTextPW.getText().toString().equals(editTextPWcorrect.getText().toString())){
+            Toast.makeText(this, "비밀번호를 확인해주세요!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if(!ResourcesUtil.checkEmail(editTextEmail.getText().toString())){
+            Toast.makeText(this, "이메일을 확인해주세요!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+
         networkController.sign(editTextID.getText().toString(), editTextPW.getText().toString(),
                 editTextPW.getText().toString(), editTextEmail.getText().toString(), editTextNickName.getText().toString());
     }

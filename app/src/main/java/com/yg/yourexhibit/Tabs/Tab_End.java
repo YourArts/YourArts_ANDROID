@@ -164,7 +164,7 @@ public class Tab_End extends Fragment{
     @Override
     public void onDetach() {
         super.onDetach();
-        EventBus.getInstance().unregister(this);
+//        EventBus.getInstance().unregister(this);
     }
 
 }

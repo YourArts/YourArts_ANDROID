@@ -10,7 +10,7 @@ import android.content.SharedPreferences;
 public class SharedPrefrernceController {
     private static final String USER = "user";
     private static final String LOGIN_ID = "loginID";
-    private static final String FIREBASE_TOKEN = "firebaseToken";
+    private static final String FACEBOOK_TOKEN = "facebookToken";
     private static final String NICKNAME = "nickname";
     private static final String EMAIL = "email";
     private static final String PASSWD = "passwd";
@@ -30,16 +30,16 @@ public class SharedPrefrernceController {
         String loginType = pref.getString(LOGIN_ID,"");
         return loginType;
     }
-    public static void setFirebaseToken(Context context,String token){
+    public static void setFacebookToken(Context context,String token){
         SharedPreferences pref = context.getSharedPreferences(USER,Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = pref.edit();
-        editor.putString(FIREBASE_TOKEN,token);
+        editor.putString(FACEBOOK_TOKEN,token);
         editor.commit();
     }
 
-    public static String getFirebaseToken(Context context){
+    public static String getFacebookToken(Context context){
         SharedPreferences pref = context.getSharedPreferences(USER, Context.MODE_PRIVATE);
-        return pref.getString(FIREBASE_TOKEN, "");
+        return pref.getString(FACEBOOK_TOKEN, "");
     }
 
     public static void setUserEmail(Context context,String email){

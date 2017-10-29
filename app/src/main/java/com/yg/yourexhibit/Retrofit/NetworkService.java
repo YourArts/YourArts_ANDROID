@@ -12,6 +12,8 @@ import com.yg.yourexhibit.Retrofit.RetrofitGet.ExhibitSearchResponse;
 import com.yg.yourexhibit.Retrofit.RetrofitGet.ExhibitWorkResponse;
 import com.yg.yourexhibit.Retrofit.RetrofitGet.TabWatchResult;
 import com.yg.yourexhibit.Retrofit.RetrofitGet.TabWishResult;
+import com.yg.yourexhibit.Retrofit.RetrofitPost.CheckAuthPost;
+import com.yg.yourexhibit.Retrofit.RetrofitPost.CheckAuthResponse;
 import com.yg.yourexhibit.Retrofit.RetrofitPost.ExhibitCollectionPostResponse;
 import com.yg.yourexhibit.Retrofit.RetrofitPost.ExhibitFacebookLoginPost;
 import com.yg.yourexhibit.Retrofit.RetrofitPost.ExhibitFacebookSignPost;
@@ -19,6 +21,10 @@ import com.yg.yourexhibit.Retrofit.RetrofitPost.ExhibitHeartPost;
 import com.yg.yourexhibit.Retrofit.RetrofitPost.ExhibitHeartPostResponse;
 import com.yg.yourexhibit.Retrofit.RetrofitPost.ExhibitLikePost;
 import com.yg.yourexhibit.Retrofit.RetrofitPost.ExhibitLikePostResponse;
+import com.yg.yourexhibit.Retrofit.RetrofitPost.FindIdPost;
+import com.yg.yourexhibit.Retrofit.RetrofitPost.FindIdResponse;
+import com.yg.yourexhibit.Retrofit.RetrofitPost.FindPwPost;
+import com.yg.yourexhibit.Retrofit.RetrofitPost.FindPwPostResponse;
 import com.yg.yourexhibit.Retrofit.RetrofitPost.LoginPost;
 import com.yg.yourexhibit.Retrofit.RetrofitPost.LoginPostResponse;
 import com.yg.yourexhibit.Retrofit.RetrofitPost.SignPost;
@@ -162,4 +168,13 @@ public interface NetworkService {
 
     @POST("users/fb/login")
     Call<LoginPostResponse> facebookLogin(@Body ExhibitFacebookLoginPost exhibitFacebookLoginPost);
+
+    @POST("users/find/pw")
+    Call<FindPwPostResponse> findPwResponse(@Body FindPwPost findPwPost);
+
+    @POST("users/find/id")
+    Call<FindIdResponse> findIdResponse(@Body FindIdPost findIdPost);
+
+    @POST("users/confirm/pw")
+    Call<CheckAuthResponse> checkAuthResponse(@Body CheckAuthPost checkAuthPost);
 }

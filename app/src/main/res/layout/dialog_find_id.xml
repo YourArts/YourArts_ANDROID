@@ -1,11 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="211dp"
     android:orientation="vertical"
     android:gravity="center_vertical"
     android:background="@drawable/id_box"
   >
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <LinearLayout
+        android:id="@+id/con"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_vertical">
 
 
     <TextView
@@ -15,7 +24,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginBottom="12dp"
         android:text="아이디 조회 결과"
-        android:textSize="16sp"
+        android:textSize="13sp"
         android:textStyle="bold"/>
     <View
         android:layout_width="match_parent"
@@ -25,31 +34,56 @@
         android:layout_height="1dp"
         android:background="#95989A"
         android:gravity="center"/>
+
+    </LinearLayout>
+
+
     <TextView
+        android:layout_below="@+id/con"
+        android:id="@+id/find_id_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:textSize="12sp"
+        android:textSize="9sp"
+        android:textAlignment="center"
+        android:textColor="#ffffff"
         android:text="입력하신 정보와 일치하는 아이디는 아래와 같습니다"
         android:visibility="visible"/>
 
     <TextView
-        android:layout_width="match_parent"
+        android:id="@+id/id_text"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="38dp"
-        android:textSize="16sp"
+        android:textSize="13sp"
         android:textStyle="bold"
-        android:gravity="center"
+        android:layout_centerInParent="true"
         android:text="lalala000"
+        android:textColor="#ffffff"
         android:visibility="visible"/>
         <!--만약 아이디 결과가 없으면 이거 속성 invisible로 바꿔서 자바에서 바꾸기-->
 
-    <ImageButton
-        android:layout_marginTop="30dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:id="@+id/btn_id_ok"
-        android:background="@drawable/confirm_button" />
+        <TextView
+            android:id="@+id/find_id_no"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textSize="11sp"
+            android:textColor="#ffffff"
+            android:textAlignment="center"
+            android:visibility="gone"
+            android:text="입력하신 정보와 일치하는 아이디가 없습니다"
+            />
+
+        <ImageButton
+            android:layout_marginBottom="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_id_ok"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/confirm_button" />
+
+    </RelativeLayout>
+
+
 
 </LinearLayout>

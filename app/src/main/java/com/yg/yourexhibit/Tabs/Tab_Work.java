@@ -86,7 +86,6 @@ public class Tab_Work extends Fragment{
         getFragmentManager()
                 .beginTransaction()
                 .addToBackStack(null)
-                .add(R.id.tab_work_container, new Tab_Work())
                 .replace(R.id.tab_work_container, new Tab_Collection_Edit())
                 .commit();
     }
