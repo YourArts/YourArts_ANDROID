@@ -44,4 +44,9 @@ public class EventCode {
     public static final int EVENT_CODE_SIGN = 121;
     public static final int EVENET_CODE_LOGIN_FAIL = 122;
     public static final int EVENT_CODE_SIGN_FAIL = 123;
+
+    public static final int EVENT_CODE_FB_LOGIN = 124;
+    public static final int EVENT_CODE_FB_SIGN = 125;
+    public static final int EVENT_CODE_FB_LOGN_FAIL = 126;
+    public static final int EVENT_CDOE_FB_SIGN_FAIL = 127;
 }
