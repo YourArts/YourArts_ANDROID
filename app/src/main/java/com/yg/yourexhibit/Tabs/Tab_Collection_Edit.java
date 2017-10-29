@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -26,9 +27,13 @@ import com.yg.yourexhibit.Adapter.Collection.TabCollectionEditAdapter;
 import com.yg.yourexhibit.App.ApplicationController;
 import com.yg.yourexhibit.Dialog.GalleryDialog;
 import com.yg.yourexhibit.R;
+import com.yg.yourexhibit.Retrofit.NetworkService;
 import com.yg.yourexhibit.Retrofit.RetrofitGet.ExhibitCollectionDetailResult;
 import com.yg.yourexhibit.Retrofit.RetrofitGet.ExhibitSearchResponse;
 import com.yg.yourexhibit.Retrofit.RetrofitGet.ExhibitWorkResult;
+import com.yg.yourexhibit.Retrofit.RetrofitPost.ExhibitCollectionPostResponse;
+import com.yg.yourexhibit.Retrofit.RetrofitPut.CollectionPutBody;
+import com.yg.yourexhibit.Retrofit.RetrofitPut.ExhibitCollectionPutResponse;
 import com.yg.yourexhibit.Util.EventBus;
 import com.yg.yourexhibit.Util.EventCode;
 import com.yg.yourexhibit.Util.NetworkController;
@@ -49,6 +54,9 @@ import butterknife.OnClick;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by 2yg on 2017. 10. 18..
@@ -104,6 +112,7 @@ public class Tab_Collection_Edit extends android.support.v4.app.Fragment{
     private TabCollectionEditAdapter tabCollectionEditAdapter;
     private LinearLayoutManager linearLayoutManager;
     private NetworkController networkController;
+    private NetworkService networkService;
     private ArrayList<ExhibitSearchResponse> searchList;
     private int idx = 0;
 
@@ -111,10 +120,9 @@ public class Tab_Collection_Edit extends android.support.v4.app.Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.tab_collection_edit, container, false);
         ButterKnife.bind(this, v);
-        if(!ApplicationController.getInstance().isColEditSwitch()){
-            EventBus.getInstance().register(this);
-            ApplicationController.getInstance().setColEditSwitch(true);
-        }
+        networkService = ApplicationController.getInstance().getNetworkService();
+        //EventBus.getInstance().register(this);
+
         Log.v(TAG, "createView");
         networkController = new NetworkController();
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -136,7 +144,7 @@ public class Tab_Collection_Edit extends android.support.v4.app.Fragment{
                     result.setVisibility(View.VISIBLE);
                     frame.setVisibility(View.GONE);
                     frame2.setVisibility(View.GONE);
-                    networkController.getCollectionSearchData(search.getText().toString());
+                    getCollectionSearchData(search.getText().toString());
                 }else{
                     result.setVisibility(View.GONE);
                     frame.setVisibility(View.VISIBLE);
@@ -152,6 +160,31 @@ public class Tab_Collection_Edit extends android.support.v4.app.Fragment{
 
         return v;
     }
+    public void getCollectionSearchData(String search){
+        Call<ArrayList<ExhibitSearchResponse>> exhibitSearchResponse = networkService.getSearchResponse(search);
+        exhibitSearchResponse.enqueue(new Callback<ArrayList<ExhibitSearchResponse>>() {
+            @Override
+            public void onResponse(Call<ArrayList<ExhibitSearchResponse>> call, Response<ArrayList<ExhibitSearchResponse>> response) {
+                if(response.isSuccessful()){
+                    if(response.body()!=null) {
+                        ApplicationController.getInstance().setExhibitSearchResult(response.body());
+                        //EventBus.getInstance().post(EventCode.EVENT_CODE_COLLECTION_SEARCH);
+                        setResultList();
+                        Log.v(TAG, "getCollectionSearchSuccess");
+                    }else{
+                        Log.v(TAG, "getCollectionSearchSuccessButNull");
+                    }
+                }else{
+                    EventBus.getInstance().post(EventCode.EVENT_CODE_NETWORK_FAIL);
+                    Log.v(TAG,"getSearchFail");
+                }
+            }
+            @Override
+            public void onFailure(Call<ArrayList<ExhibitSearchResponse>> call, Throwable t) {
+                Log.v(TAG,"checkNetwork");
+            }
+        });
+    }
 
     public void initFragment(){
         detailResult = ApplicationController.getInstance().getExhibitCollectionDetailResult();
@@ -160,7 +193,7 @@ public class Tab_Collection_Edit extends android.support.v4.app.Fragment{
         if(ApplicationController.getInstance().isFromWork()){
             text.setVisibility(View.GONE);
             searchText.setText(ApplicationController.getInstance().getExhibitDetailResult().getExhibition_name());
-            Glide.with(this).load(workResult.get(0).getWork_image()).into(editImg);
+            Glide.with(this).load(workResult.get(0).getWork_image()).centerCrop().into(editImg);
             idx = ApplicationController.getInstance().getExhibitDetailResult().getExhibition_idx();
 
             Uri uri = Uri.parse(workResult.get(0).getWork_image());
@@ -203,7 +236,7 @@ public class Tab_Collection_Edit extends android.support.v4.app.Fragment{
             //디테일에서 옴
             text.setVisibility(View.GONE);
             searchText.setText(detailResult.getExhibition_name());
-            Glide.with(this).load(detailResult.getCollection_image()).into(editImg);
+            Glide.with(this).load(detailResult.getCollection_image()).centerCrop().into(editImg);
             Log.v("이미지",detailResult.getCollection_image());
             context.setText(detailResult.getCollection_content());
         }else{
@@ -223,11 +256,11 @@ public class Tab_Collection_Edit extends android.support.v4.app.Fragment{
 
 
 
-            networkController.postCollection(ApplicationController.getInstance().token, colIdx, content, profile_pic);
+            postCollection(ApplicationController.getInstance().token, colIdx, content, profile_pic);
         } else if(ApplicationController.getInstance().isFromDetail()){
             //디테일로부터 옴->얜 수정 해야 함
 
-            networkController.putCollection(ApplicationController.getInstance().token, context.getText().toString(),
+            putCollection(ApplicationController.getInstance().token, context.getText().toString(),
                     ApplicationController.getInstance().getCollectionIdx());
 
         } else{
@@ -237,12 +270,64 @@ public class Tab_Collection_Edit extends android.support.v4.app.Fragment{
 
 
 
-            networkController.postCollection(ApplicationController.getInstance().token, colIdx, content, profile_pic);
+            postCollection(ApplicationController.getInstance().token, colIdx, content, profile_pic);
         }
-
-
-
     }
+
+    public void postCollection(String token, RequestBody idx, RequestBody content, MultipartBody.Part image){
+        Call<ExhibitCollectionPostResponse> postCollectionResponse = networkService.postCollectionResponse(token, idx, content, image);
+        postCollectionResponse.enqueue(new Callback<ExhibitCollectionPostResponse>() {
+            @Override
+            public void onResponse(Call<ExhibitCollectionPostResponse> call, Response<ExhibitCollectionPostResponse> response) {
+                if(response.isSuccessful()){
+                    Log.v(TAG, "getCollectionDetailSuccess");
+                    if(ApplicationController.getInstance().isFromDetail()){
+                        //디테일로부터 옴
+                    }else{
+                        returnFrag();
+                        //그냥 생으로 작성
+                        //EventBus.getInstance().post(EventCode.EVENT_CODE_COLLECTION_POST);
+                    }
+                }else{
+                    Log.v(TAG, "getCollectionDetailFail");
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ExhibitCollectionPostResponse> call, Throwable t) {
+                Log.v(TAG,"checkNetwork");
+
+            }
+        });
+    }
+
+    public void putCollection(String token, String content, int idx){
+        Call<ExhibitCollectionPutResponse> putCollectionResponse = networkService.putCollectionResponse(token, new CollectionPutBody(content), idx);
+        putCollectionResponse.enqueue(new Callback<ExhibitCollectionPutResponse>() {
+            @Override
+            public void onResponse(Call<ExhibitCollectionPutResponse> call, Response<ExhibitCollectionPutResponse> response) {
+                if(response.isSuccessful()){
+                    ApplicationController.getInstance().makeToast("수정 완료.");
+                    //EventBus.getInstance().post(EventCode.EVENT_CODE_COLLECTION_PUT);
+                    returnFrag();
+                }else{
+                    Log.v(TAG,"putCollectionFail");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ExhibitCollectionPutResponse> call, Throwable t) {
+                Log.v(TAG,"checkNetwork");
+            }
+        });
+    }
+
+
+
+
+
+
 
     @OnClick(R.id.collection_edit_pic)
     public void changeImage(){
@@ -257,7 +342,6 @@ public class Tab_Collection_Edit extends android.support.v4.app.Fragment{
                     leftListener, // 왼쪽 버튼 이벤트
                     rightListener); // 오른쪽 버튼 이벤트
             galleryDialog.show();
-            SharedPrefrernceController.setGallery(getActivity(), true);
         }
     }
 
@@ -293,6 +377,7 @@ public class Tab_Collection_Edit extends android.support.v4.app.Fragment{
                     text.setVisibility(View.GONE);
                     Glide.with(this)
                             .load(data.getData())
+                            .centerCrop()
                             .into(editImg);
 
                 } catch (Exception e) {
@@ -356,18 +441,42 @@ public class Tab_Collection_Edit extends android.support.v4.app.Fragment{
 //
             }else{
             //그냥 콜렉션으로부 옴
+
+            android.support.v4.app.FragmentManager fm = getFragmentManager();
+
+//            for(int i = 0; i < fm.getBackStackEntryCount(); ++i) {
+//                Log.v(TAG, "count");
+//                fm.popBackStack();
+//            }
+
 //            Fragment fromFrag = null, toFrag = null;
-//            fromFrag = getActivity().getSupportFragmentManager().findFragmentByTag("edit");
-//            toFrag = getActivity().getSupportFragmentManager().findFragmentByTag("base");
-//            final android.support.v4.app.FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-//            ft.detach(fromFrag);
-//            ft.attach(toFrag);
+//            fromFrag = getFragmentManager().findFragmentByTag("base");
+//
+//            for(int i = 0; i < fm.getBackStackEntryCount(); ++i) {
+//                Log.v(TAG, "count");
+//                fm.popBackStack();
+//            }
+//
+//            FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+//            ft.attach(fromFrag);
 //            ft.commit();
+            ApplicationController.getInstance().setFromEdit(true);
             getFragmentManager()
                     .beginTransaction()
                     .disallowAddToBackStack()
                     .replace(R.id.collection_edit_container, new Tab_Collection())
                     .commit();
+            FragmentTransaction ft = getFragmentManager().beginTransaction();
+            ft.detach(new Tab_Collection());
+            ft.commit();
+
+
+//            toFrag = getFragmentManager().findFragmentByTag("toBase");
+//
+
+
+
+
         }
     }
 
@@ -375,10 +484,6 @@ public class Tab_Collection_Edit extends android.support.v4.app.Fragment{
     public void onResume() {
         Log.v(TAG, "resume");
         super.onResume();
-        if(!ApplicationController.getInstance().isColEditSwitch()){
-            EventBus.getInstance().register(this);
-            ApplicationController.getInstance().setColEditSwitch(true);
-        }
 
     }
 
@@ -404,11 +509,6 @@ public class Tab_Collection_Edit extends android.support.v4.app.Fragment{
     @Override
     public void onPause() {
         Log.v(TAG,"pause");
-        if(ApplicationController.getInstance().isColEditSwitch()){
-            EventBus.getInstance().unregister(this);
-
-            ApplicationController.getInstance().setColEditSwitch(false);
-        }
         super.onPause();
     }
 
@@ -416,6 +516,7 @@ public class Tab_Collection_Edit extends android.support.v4.app.Fragment{
         public void onClick(View v) {
             //Toast.makeText(getApplicationContext(), "취소 클릭",
             //Toast.LENGTH_SHORT).show();
+            SharedPrefrernceController.setGallery(getActivity(), false);
             galleryDialog.dismiss();
 
         }
@@ -423,6 +524,7 @@ public class Tab_Collection_Edit extends android.support.v4.app.Fragment{
 
     private View.OnClickListener rightListener = new View.OnClickListener() {
         public void onClick(View v) {
+            SharedPrefrernceController.setGallery(getActivity(), true);
             galleryDialog.dismiss();
             changeImage();
         }

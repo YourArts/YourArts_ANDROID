@@ -85,6 +85,7 @@
             android:layout_marginBottom="22dp"/>
 
 <TextView
+    android:id="@+id/findpw_send_email"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center"

@@ -17,6 +17,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.yg.yourexhibit.R;
+import com.yg.yourexhibit.Util.EventBus;
 
 /**
  * Created by jinhyemin on 2017. 10. 14..
@@ -47,7 +48,7 @@ public class FindPWdialog extends Dialog {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        EventBus.getInstance().register(this);
         initViews();
         onClicked();
 
@@ -104,6 +105,8 @@ public class FindPWdialog extends Dialog {
         });
     }
 
-
+    @Override
+    protected void onStop() {
+        super.onStop();
+    }
 }
-

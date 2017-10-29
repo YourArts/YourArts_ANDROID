@@ -10,6 +10,9 @@ import android.widget.TextView;
 
 import com.yg.yourexhibit.R;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 
 /**
  * Created by jinhyemin on 2017. 10. 14..
@@ -27,10 +30,13 @@ public class ErrornumDialog extends Dialog {
     private View.OnClickListener mLeftClickListener;
     private View.OnClickListener mRightClickListener;
 
+    @BindView(R.id.dialog_err_btn_no)
+    Button button;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        ButterKnife.bind(this);
         // 다이얼로그 외부 화면 흐리게 표현
         WindowManager.LayoutParams lpWindow = new WindowManager.LayoutParams();
         lpWindow.flags = WindowManager.LayoutParams.FLAG_DIM_BEHIND;
@@ -38,6 +44,7 @@ public class ErrornumDialog extends Dialog {
         getWindow().setAttributes(lpWindow);
 
         setContentView(R.layout.dialog_errornum);
+        onClicked();
 
         mContentView = (TextView) findViewById(R.id.dialog_join_txt_content);
         mLeftButton = (Button) findViewById(R.id.dialog_join_btn_no);
@@ -56,6 +63,20 @@ public class ErrornumDialog extends Dialog {
         } else {
 
         }
+    }
+
+    private void onClicked() {
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ErrornumDialog.this.dismiss();
+            }
+        });
+    }
+
+    public ErrornumDialog(Context context) {
+        super(context, android.R.style.Theme_Translucent_NoTitleBar);
+
     }
 
     // 클릭버튼이 하나일때 생성자 함수로 클릭이벤트를 받는다.

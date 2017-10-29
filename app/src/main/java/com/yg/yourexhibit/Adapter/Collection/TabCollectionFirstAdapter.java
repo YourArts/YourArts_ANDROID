@@ -41,7 +41,10 @@ public class TabCollectionFirstAdapter extends RecyclerView.Adapter<TabCollectio
 
     @Override
     public void onBindViewHolder(TabCollectionFirstViewHolder holder, int position) {
-        //requestManager.load(first.get(position).getCollection_image()).into(holder.collectionImage);
+//        requestManager
+//                .load(first.get(position).getCollection_image())
+//                .centerCrop()
+//                .into(holder.collectionImage);
         Picasso.with(ApplicationController.getInstance().getApplicationContext())
                 .load(first.get(position).getCollection_image())
                 .resize(120,150)

@@ -38,9 +38,9 @@ public class GalleryDialog extends Dialog{
 
         setContentView(R.layout.dialog_gallery);
 
-        mContentView = (TextView) findViewById(R.id.dialog_join_txt_content);
-        mLeftButton = (Button) findViewById(R.id.dialog_join_btn_no);
-        mRightButton = (Button) findViewById(R.id.dialog_join_btn_start);
+        mContentView = (TextView) findViewById(R.id.dialog_gallery_txt_content);
+        mLeftButton = (Button) findViewById(R.id.dialog_gallery_btn_no);
+        mRightButton = (Button) findViewById(R.id.dialog_gallery_btn_yes);
 
         // 제목과 내용을 생성자에서 셋팅한다.
         mContentView.setText(mContent);

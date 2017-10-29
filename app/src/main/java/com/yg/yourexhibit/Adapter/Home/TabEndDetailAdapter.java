@@ -35,7 +35,10 @@ public class TabEndDetailAdapter extends RecyclerView.Adapter<TabDetailViewHolde
 
     @Override
     public void onBindViewHolder(TabDetailViewHolder holder, int position) {
-        requestManager.load(previewList.get(position).getWork_image()).into(holder.preView);
+        requestManager
+                .load(previewList.get(position).getWork_image())
+                .centerCrop()
+                .into(holder.preView);
     }
 
     @Override
