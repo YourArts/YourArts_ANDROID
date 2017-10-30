@@ -72,6 +72,9 @@ public class Tab_Going_Details extends Fragment{
     @BindView(R.id.going_details_heart)
     ImageView heart;
 
+    @BindView(R.id.going_details_pretext)
+    TextView preText;
+
 
 
     private ExhibitDetailResult exhibitDetailResult;
@@ -115,13 +118,17 @@ public class Tab_Going_Details extends Fragment{
 
         requestManager.load(exhibitDetailResult.getExhibition_picture()).centerCrop().into(represent);
 
-        preViewList.setHasFixedSize(true);
-        linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
-        linearLayoutManager.setOrientation(LinearLayout.HORIZONTAL);
-        preViewList.setLayoutManager(linearLayoutManager);
-        tabGoingDetailAdapter = new TabGoingDetailAdapter(exhibitDetailResult.getImages(), requestManager, clickEvent);
-        //tabEndAdapter.setOnItemClickListener(this.getView().OnClickListener);
-        preViewList.setAdapter(tabGoingDetailAdapter);
+        if(exhibitDetailResult.getImages().isEmpty()){
+            preText.setVisibility(View.VISIBLE);
+        }else {
+            preViewList.setHasFixedSize(true);
+            linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+            linearLayoutManager.setOrientation(LinearLayout.HORIZONTAL);
+            preViewList.setLayoutManager(linearLayoutManager);
+            tabGoingDetailAdapter = new TabGoingDetailAdapter(exhibitDetailResult.getImages(), requestManager, clickEvent);
+            //tabEndAdapter.setOnItemClickListener(this.getView().OnClickListener);
+            preViewList.setAdapter(tabGoingDetailAdapter);
+        }
         //Intent intent = new Intent(getActivity().getApplicationContext(), Tab_End.class);
     }
 

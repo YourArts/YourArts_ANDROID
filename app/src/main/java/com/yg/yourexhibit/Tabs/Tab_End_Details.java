@@ -66,6 +66,9 @@ public class Tab_End_Details extends Fragment{
     @BindView(R.id.end_details_name)
     TextView name;
 
+    @BindView(R.id.end_details_pretext)
+    TextView preText;
+
 
 
     private ExhibitDetailResult exhibitDetailResult;
@@ -102,14 +105,18 @@ public class Tab_End_Details extends Fragment{
         description.setText(tempString2);
         requestManager.load(exhibitDetailResult.getExhibition_picture()).centerCrop().into(represent);
 
-        preViewList.setHasFixedSize(true);
-        linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
-        linearLayoutManager.setOrientation(LinearLayout.HORIZONTAL);
-        preViewList.setLayoutManager(linearLayoutManager);
-        tabEndDetailAdapter = new TabEndDetailAdapter(exhibitDetailResult.getImages(), requestManager);
-        //tabEndAdapter.setOnItemClickListener(this.getView().OnClickListener);
-        preViewList.setAdapter(tabEndDetailAdapter);
-        //Intent intent = new Intent(getActivity().getApplicationContext(), Tab_End.class);
+        if(exhibitDetailResult.getImages().isEmpty()){
+            preText.setVisibility(View.VISIBLE);
+        }else {
+            preViewList.setHasFixedSize(true);
+            linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+            linearLayoutManager.setOrientation(LinearLayout.HORIZONTAL);
+            preViewList.setLayoutManager(linearLayoutManager);
+            tabEndDetailAdapter = new TabEndDetailAdapter(exhibitDetailResult.getImages(), requestManager);
+            //tabEndAdapter.setOnItemClickListener(this.getView().OnClickListener);
+            preViewList.setAdapter(tabEndDetailAdapter);
+            //Intent intent = new Intent(getActivity().getApplicationContext(), Tab_End.class);
+        }
     }
 
     public void setLike(){

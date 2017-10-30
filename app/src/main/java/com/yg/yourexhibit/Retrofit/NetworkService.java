@@ -98,6 +98,13 @@ public interface NetworkService {
                                                                @Part("exhibition_idx") RequestBody exhibition_idx,
                                                                @Part("collection_content") RequestBody collection_content,
                                                                @Part MultipartBody.Part profile_pic);
+    @Multipart
+    @POST("collections")
+    Call<ExhibitCollectionPostResponse> postCollectionResponse2(@Header("token") String token,
+                                                                @Part("exhibition_idx") RequestBody exhibition_idx,
+                                                                @Part("collection_content") RequestBody collection_content,
+                                                                @Part("collection_name") RequestBody collection_name,
+                                                                @Part MultipartBody.Part profile_pic);
 
     //작품 정보 불러오기
     @GET("works/{work_idx}")

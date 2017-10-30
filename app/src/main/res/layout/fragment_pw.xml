@@ -89,17 +89,11 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center"
-    android:text="E-mail로 인증번호 받기"
+    android:text="@string/email"
     android:textStyle="bold"
     android:textColor="#FFFFFF"
-    android:textSize="16sp"/>
+    android:textSize="13sp"/>
 
-        <View
-            android:layout_width="165dp"
-            android:layout_gravity="center"
-            android:layout_height="1dp"
-            android:background="#95989A"
-            android:layout_marginBottom="22dp"/>
 
         <LinearLayout
             android:layout_width="match_parent"

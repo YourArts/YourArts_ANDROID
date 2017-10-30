@@ -84,6 +84,7 @@
             android:singleLine="true"
             android:maxLines="1"
             android:lines = "1"
+            android:inputType="textPassword"
             android:textSize="30sp" />
     </LinearLayout>
 
@@ -142,14 +143,8 @@
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
             android:id="@+id/forgetidpw"
-            android:text="Forget ID/Password?"
+            android:text="@string/forget"
             android:textColor="#95989A" />
-        <View
-            android:layout_width="130dp"
-            android:layout_height="1dp"
-            android:layout_gravity="center"
-            android:background="#95989A"
-            />
 
         <ImageButton
             android:id="@+id/btn_signup"
