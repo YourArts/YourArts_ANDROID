@@ -54,6 +54,9 @@ public class Tab_Coming_Details extends Fragment{
     @BindView(R.id.coming_details_heart)
     ImageView heart;
 
+    @BindView(R.id.coming_details_pretext)
+    TextView preText;
+
     private ExhibitDetailResult exhibitDetailResult;
     private RequestManager requestManager;
     private LinearLayoutManager linearLayoutManager;
@@ -88,14 +91,18 @@ public class Tab_Coming_Details extends Fragment{
         description.setText(tempString2);
         requestManager.load(exhibitDetailResult.getExhibition_picture()).centerCrop().into(represent);
 
-        preViewList.setHasFixedSize(true);
-        linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
-        linearLayoutManager.setOrientation(LinearLayout.HORIZONTAL);
-        preViewList.setLayoutManager(linearLayoutManager);
-        tabComingDetailAdapter = new TabComingDetailAdapter(exhibitDetailResult.getImages(), requestManager);
-        //tabEndAdapter.setOnItemClickListener(this.getView().OnClickListener);
-        preViewList.setAdapter(tabComingDetailAdapter);
-        //Intent intent = new Intent(getActivity().getApplicationContext(), Tab_End.class);
+        if(exhibitDetailResult.getImages().isEmpty()){
+            preText.setVisibility(View.VISIBLE);
+        }else {
+            preViewList.setHasFixedSize(true);
+            linearLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+            linearLayoutManager.setOrientation(LinearLayout.HORIZONTAL);
+            preViewList.setLayoutManager(linearLayoutManager);
+            tabComingDetailAdapter = new TabComingDetailAdapter(exhibitDetailResult.getImages(), requestManager);
+            //tabEndAdapter.setOnItemClickListener(this.getView().OnClickListener);
+            preViewList.setAdapter(tabComingDetailAdapter);
+            //Intent intent = new Intent(getActivity().getApplicationContext(), Tab_End.class);
+        }
 
         if(exhibitDetailResult.getHeart_used() == 1){
             heartCheck = true;

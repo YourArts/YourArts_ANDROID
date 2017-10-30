@@ -260,6 +260,18 @@
                 >
             </View>
 
+            <TextView
+                android:layout_below="@+id/going_details_preBtn"
+                android:id="@+id/going_details_pretext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:layout_centerHorizontal="true"
+                android:textColor="#ffffff"
+                android:text="미리보기가 없습니다"
+                android:textSize="13sp"
+                />
+
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/going_details_preview"
                 android:layout_width="wrap_content"

@@ -236,12 +236,25 @@
             android:background="@drawable/ic_look_ahead"
             >
             <View
+                android:id="@+id/end_details_preBtn"
                 android:background="#000000"
                 android:layout_width="40dp"
                 android:layout_height="18dp"
                 android:layout_centerHorizontal="true"
                 >
             </View>
+
+            <TextView
+                android:layout_below="@+id/end_details_preBtn"
+                android:id="@+id/end_details_pretext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:layout_centerHorizontal="true"
+                android:textColor="#ffffff"
+                android:text="미리보기가 없습니다"
+                android:textSize="13sp"
+                />
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/end_details_preview"
