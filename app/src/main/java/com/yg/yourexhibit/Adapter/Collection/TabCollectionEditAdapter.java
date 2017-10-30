@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 
 import com.yg.yourexhibit.Adapter.Search.TabSearchViewHolder;
 import com.yg.yourexhibit.R;
-import com.yg.yourexhibit.Retrofit.RetrofitGet.ExhibitSearchResponse;
+import com.yg.yourexhibit.Retrofit.RetrofitGet.ExhibitSearchResult;
 
 import java.util.ArrayList;
 
@@ -17,10 +17,10 @@ import java.util.ArrayList;
 
 public class TabCollectionEditAdapter extends RecyclerView.Adapter<TabSearchViewHolder>{
 
-    private ArrayList<ExhibitSearchResponse> searchList;
+    private ArrayList<ExhibitSearchResult> searchList;
     private View.OnClickListener onItemClick = null;
 
-    public TabCollectionEditAdapter(ArrayList<ExhibitSearchResponse> searchList, View.OnClickListener onItemClick) {
+    public TabCollectionEditAdapter(ArrayList<ExhibitSearchResult> searchList, View.OnClickListener onItemClick) {
         this.searchList = searchList;
         this.onItemClick = onItemClick;
     }

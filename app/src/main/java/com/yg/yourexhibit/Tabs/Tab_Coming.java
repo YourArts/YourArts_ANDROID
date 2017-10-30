@@ -26,7 +26,6 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import retrofit2.http.HEAD;
 
 /**
  * Created by 2yg on 2017. 10. 9..
@@ -106,13 +105,13 @@ public class Tab_Coming extends Fragment{
             int itemPosition = comingList.getChildPosition(v);
 
 
-            idx = ApplicationController.getInstance().getExhibitComingResult().get(itemPosition).getExhibition_idx();
+           // idx = ApplicationController.getInstance().getExhibitComingResult().get(itemPosition).getExhibition_idx();
             NetworkController.setIsFrom("home");
-            networkController.getDetailData(2, ApplicationController.getInstance().token, idx);
+           // networkController.getDetailData(2, ApplicationController.getInstance().token, idx);
 
 
             
-            NetworkController.setIsFrom("home");
+           // NetworkController.setIsFrom("home");
             
 
 

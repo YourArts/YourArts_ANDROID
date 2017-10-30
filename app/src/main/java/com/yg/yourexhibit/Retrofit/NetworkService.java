@@ -40,8 +40,6 @@ import com.yg.yourexhibit.Retrofit.RetrofitPut.ExhibitLikePutResponse;
 import com.yg.yourexhibit.Retrofit.RetrofitPut.TabSettingNamePut;
 import com.yg.yourexhibit.Retrofit.RetrofitPut.TabSettingNameResponse;
 
-import java.util.ArrayList;
-
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
@@ -81,7 +79,7 @@ public interface NetworkService {
 
     //검색 불러오기
     @GET("search/{search}")
-    Call<ArrayList<ExhibitSearchResponse>> getSearchResponse(@Path("search") String search);
+    Call<ExhibitSearchResponse> getSearchResponse(@Path("search") String search);
 
     //콜랙션 불러오기
     @GET("collections")

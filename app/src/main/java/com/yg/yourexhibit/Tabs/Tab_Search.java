@@ -22,7 +22,7 @@ import com.squareup.otto.Subscribe;
 import com.yg.yourexhibit.Adapter.Search.TabSearchAdapter;
 import com.yg.yourexhibit.App.ApplicationController;
 import com.yg.yourexhibit.R;
-import com.yg.yourexhibit.Retrofit.RetrofitGet.ExhibitSearchResponse;
+import com.yg.yourexhibit.Retrofit.RetrofitGet.ExhibitSearchResult;
 import com.yg.yourexhibit.Util.EventBus;
 import com.yg.yourexhibit.Util.EventCode;
 import com.yg.yourexhibit.Util.NetworkController;
@@ -54,10 +54,11 @@ public class Tab_Search extends Fragment{
     private TabSearchAdapter tabSearchAdapter;
     private LinearLayoutManager linearLayoutManager;
     private NetworkController networkController;
-    private ArrayList<ExhibitSearchResponse> searchList;
-    private ArrayList<ExhibitSearchResponse> searchListShowing;
+    private ArrayList<ExhibitSearchResult> searchList;
+    private ArrayList<ExhibitSearchResult> searchListShowing;
     private boolean clickList = false;
-    private int idx;
+    private int idx = 0;
+    private String flag = "";
 
 
     @Override
@@ -119,6 +120,10 @@ public class Tab_Search extends Fragment{
 
             int itemPosition = result.getChildPosition(v);
             //idx = searchList.get(itemPosition).getExhibition_idx();
+
+            idx = searchListShowing.get(itemPosition).getExhibition_idx();
+            flag = searchListShowing.get(itemPosition).getFlag();
+
             text.setText(searchListShowing.get(itemPosition).getExhibition_name());
 //            Glide.with(ApplicationController.getInstance().getApplicationContext())
 //                    .load(searchList.get(itemPosition).getExhibition_picture()).into(image);
@@ -148,6 +153,25 @@ public class Tab_Search extends Fragment{
             case EventCode.EVENT_CODE_SEARCH:
                 initFragment();
                 break;
+            case EventCode.EVENT_CODE_END_DETAIL_SEARCH:
+                getFragmentManager()
+                        .beginTransaction()
+                        .addToBackStack(null)
+                        .replace(R.id.tab_search_container, new Tab_End_Details())
+                        .commit();
+                break;
+            case EventCode.EVENT_CODE_GOING_DETAIL_SEARCH:
+                getFragmentManager()
+                        .beginTransaction()
+                        .addToBackStack(null)
+                        .replace(R.id.tab_search_container, new Tab_Going_Details())
+                        .commit(); break;
+            case EventCode.EVENT_CODE_COMING_DETAIL_SEARCH:
+                getFragmentManager()
+                        .beginTransaction()
+                        .addToBackStack(null)
+                        .replace(R.id.tab_search_container, new Tab_Coming_Details())
+                        .commit();break;
         }
     }
 
@@ -156,5 +180,23 @@ public class Tab_Search extends Fragment{
     public void onDetach() {
         super.onDetach();
         EventBus.getInstance().unregister(this);
+    }
+
+    @OnClick(R.id.search_result_image)
+    public void clickImage(){
+        if(flag.equals("done")){
+
+            networkController.getDetailData(3, ApplicationController.getInstance().token, idx);
+        }else if(flag.equals("doing")){
+
+            networkController.getDetailData(4, ApplicationController.getInstance().token, idx);
+
+
+        }else{
+
+            networkController.getDetailData(5, ApplicationController.getInstance().token, idx);
+
+
+        }
     }
 }

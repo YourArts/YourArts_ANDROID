@@ -1,5 +1,7 @@
 package com.yg.yourexhibit.Retrofit.RetrofitGet;
 
+import java.util.ArrayList;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -10,9 +12,7 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class ExhibitSearchResponse {
-    int exhibition_idx;
-    String exhibition_name;
-    String exhibition_start_date;
-    String exhibition_end_date;
-    String exhibition_picture;
+    boolean status;
+    String message;
+    ArrayList<ExhibitSearchResult> result;
 }
