@@ -15,20 +15,10 @@ import com.yg.yourexhibit.R;
  */
 
 public class LogoutDialog extends Dialog {
-//
-//    @BindView(R.id.txtDialogLogout)
-//    TextView txtDialogLogout;
-//
-//    @BindView(R.id.btnDialogLogoutNo)
-//    Button btnDialogLogoutNo;
-//
-//    @BindView(R.id.btnDialogLogoutYes)
-//    Button btnDialogLogoutYes;
-
     TextView txtDialogLogout;
     Button btnDialogLogoutNo;
     Button btnDialogLogoutYes;
-//
+
     View.OnClickListener mLeftClickListener;
     View.OnClickListener mRightClickListener;
 
@@ -36,9 +26,6 @@ public class LogoutDialog extends Dialog {
         super(context, android.R.style.Theme_Translucent_NoTitleBar);
         this.mLeftClickListener = leftListener;
         this.mRightClickListener = rightListener;
-
-//        btnDialogLogoutYes.setOnClickListener(mRightClickListener);
-//        btnDialogLogoutNo.setOnClickListener(mLeftClickListener);
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {

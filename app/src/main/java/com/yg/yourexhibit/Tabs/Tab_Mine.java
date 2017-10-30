@@ -46,25 +46,6 @@ public class Tab_Mine extends Fragment{
     TextView topName;
 
 
-//    private void refresh(){
-//        Log.d("eventCheck","refresh()");
-////        EventBus.getInstance().register(this);
-////        EventBus.getInstance().unregister(this);
-//        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-//        transaction.detach(this).attach(this).commit();
-////        EventBus.getInstance().unregister(this);
-////        EventBus.getInstance().register(this);
-//
-//    }
-//    @Subscribe
-//    public void onEventLoad(Integer code) {
-//        if(code == EventCode.EVENT_CODE_EDIT_WATCH){
-//            Log.d("eventCheck","onEventLoad()");
-//            refresh();
-//            EventBus.getInstance().unregister(this);
-//        }
-//    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.tab_mine, container, false);
@@ -95,8 +76,6 @@ public class Tab_Mine extends Fragment{
                 TextView txt = (TextView)(((LinearLayout)((LinearLayout)tabLayout.getChildAt(0)).getChildAt(tab.getPosition())).getChildAt(1));
                 txt.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
                 txt.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 20);
-//                float scale = getResources().getDisplayMetrics().density;
-//                txt.setTextSize(200.0f * scale);
                 txt.setTextColor(Color.parseColor("#00FFC4"));
                 txt.setTypeface(txt.getTypeface(), Typeface.BOLD);
             }
@@ -125,32 +104,11 @@ public class Tab_Mine extends Fragment{
 
     @OnClick(R.id.btnGoSetting)
     public void goSetting(){
-//        getFragmentManager()
-//                .beginTransaction()
-//                .addToBackStack(null)
-//                .add(R.id.tabSetting, new Tab_Setting())
-//                .commit();
         getFragmentManager()
                 .beginTransaction()
                 .addToBackStack(null)
                 .replace(R.id.topLayout, new Tab_Setting())
                 .commit();
     }
-
-//    private void refresh(){
-////        viewPager.getAdapter().notifyDataSetChanged();
-////        android.app.Fragment currentFragment = getActivity().getFragmentManager().findFragmentById(R.id.tabWatch);
-//        Fragment frag = getFragmentManager().findFragmentById(R.id.tabWatch);
-//        FragmentTransaction fragTransaction = getFragmentManager().beginTransaction();
-//        fragTransaction.detach(frag);
-//        fragTransaction.attach(frag);
-//        fragTransaction.commit();
-//    }
-//    @Subscribe
-//    public void onEventLoad(Integer code) {
-//        if(code== EventCode.EVENT_CODE_EDIT){
-//            refresh();
-//        }
-//    }
 
 }
