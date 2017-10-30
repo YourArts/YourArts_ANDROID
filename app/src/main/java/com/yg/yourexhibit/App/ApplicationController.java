@@ -88,6 +88,18 @@ public class ApplicationController extends Application{
 
     public Fragment temp2 = null;
 
+
+
+    private boolean reFresh = false;
+
+
+
+    private int tabNum = 0;
+
+
+
+    private boolean detailFromEdit = false;
+
     @Override public void onCreate() {
         super.onCreate();
         appContext = getApplicationContext();
@@ -282,5 +294,29 @@ public class ApplicationController extends Application{
 
     public void setColEditSwitch(boolean colEditSwitch) {
         this.colEditSwitch = colEditSwitch;
+    }
+
+    public boolean isReFresh() {
+        return reFresh;
+    }
+
+    public void setReFresh(boolean reFresh) {
+        this.reFresh = reFresh;
+    }
+
+    public int getTabNum() {
+        return tabNum;
+    }
+
+    public void setTabNum(int tabNum) {
+        this.tabNum = tabNum;
+    }
+
+    public boolean isDetailFromEdit() {
+        return detailFromEdit;
+    }
+
+    public void setDetailFromEdit(boolean detailFromEdit) {
+        this.detailFromEdit = detailFromEdit;
     }
 }

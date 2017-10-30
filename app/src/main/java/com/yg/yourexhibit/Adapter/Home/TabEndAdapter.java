@@ -15,12 +15,13 @@ import java.util.ArrayList;
  * Created by 2yg on 2017. 10. 9..
  */
 
-public class TabEndAdapter extends RecyclerView.Adapter<TabEndViewHolder>{
+public class TabEndAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
     private ArrayList<TabEndData> endResult;
     private RequestManager requestManager;
     private View.OnClickListener onItemClick = null;
-
+    private static final int TYPE_HEADER = 0;
+    private static final int TYPE_ITEM = 1;
 
     public TabEndAdapter(ArrayList<TabEndData> endResult, RequestManager requestManager, View.OnClickListener onItemClick) {
         this.endResult = endResult;
@@ -29,36 +30,44 @@ public class TabEndAdapter extends RecyclerView.Adapter<TabEndViewHolder>{
     }
 
     @Override
-    public TabEndViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.tab_home_end_items, parent,false);
-        TabEndViewHolder viewHolder = new TabEndViewHolder(itemView);
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        itemView.setOnClickListener(onItemClick);
-        return viewHolder;
+
+        if(viewType == TYPE_HEADER) {
+            //View itemView = LayoutInflater.from (parent.getContext()).inflate (R.layout.tab_home_items_header, parent, false);
+            View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.tab_home_items_header, parent,false);
+            HomeHeaderViewHolder viewHolder = new HomeHeaderViewHolder(itemView);
+
+            return viewHolder;
+        }else if(viewType == TYPE_ITEM){
+            View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.tab_home_end_items, parent,false);
+            TabEndViewHolder viewHolder = new TabEndViewHolder(itemView);
+
+            itemView.setOnClickListener(onItemClick);
+
+            return viewHolder;
+        }
+        return null;
     }
 
     @Override
-    public void onBindViewHolder(TabEndViewHolder holder, final int position) {
-        requestManager
-                .load(endResult.get(position).getExhibitImage())
-                .centerCrop()
-                .into(holder.endItemImage);
-//        Picasso.with(ApplicationController.getInstance().getApplicationContext())
-//                .load(endResult.get(position).getExhibitImage())
-//                .centerCrop()
-//                .fit()
-//                .into(holder.endItemImage);
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
 
 
-            holder.endItemPerioid.setText(endResult.get(position).getExhibitPeriod());
-            holder.endItemName.setText(endResult.get(position).getExhibitName());
-//            holder.endItemBtn.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    ApplicationController.getInstance().makeToast(endResult.get(position).getExhibitName());
-//                    //Intent intent = new Intent(getApplicationContext(), )
-//                }
-//            });
+        if(holder instanceof HomeHeaderViewHolder) {
+            HomeHeaderViewHolder headerViewHolder = (HomeHeaderViewHolder) holder;
+
+        }else if(holder instanceof TabEndViewHolder) {
+            TabEndViewHolder tabEndViewHolder = (TabEndViewHolder) holder;
+            requestManager
+                    .load(endResult.get(position - 1).getExhibitImage())
+                    .centerCrop()
+                    .into(tabEndViewHolder.endItemImage);
+
+            tabEndViewHolder.endItemPerioid.setText(endResult.get(position - 1).getExhibitPeriod());
+            tabEndViewHolder.endItemName.setText(endResult.get(position - 1).getExhibitName());
+
+        }
     }
 
     public void setOnItemClickListener(View.OnClickListener l){
@@ -66,7 +75,15 @@ public class TabEndAdapter extends RecyclerView.Adapter<TabEndViewHolder>{
     }
 
     @Override
+    public int getItemViewType(int position) {
+        if(position == 0) {
+            return TYPE_HEADER;
+        }
+        return TYPE_ITEM;
+    }
+
+    @Override
     public int getItemCount() {
-        return (endResult != null) ? endResult.size():0;
+        return (endResult != null) ? endResult.size()+1:0;
     }
 }

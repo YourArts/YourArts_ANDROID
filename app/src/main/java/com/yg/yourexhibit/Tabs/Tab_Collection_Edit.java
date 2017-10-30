@@ -190,6 +190,7 @@ public class Tab_Collection_Edit extends android.support.v4.app.Fragment{
         workResult = ApplicationController.getInstance().getExhibitWorkResult();
 
         if(ApplicationController.getInstance().isFromWork()){
+            //상세보기(?)에서 옴
             text.setVisibility(View.GONE);
             searchText.setText(ApplicationController.getInstance().getExhibitDetailResult().getExhibition_name());
             Glide.with(this).load(workResult.get(0).getWork_image()).centerCrop().into(editImg);
@@ -246,6 +247,7 @@ public class Tab_Collection_Edit extends android.support.v4.app.Fragment{
     @OnClick(R.id.collection_edit_save)
     public void saveEdit(){
         ApplicationController.getInstance().setFromEdit(true);
+        //ApplicationController.getInstance().setFromDetail(true);
         ApplicationController.getInstance().setEditContent(context.getText().toString());
         if(ApplicationController.getInstance().isFromWork()){
 
@@ -282,10 +284,15 @@ public class Tab_Collection_Edit extends android.support.v4.app.Fragment{
                     Log.v(TAG, "getCollectionDetailSuccess");
                     if(ApplicationController.getInstance().isFromDetail()){
                         //디테일로부터 옴
+                        Log.v(TAG, "detail");
+                    }else if(ApplicationController.getInstance().isFromWork()){
+                        returnFrag();
+                        Log.v(TAG, "fromWork1");
+                        //그냥 생으로 작성
+                        //혹은 워크로부터 옴
+                        //EventBus.getInstance().post(EventCode.EVENT_CODE_COLLECTION_POST);
                     }else{
                         returnFrag();
-                        //그냥 생으로 작성
-                        //EventBus.getInstance().post(EventCode.EVENT_CODE_COLLECTION_POST);
                     }
                 }else{
                     Log.v(TAG, "getCollectionDetailFail");
@@ -337,7 +344,7 @@ public class Tab_Collection_Edit extends android.support.v4.app.Fragment{
             startActivityForResult(intent, REQ_CODE_SELECT_IMAGE);
         }else{
             galleryDialog = new GalleryDialog(getActivity(),
-                    "당신의 갤러리에 접근합니다.\n이후 설정에서 변경 가능합니다.",
+                    ("'당신'의 전시에서 갤러리에 접근합니다.\n이후 설정에서 변경 가능합니다.").replace(" ","\u00a0"),
                     leftListener, // 왼쪽 버튼 이벤트
                     rightListener); // 오른쪽 버튼 이벤트
             galleryDialog.show();
@@ -426,59 +433,36 @@ public class Tab_Collection_Edit extends android.support.v4.app.Fragment{
 
     public void returnFrag(){
         if(ApplicationController.getInstance().isFromDetail()){
-            android.app.Fragment fr = null;
-            fr = getActivity().getFragmentManager().findFragmentByTag("toEdit");
+            ApplicationController.getInstance().setDetailFromEdit(true);
+            //디테일로부터 옴
+//            android.app.Fragment fr = null;
+//            fr = getActivity().getFragmentManager().findFragmentByTag("toEdit");
            getFragmentManager()
                     .beginTransaction()
                     .disallowAddToBackStack()
                     .replace(R.id.collection_edit_container, new Tab_Collection_Detail())
                     .commit();
-
-//            getActivity()
-//                    .getSupportFragmentManager()
-//                    .popBackStack();
 //
-            }else{
-            //그냥 콜렉션으로부 옴
+////            getActivity()
+////                    .getSupportFragmentManager()
+////                    .popBackStack();
+//
+            }else if(ApplicationController.getInstance().isFromWork()){
+            Log.v(TAG, "fromWork");
+
+            ApplicationController.getInstance().setReFresh(true);
+            ApplicationController.getInstance().setTabNum(2);
 
             android.support.v4.app.FragmentManager fm = getFragmentManager();
-
-//            for(int i = 0; i < fm.getBackStackEntryCount(); ++i) {
-//                Log.v(TAG, "count");
-//                fm.popBackStack();
-//            }
-
-//            Fragment fromFrag = null, toFrag = null;
-//            fromFrag = getFragmentManager().findFragmentByTag("base");
-//
-//            for(int i = 0; i < fm.getBackStackEntryCount(); ++i) {
-//                Log.v(TAG, "count");
-//                fm.popBackStack();
-//            }
-//
-//            FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-//            ft.attach(fromFrag);
-//            ft.commit();
-            ApplicationController.getInstance().setFromEdit(true);
-//            getFragmentManager()
-//                    .beginTransaction()
-//                    .disallowAddToBackStack()
-//                    .replace(R.id.collection_edit_container, new Tab_Collection())
-//                    .commit();
-
                 getActivity().finish();
                 startActivity(getActivity().getIntent());
+        }else{
+            ApplicationController.getInstance().setReFresh(true);
+            ApplicationController.getInstance().setTabNum(2);
 
-            //여긴 작성했을 때
-
-
-
-//            toFrag = getFragmentManager().findFragmentByTag("toBase");
-//
-
-
-
-
+            android.support.v4.app.FragmentManager fm = getFragmentManager();
+            getActivity().finish();
+            startActivity(getActivity().getIntent());
         }
     }
 

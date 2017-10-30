@@ -178,7 +178,8 @@
                         android:text="adsasasasasasasa"
                         android:textSize="12sp"
                         android:textColor="#000000"
-                        android:lineSpacingExtra="2dp"
+                        android:lineSpacingMultiplier="1"
+                        android:lineSpacingExtra="6dp"
                         android:includeFontPadding="false"
                         />
                 </LinearLayout>
@@ -197,7 +198,8 @@
                         android:textSize="12sp"
                         android:textColor="#000000"
                         android:includeFontPadding="false"
-                        />
+                        android:lineSpacingMultiplier="1"
+                        android:lineSpacingExtra="6dp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -214,7 +216,8 @@
                         android:textSize="12sp"
                         android:textColor="#000000"
                         android:includeFontPadding="false"
-                        android:lineSpacingExtra="4dp"
+                        android:lineSpacingMultiplier="1"
+                        android:lineSpacingExtra="6dp"
                         />
                 </LinearLayout>
 
