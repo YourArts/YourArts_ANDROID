@@ -130,7 +130,7 @@ public class Tab_Search extends Fragment{
 
             //search.setText(searchList.get(itemPosition).getExhibition_name());
             Glide.with(ApplicationController.getInstance().getApplicationContext())
-                    .load(searchListShowing.get(itemPosition).getExhibition_picture()).into(image);
+                    .load(searchListShowing.get(itemPosition).getExhibition_picture()).centerCrop().into(image);
 
             InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(search.getWindowToken(), 0);
