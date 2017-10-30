@@ -6,7 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.yg.yourexhibit.R;
-import com.yg.yourexhibit.Retrofit.RetrofitGet.ExhibitSearchResponse;
+import com.yg.yourexhibit.Retrofit.RetrofitGet.ExhibitSearchResult;
 
 import java.util.ArrayList;
 
@@ -16,10 +16,10 @@ import java.util.ArrayList;
 
 public class TabSearchAdapter extends RecyclerView.Adapter<TabSearchViewHolder>{
 
-    private ArrayList<ExhibitSearchResponse> searchList;
+    private ArrayList<ExhibitSearchResult> searchList;
     private View.OnClickListener onItemClick = null;
 
-    public TabSearchAdapter(ArrayList<ExhibitSearchResponse> searchList, View.OnClickListener onItemClick) {
+    public TabSearchAdapter(ArrayList<ExhibitSearchResult> searchList, View.OnClickListener onItemClick) {
         this.searchList = searchList;
         this.onItemClick = onItemClick;
     }

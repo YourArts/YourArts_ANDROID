@@ -15,4 +15,7 @@ public class ExhibitSearchResult {
     String exhibition_start_date;
     String exhibition_end_date;
     String exhibition_picture;
+    int start_date;
+    int end_date;
+    String flag;
 }

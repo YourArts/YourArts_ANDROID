@@ -82,5 +82,8 @@ public class EventCode {
     public static final int EVENT_CODE_FIND_PW_FAIL = 131;
     public static final int EVENT_CDOE_AUTH = 132;
     public static final int EVENT_CODE_AUTH_FAIL = 133;
+    public static final int EVENT_CODE_END_DETAIL_SEARCH = 134;
+    public static final int EVENT_CODE_GOING_DETAIL_SEARCH = 135;
+    public static final int EVENT_CODE_COMING_DETAIL_SEARCH = 136;
 
 }

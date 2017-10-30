@@ -19,7 +19,6 @@ import com.yg.yourexhibit.R;
 import com.yg.yourexhibit.Util.EventBus;
 import com.yg.yourexhibit.Util.EventCode;
 import com.yg.yourexhibit.Util.NetworkController;
-import com.yg.yourexhibit.Util.SharedPrefrernceController;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -132,8 +131,8 @@ public class SignupActivity extends AppCompatActivity {
             case EventCode.EVENT_CODE_SIGN:
                 joinDialog = new JoinDialog(this,
 
-                        ("작품 모을 준비가 완료되었습니다!\n" + "'"+SharedPrefrernceController.getUserNickname(this)+"'" + "의\n 전시를 시작하시겠습니까?").replace(" ", "\u00a0"),
-                            leftListener, // 왼쪽 버튼 이벤트
+                        ("작품 모을 준비가 완료되었습니다!\n" + "'당신'의전시를 시작하시겠습니까?").replace(" ", "\u00a0"),
+                           leftListener, // 왼쪽 버튼 이벤트
                             rightListener2, true); // 오른쪽 버튼 이벤트
                     joinDialog.show();
                 break;

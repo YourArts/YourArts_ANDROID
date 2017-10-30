@@ -29,6 +29,7 @@ import com.yg.yourexhibit.R;
 import com.yg.yourexhibit.Retrofit.NetworkService;
 import com.yg.yourexhibit.Retrofit.RetrofitGet.ExhibitCollectionDetailResult;
 import com.yg.yourexhibit.Retrofit.RetrofitGet.ExhibitSearchResponse;
+import com.yg.yourexhibit.Retrofit.RetrofitGet.ExhibitSearchResult;
 import com.yg.yourexhibit.Retrofit.RetrofitGet.ExhibitWorkResult;
 import com.yg.yourexhibit.Retrofit.RetrofitPost.ExhibitCollectionPostResponse;
 import com.yg.yourexhibit.Retrofit.RetrofitPut.CollectionPutBody;
@@ -112,7 +113,7 @@ public class Tab_Collection_Edit extends android.support.v4.app.Fragment{
     private LinearLayoutManager linearLayoutManager;
     private NetworkController networkController;
     private NetworkService networkService;
-    private ArrayList<ExhibitSearchResponse> searchList;
+    private ArrayList<ExhibitSearchResult> searchList;
     private int idx = 0;
 
     @Override
@@ -160,13 +161,13 @@ public class Tab_Collection_Edit extends android.support.v4.app.Fragment{
         return v;
     }
     public void getCollectionSearchData(String search){
-        Call<ArrayList<ExhibitSearchResponse>> exhibitSearchResponse = networkService.getSearchResponse(search);
-        exhibitSearchResponse.enqueue(new Callback<ArrayList<ExhibitSearchResponse>>() {
+        Call<ExhibitSearchResponse> exhibitSearchResponse = networkService.getSearchResponse(search);
+        exhibitSearchResponse.enqueue(new Callback<ExhibitSearchResponse>() {
             @Override
-            public void onResponse(Call<ArrayList<ExhibitSearchResponse>> call, Response<ArrayList<ExhibitSearchResponse>> response) {
+            public void onResponse(Call<ExhibitSearchResponse> call, Response<ExhibitSearchResponse> response) {
                 if(response.isSuccessful()){
                     if(response.body()!=null) {
-                        ApplicationController.getInstance().setExhibitSearchResult(response.body());
+                        ApplicationController.getInstance().setExhibitSearchResult(response.body().getResult());
                         //EventBus.getInstance().post(EventCode.EVENT_CODE_COLLECTION_SEARCH);
                         setResultList();
                         Log.v(TAG, "getCollectionSearchSuccess");
@@ -179,7 +180,7 @@ public class Tab_Collection_Edit extends android.support.v4.app.Fragment{
                 }
             }
             @Override
-            public void onFailure(Call<ArrayList<ExhibitSearchResponse>> call, Throwable t) {
+            public void onFailure(Call<ExhibitSearchResponse> call, Throwable t) {
                 Log.v(TAG,"checkNetwork");
             }
         });
@@ -528,6 +529,7 @@ public class Tab_Collection_Edit extends android.support.v4.app.Fragment{
 
     @OnClick(R.id.collection_edit_icon)
     public void onClickIcon(){
+        idx = 0;
         searchText.setText(search.getText().toString());
         search.setText("");
         search.clearFocus();

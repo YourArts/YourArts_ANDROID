@@ -26,7 +26,6 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import retrofit2.http.HEAD;
 
 /**
  * Created by 2yg on 2017. 10. 9..
@@ -136,7 +135,7 @@ public class Tab_Going extends Fragment{
             if(itemPosition!=0) {
 
 
-                idx = ApplicationController.getInstance().getExhibitGoingResult().get(itemPosition).getExhibition_idx();
+           //     idx = ApplicationController.getInstance().getExhibitGoingResult().get(itemPosition).getExhibition_idx();
 
                 
 
