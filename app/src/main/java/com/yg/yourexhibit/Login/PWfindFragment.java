@@ -3,7 +3,6 @@ package com.yg.yourexhibit.Login;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +11,6 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.squareup.otto.Subscribe;
-import com.yg.yourexhibit.App.ApplicationController;
 import com.yg.yourexhibit.Dialog.ErrornumDialog;
 import com.yg.yourexhibit.Dialog.FindPWdialog;
 import com.yg.yourexhibit.R;
@@ -90,17 +88,16 @@ public class PWfindFragment extends Fragment  {
     public void onEventLoad(Integer code){
         switch (code){
             case EventCode.EVENT_CODE_FIND_PW:
-                //startActivity(new Intent(getApplicationContext(), FindPwCheck.class));
-                ApplicationController.getInstance().makeToast("인증번호 발송");
+                errornumDialog = new ErrornumDialog(getContext(), "인증번호를 발송하였습니다.\n이메일을 확인해주세요.");
+                errornumDialog.show();
                 break;
             case EventCode.EVENT_CODE_FIND_PW_FAIL:
-//                errornumDialog = new ErrornumDialog(getContext());
-//                errornumDialog.show();
-                ApplicationController.getInstance().makeToast("존재하지 않는 계정");
-
+                errornumDialog = new ErrornumDialog(getContext(), "입력하신 정보와 일치하는 아이디가 없습니다.");
+                errornumDialog.show();
                 break;
             case EventCode.EVENT_CODE_AUTH_FAIL:
-                ApplicationController.getInstance().makeToast("인증번호 오류");
+                errornumDialog = new ErrornumDialog(getContext(), "인증번호가 틀렸습니다.\n인증번호 재전송 후 다시 입력하세요.");
+                errornumDialog.show();
                 break;
             case EventCode.EVENT_CDOE_AUTH:
                 Intent intent = new Intent(getApplicationContext(), FindPwCheck.class);
@@ -113,18 +110,18 @@ public class PWfindFragment extends Fragment  {
         }
     }
 
-    @Subscribe
-    public void onEventLoad(boolean sendStatus){
-        if(sendStatus){
-            Log.v("aaa","aaa");
-            Intent intent = new Intent(getApplicationContext(), FindPwCheck.class);
-            intent.putExtra("id", findPwName.getText().toString());
-            intent.putExtra("email", findPWEmail.getText().toString());
-            startActivity(intent);
-        }else{
-            errornumDialog = new ErrornumDialog(getContext());
-        }
-    }
+//    @Subscribe
+//    public void onEventLoad(boolean sendStatus){
+//        if(sendStatus){
+//            Log.v("aaa","aaa");
+//            Intent intent = new Intent(getApplicationContext(), FindPwCheck.class);
+//            intent.putExtra("id", findPwName.getText().toString());
+//            intent.putExtra("email", findPWEmail.getText().toString());
+//            startActivity(intent);
+//        }else{
+//            errornumDialog = new ErrornumDialog(getContext());
+//        }
+//    }
 
     @OnClick(R.id.findpw_send_email)
     public void sendAuth(){

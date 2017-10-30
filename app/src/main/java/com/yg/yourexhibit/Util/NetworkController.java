@@ -482,6 +482,8 @@ public class NetworkController {
             public void onResponse(Call<LoginPostResponse> call, Response<LoginPostResponse> response) {
                 if (response.isSuccessful()){
                     ApplicationController.getInstance().token = response.body().getResult().getToken();
+                    SharedPrefrernceController.setUserNickname(ApplicationController.getInstance().getApplicationContext(),
+                            response.body().getResult().getProfile().getNickname());
                     EventBus.getInstance().post(EventCode.EVENT_CODE_LOGIN);
                     Log.v(TAG,"postLoginSuccess");
                 }else{

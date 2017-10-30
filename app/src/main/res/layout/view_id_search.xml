@@ -13,6 +13,7 @@
             android:gravity="center">
 
                 <TextView
+                    android:id="@+id/id_find_text"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
