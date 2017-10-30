@@ -3,6 +3,7 @@ package com.yg.yourexhibit.Tabs;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -106,9 +107,21 @@ public class Tab_Mine_Watch_Tab extends Fragment {
 
             NetworkController.setIsFrom("watch");
             networkController.getDetailData(status, ApplicationController.getInstance().token, idx);
+            refresh();
+
+//            FragmentTransaction ft = getFragmentManager().beginTransaction();
+//            ft.detach(getTargetFragment()).attach(getTargetFragment()).commit();
+
+//            Intent refresh = new Intent(getActivity(), HomeActivity.class);
+//            startActivity(refresh);
+//            getActivity().finish();
         }
     };
 
+    private void refresh(){
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.detach(this).attach(this).commit();
+    }
 
 //
 //    @Override

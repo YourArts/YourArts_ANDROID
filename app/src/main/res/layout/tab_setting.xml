@@ -37,9 +37,10 @@
     </RelativeLayout>
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="33dp"
+        android:layout_marginRight="43dp"
         android:layout_marginTop="69dp">
 
         <TextView
@@ -53,9 +54,9 @@
 
         <EditText
             android:id="@+id/editSettingName"
-            android:layout_width="170dp"
+            android:layout_width="105dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="18dp"
+            android:layout_marginLeft="38dp"
             android:hint="입력"
             android:textColorHint="#666666"
             android:lines = "1"
@@ -65,29 +66,36 @@
             android:textSize="13sp"
             android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/txtSettingName"
+        <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="13dp"
-            android:layout_alignParentRight="true"
-            android:text="수정"
-            android:textColor="#666666"
-            android:textSize="13sp"
-            android:textStyle="bold" />
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/txtSettingName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="수정"
+                android:textColor="#666666"
+                android:textSize="13sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
     </LinearLayout>
 
     <View
-        android:layout_width="296dp"
+        android:layout_width="wrap_content"
         android:layout_height="1dp"
         android:background="#95989A"
         android:layout_marginTop="9dp"
         android:layout_marginBottom="22dp"
-        android:layout_marginLeft="33dp"/>
+        android:layout_marginLeft="33dp"
+        android:layout_marginRight="33dp"/>
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="33dp">
+        android:layout_marginLeft="33dp"
+        android:layout_marginRight="43dp">
 
         <TextView
             android:id="@+id/비번수정"
@@ -97,41 +105,49 @@
             android:textStyle="bold"
             android:textSize="13sp"
             android:textColor="#FFFFFF"/>
+
         <EditText
             android:id="@+id/editSettingPW"
-            android:layout_marginLeft="38dp"
-            android:layout_width="165dp"
+            android:layout_width="105dp"
             android:layout_height="wrap_content"
-            android:hint="입력"
-            android:textColorHint="#666666"
-            android:lines = "1"
-            android:textCursorDrawable="@null"
+            android:layout_marginLeft="38dp"
             android:background="@android:color/transparent"
             android:inputType="textPassword"
-            android:textStyle="bold"
+            android:lines="1"
+            android:textColor="#666666"
+            android:textColorHint="#666666"
+            android:textCursorDrawable="@null"
             android:textSize="13sp"
-            android:textColor="#666666"/>
-        <TextView
-            android:id="@+id/txtSettingPW"
+            android:textStyle="bold" />
+
+        <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="수정"
-            android:layout_marginLeft="15dp"
-            android:textStyle="bold"
-            android:textSize="13sp"
-            android:textColor="#666666"/>
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/txtSettingPW"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="수정"
+                android:layout_alignParentRight="true"
+                android:textStyle="bold"
+                android:textSize="13sp"
+                android:textColor="#666666"/>
+        </RelativeLayout>
+
     </LinearLayout>
     <View
-        android:layout_width="296dp"
+        android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="#95989A"
         android:layout_marginTop="9dp"
         android:layout_marginBottom="22dp"
-        android:layout_marginLeft="33dp"/>
+        android:layout_marginLeft="33dp"
+        android:layout_marginRight="33dp"/>
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="33dp">
+        android:layout_marginLeft="33dp"
+        android:layout_marginRight="33dp">
 
         <TextView
             android:id="@+id/비번확인"
@@ -144,9 +160,8 @@
         <EditText
             android:id="@+id/editSettingCheckPW"
             android:layout_marginLeft="38dp"
-            android:layout_width="150dp"
+            android:layout_width="105dp"
             android:layout_height="20dp"
-            android:hint="입력"
             android:textColorHint="#666666"
             android:lines = "1"
             android:textCursorDrawable="@null"
@@ -156,27 +171,34 @@
             android:textSize="13sp"
             android:textColor="#666666"/>
 
-        <TextView
-            android:id="@+id/txtCheckPW"
+        <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:text="correct!"
-            android:textColor="#666666"
-            android:textSize="13sp" />
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/txtCheckPW"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="correct!"
+                android:textColor="#666666"
+                android:textSize="13sp" />
+        </RelativeLayout>
+
     </LinearLayout>
     <View
-        android:layout_width="296dp"
+        android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="#95989A"
         android:layout_marginTop="9dp"
         android:layout_marginBottom="22dp"
-        android:layout_marginLeft="33dp"/>
+        android:layout_marginLeft="33dp"
+        android:layout_marginRight="33dp"/>
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="32dp"
-        android:layout_marginLeft="33dp">
+        android:layout_marginLeft="33dp"
+        android:layout_marginRight="43dp">
 
         <TextView
             android:id="@+id/갤러리접근"
@@ -187,28 +209,35 @@
             android:textSize="13sp"
             android:textColor="#FFFFFF"/>
 
-        <TextView
-            android:id="@+id/txtSettingGallery"
+        <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="OFF"
-            android:layout_marginLeft="195dp"
-            android:textStyle="bold"
-            android:textSize="13sp"
-            android:textColor="#666666"/>
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/txtSettingGallery"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="OFF"
+                android:layout_alignParentRight="true"
+                android:textStyle="bold"
+                android:textSize="13sp"
+                android:textColor="#666666"/>
+        </RelativeLayout>
+
     </LinearLayout>
 
     <View
-        android:layout_width="296dp"
+        android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="#95989A"
         android:layout_marginBottom="22dp"
-        android:layout_marginLeft="33dp"/>
+        android:layout_marginLeft="33dp"
+        android:layout_marginRight="33dp"/>
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="32dp"
-        android:layout_marginLeft="33dp">
+        android:layout_marginLeft="33dp"
+        android:layout_marginRight="33dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -218,30 +247,42 @@
             android:textSize="13sp"
             android:textColor="#FFFFFF"/>
 
-        <TextView
-            android:id="@+id/txtSettinOut"
+        <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="탈퇴하기"
-            android:layout_marginLeft="110dp"
-            android:textStyle="bold"
-            android:textSize="13sp"
-            android:textColor="#666666"/>
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/txtSettinOut"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="탈퇴하기"
+                android:layout_alignParentRight="true"
+                android:textStyle="bold"
+                android:textSize="13sp"
+                android:textColor="#666666"/>
+        </RelativeLayout>
+
     </LinearLayout>
 
     <View
-        android:layout_width="296dp"
+        android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="#95989A"
         android:layout_marginBottom="22dp"
-        android:layout_marginLeft="33dp"/>
+        android:layout_marginLeft="33dp"
+        android:layout_marginRight="33dp"/>
 
-    <Button
-        android:id="@+id/settingLogout"
-        android:background="@drawable/logout_button"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="50dp"/>
+        android:layout_marginLeft="63dp"
+        android:layout_marginRight="63dp"
+        android:layout_marginTop="140dp">
+        <ImageButton
+            android:id="@+id/settingLogout"
+            android:background="@drawable/logout_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
 
 </LinearLayout>
