@@ -21,8 +21,6 @@
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/tab_coming_list"
-        android:layout_marginLeft="21dp"
-        android:layout_marginRight="21dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 

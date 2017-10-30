@@ -6,12 +6,16 @@
     >
 
     <ScrollView
+        android:focusable="true"
+
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="21dp"
         android:layout_marginRight="21dp">
 
     <android.support.v7.widget.RecyclerView
+        android:focusable="false"
+
         android:layout_marginTop="30dp"
         android:id="@+id/tab_going_list"
         android:layout_width="match_parent"

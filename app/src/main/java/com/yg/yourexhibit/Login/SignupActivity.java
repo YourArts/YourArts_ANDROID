@@ -19,6 +19,7 @@ import com.yg.yourexhibit.R;
 import com.yg.yourexhibit.Util.EventBus;
 import com.yg.yourexhibit.Util.EventCode;
 import com.yg.yourexhibit.Util.NetworkController;
+import com.yg.yourexhibit.Util.SharedPrefrernceController;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -131,18 +132,18 @@ public class SignupActivity extends AppCompatActivity {
             case EventCode.EVENT_CODE_SIGN:
                 joinDialog = new JoinDialog(this,
 
-                            "작품을 모을 준비가 완료되었습니다! ‘당신’의 전시를 시작하시겠습니까?",
+                        ("작품 모을 준비가 완료되었습니다!\n" + "'"+SharedPrefrernceController.getUserNickname(this)+"'" + "의\n 전시를 시작하시겠습니까?").replace(" ", "\u00a0"),
                             leftListener, // 왼쪽 버튼 이벤트
-                            rightListener2); // 오른쪽 버튼 이벤트
+                            rightListener2, true); // 오른쪽 버튼 이벤트
                     joinDialog.show();
                 break;
             case EventCode.EVENET_CODE_LOGIN_FAIL:
                 break;
             case EventCode.EVENT_CODE_SIGN_FAIL:
                     joinDialog = new JoinDialog(this,
-                            "입력한 정보로 존재하는 사용자가 있습니다.ID/PW를 찾으시겠습니까?",
+                            "입력한 정보로 존재하는\n사용자가 있습니다. ID/PW를 찾으시겠습니까?",
                             leftListener, // 왼쪽 버튼 이벤트
-                            rightListener); // 오른쪽 버튼 이벤트
+                            rightListener, false); // 오른쪽 버튼 이벤트
                     joinDialog.show();
                 break;
         }
