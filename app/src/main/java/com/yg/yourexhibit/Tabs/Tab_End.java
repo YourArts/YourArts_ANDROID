@@ -27,6 +27,7 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import retrofit2.http.HEAD;
 
 /**
  * Created by 2yg on 2017. 10. 9..
@@ -147,9 +148,15 @@ public class Tab_End extends Fragment{
         public void onClick(View v) {
             int itemPosition = endList.getChildPosition(v);
 
+
+            idx = ApplicationController.getInstance().getExhibitEndResult().get(itemPosition).getExhibition_idx();
+            NetworkController.setIsFrom("home");
+            networkController.getDetailData(0, ApplicationController.getInstance().token, idx);
+
             
             NetworkController.setIsFrom("home");
             
+
 
 
 
