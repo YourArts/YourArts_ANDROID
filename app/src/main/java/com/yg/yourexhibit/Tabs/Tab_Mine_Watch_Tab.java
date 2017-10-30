@@ -61,6 +61,7 @@ public class Tab_Mine_Watch_Tab extends Fragment {
     RequestManager requestManager;
     LinearLayoutManager linearLayoutManager;
     NetworkController networkController;
+    Boolean isRegistered;
 
     public void initTab(){
         networkService = ApplicationController.getInstance().getNetworkService();
@@ -71,7 +72,7 @@ public class Tab_Mine_Watch_Tab extends Fragment {
         linearLayoutManager.setOrientation(LinearLayout.VERTICAL);
         networkController = new NetworkController();
         tabWatchAdapter = new TabWatchAdapter(dataList,clickListener,requestManager);
-
+        isRegistered = true;
     }
 
     View.OnClickListener clickListener = new View.OnClickListener() {
@@ -106,6 +107,7 @@ public class Tab_Mine_Watch_Tab extends Fragment {
         if(code == EventCode.EVENT_CODE_EDIT_WATCH){
             Log.d("eventCheck","onEventLoad()");
             refresh();
+            EventBus.getTestBUS().unregister(this);
         }
     }
 
@@ -115,9 +117,21 @@ public class Tab_Mine_Watch_Tab extends Fragment {
         View view = inflater.inflate(R.layout.tab_mine_watch, container, false);
         ButterKnife.bind(this, view);
         initTab();
-        EventBus.getInstance().register(this);
-        EventBus.getInstance().unregister(this);
-        EventBus.getInstance().register(this);
+        EventBus.getTestBUS().register(this);
+
+//        EventBus.getInstance().register(this);
+//        if(isRegistered){
+//            EventBus.getInstance().unregister(this);
+//            isRegistered = false;
+//            EventBus.getInstance().register(this);
+//        }else{
+//            EventBus.getInstance().register(this);
+//            isRegistered = true;
+//            EventBus.getInstance().unregister(this);
+//        }
+//        EventBus.getInstance().register(this);
+//        EventBus.getInstance().unregister(this);
+//        EventBus.getInstance().register(this);
 
 //        EventBus.getInstance().register(this);
 
