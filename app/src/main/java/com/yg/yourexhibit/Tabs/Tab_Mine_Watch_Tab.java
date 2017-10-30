@@ -97,7 +97,8 @@ public class Tab_Mine_Watch_Tab extends Fragment {
 //        EventBus.getInstance().register(this);
 //        EventBus.getInstance().unregister(this);
         FragmentTransaction transaction = (getActivity()).getSupportFragmentManager().beginTransaction();
-        transaction.detach(this).attach(this).commitAllowingStateLoss();
+        transaction.detach(this).attach(this.getTargetFragment()).commitAllowingStateLoss();
+//        transaction.detach(this)
 //        EventBus.getInstance().unregister(this);
 //        EventBus.getInstance().register(this);
 
@@ -107,7 +108,7 @@ public class Tab_Mine_Watch_Tab extends Fragment {
         if(code == EventCode.EVENT_CODE_EDIT_WATCH){
             Log.d("eventCheck","onEventLoad()");
             refresh();
-            EventBus.getTestBUS().unregister(this);
+            EventBus.getInstance().unregister(this);
         }
     }
 
@@ -117,23 +118,8 @@ public class Tab_Mine_Watch_Tab extends Fragment {
         View view = inflater.inflate(R.layout.tab_mine_watch, container, false);
         ButterKnife.bind(this, view);
         initTab();
-        EventBus.getTestBUS().register(this);
+        EventBus.getInstance().register(this);
 
-//        EventBus.getInstance().register(this);
-//        if(isRegistered){
-//            EventBus.getInstance().unregister(this);
-//            isRegistered = false;
-//            EventBus.getInstance().register(this);
-//        }else{
-//            EventBus.getInstance().register(this);
-//            isRegistered = true;
-//            EventBus.getInstance().unregister(this);
-//        }
-//        EventBus.getInstance().register(this);
-//        EventBus.getInstance().unregister(this);
-//        EventBus.getInstance().register(this);
-
-//        EventBus.getInstance().register(this);
 
         Log.d("myTag","onCreateView 호출");
 
