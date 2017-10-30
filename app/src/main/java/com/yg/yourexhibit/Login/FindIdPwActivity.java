@@ -56,7 +56,7 @@ public class FindIdPwActivity extends AppCompatActivity {
 
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
         mViewPager.setAdapter(mSectionsPagerAdapter);
-
+        tabLayout.getTabAt(1).select();
 
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
@@ -88,33 +88,35 @@ public class FindIdPwActivity extends AppCompatActivity {
 
             }
         });
+        tabLayout.getTabAt(0).select();
 
-        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                mViewPager.setCurrentItem(tab.getPosition());
-                switch (tab.getPosition()) {
-                    case 0:
-                        //tabLayout.getTabAt(0).setCustomView(getLayoutInflater().inflate(R.layout.view_id_search, null));
-                        //tabLayout.getTabAt(1).setCustomView(getLayoutInflater().inflate(R.layout.view_pw_search_none, null));
-                        break;
-                    case 1:
-                        //tabLayout.getTabAt(0).setCustomView(getLayoutInflater().inflate(R.layout.view_id_search_none, null));
-                        //tabLayout.getTabAt(1).setCustomView(getLayoutInflater().inflate(R.layout.view_pw_search, null));
-                        //totleText.setText("검색");
-                        break;
-                }
-            }
 
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
+//        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+//            @Override
+//            public void onTabSelected(TabLayout.Tab tab) {
+//                mViewPager.setCurrentItem(tab.getPosition());
+//                switch (tab.getPosition()) {
+//                    case 0:
+//                        //tabLayout.getTabAt(0).setCustomView(getLayoutInflater().inflate(R.layout.view_id_search, null));
+//                        //tabLayout.getTabAt(1).setCustomView(getLayoutInflater().inflate(R.layout.view_pw_search_none, null));
+//                        break;
+//                    case 1:
+//                        //tabLayout.getTabAt(0).setCustomView(getLayoutInflater().inflate(R.layout.view_id_search_none, null));
+//                        //tabLayout.getTabAt(1).setCustomView(getLayoutInflater().inflate(R.layout.view_pw_search, null));
+//                        //totleText.setText("검색");
+//                        break;
+//                }
+//            }
+//
+//            @Override
+//            public void onTabUnselected(TabLayout.Tab tab) {
+//            }
+//
+//            @Override
+//            public void onTabReselected(TabLayout.Tab tab) {
+//
+//            }
+//        });
 
 
 

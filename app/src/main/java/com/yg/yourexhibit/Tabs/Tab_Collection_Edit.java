@@ -257,8 +257,10 @@ public class Tab_Collection_Edit extends android.support.v4.app.Fragment{
             RequestBody content = RequestBody.create(MediaType.parse("text/pain"), context.getText().toString());
 
 
-
-            postCollection(ApplicationController.getInstance().token, colIdx, content, profile_pic);
+            if(idx!=0)
+                postCollection(ApplicationController.getInstance().token, colIdx, content, profile_pic);
+            else
+                postCollection2(ApplicationController.getInstance().token, colIdx, content, name, profile_pic);
         } else if(ApplicationController.getInstance().isFromDetail()){
             //디테일로부터 옴->얜 수정 해야 함
 
@@ -271,8 +273,10 @@ public class Tab_Collection_Edit extends android.support.v4.app.Fragment{
             RequestBody content = RequestBody.create(MediaType.parse("text/pain"), context.getText().toString());
 
 
-
-            postCollection(ApplicationController.getInstance().token, colIdx, content, profile_pic);
+            if(idx!=0)
+                postCollection(ApplicationController.getInstance().token, colIdx, content, profile_pic);
+            else
+                postCollection2(ApplicationController.getInstance().token, colIdx, content, name, profile_pic);
         }
     }
 
@@ -308,6 +312,40 @@ public class Tab_Collection_Edit extends android.support.v4.app.Fragment{
             }
         });
     }
+
+    public void postCollection2(String token, RequestBody idx, RequestBody content, RequestBody name,  MultipartBody.Part image){
+        Call<ExhibitCollectionPostResponse> postCollectionResponse = networkService.postCollectionResponse2(token, idx, content, name, image);
+        postCollectionResponse.enqueue(new Callback<ExhibitCollectionPostResponse>() {
+            @Override
+            public void onResponse(Call<ExhibitCollectionPostResponse> call, Response<ExhibitCollectionPostResponse> response) {
+                if(response.isSuccessful()){
+                    Log.v(TAG, "getCollectionDetailSuccess");
+                    if(ApplicationController.getInstance().isFromDetail()){
+                        //디테일로부터 옴
+                        Log.v(TAG, "detail");
+                    }else if(ApplicationController.getInstance().isFromWork()){
+                        returnFrag();
+                        Log.v(TAG, "fromWork1");
+                        //그냥 생으로 작성
+                        //혹은 워크로부터 옴
+                        //EventBus.getInstance().post(EventCode.EVENT_CODE_COLLECTION_POST);
+                    }else{
+                        returnFrag();
+                    }
+                }else{
+                    Log.v(TAG, "getCollectionDetailFail");
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ExhibitCollectionPostResponse> call, Throwable t) {
+                Log.v(TAG,"checkNetwork");
+
+            }
+        });
+    }
+
 
     public void putCollection(String token, String content, int idx){
         Call<ExhibitCollectionPutResponse> putCollectionResponse = networkService.putCollectionResponse(token, new CollectionPutBody(content), idx);
