@@ -2,7 +2,6 @@ package com.yg.yourexhibit.Tabs;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,6 +17,7 @@ import com.yg.yourexhibit.App.ApplicationController;
 import com.yg.yourexhibit.Datas.TabComingData;
 import com.yg.yourexhibit.R;
 import com.yg.yourexhibit.Retrofit.RetrofitGet.ExhibitComingResult;
+import com.yg.yourexhibit.Util.CustomLinearLayout;
 import com.yg.yourexhibit.Util.EventBus;
 import com.yg.yourexhibit.Util.EventCode;
 import com.yg.yourexhibit.Util.NetworkController;
@@ -38,7 +38,7 @@ public class Tab_Coming extends Fragment{
 
     private TabComingAdapter tabComingAdapter;
     private RequestManager requestManager;
-    private LinearLayoutManager linearLayoutManager;
+    private CustomLinearLayout linearLayoutManager;
     private NetworkController networkController;
     private ArrayList<TabComingData> comingDatas;
     private int idx;
@@ -57,7 +57,7 @@ public class Tab_Coming extends Fragment{
     public void initFragment(){
         requestManager = Glide.with(this);
         comingList.setHasFixedSize(true);
-        linearLayoutManager = new LinearLayoutManager(getActivity());
+        linearLayoutManager = new CustomLinearLayout(getActivity());
         linearLayoutManager.setOrientation(LinearLayout.VERTICAL);
         comingList.setLayoutManager(linearLayoutManager);
         editData();

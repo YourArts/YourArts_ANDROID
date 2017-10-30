@@ -2,6 +2,7 @@ package com.yg.yourexhibit.App;
 
 import android.app.Application;
 import android.content.Context;
+import android.support.v4.app.Fragment;
 import android.widget.Toast;
 
 import com.tsengvn.typekit.Typekit;
@@ -84,6 +85,8 @@ public class ApplicationController extends Application{
 
     private boolean colDetailSwitch = false;
     private boolean colEditSwitch = false;
+
+    public Fragment temp2 = null;
 
     @Override public void onCreate() {
         super.onCreate();
