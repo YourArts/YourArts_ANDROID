@@ -2,6 +2,7 @@ package com.yg.yourexhibit.Tabs;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,16 +13,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
+import com.squareup.otto.Subscribe;
 import com.yg.yourexhibit.Adapter.Mine.TabWatchAdapter;
 import com.yg.yourexhibit.App.ApplicationController;
 import com.yg.yourexhibit.Datas.TabMineWatchData;
 import com.yg.yourexhibit.R;
 import com.yg.yourexhibit.Retrofit.NetworkService;
 import com.yg.yourexhibit.Retrofit.RetrofitGet.TabWatchResult;
+import com.yg.yourexhibit.Util.EventBus;
+import com.yg.yourexhibit.Util.EventCode;
 import com.yg.yourexhibit.Util.NetworkController;
 
 import java.util.ArrayList;
@@ -43,39 +46,16 @@ public class Tab_Mine_Watch_Tab extends Fragment {
     @BindView(R.id.txtWatchCount)
     TextView watchCount;
 
-//    @Override
-//    public void onAttachFragment(Fragment childFragment) {
-//        super.onAttachFragment(childFragment);
-//        Call<TabWatchResult> tabWatchResultCall = networkService.getWatch(ApplicationController.getToken());
-//        tabWatchResultCall.enqueue(new Callback<TabWatchResult>() {
-//            @Override
-//            public void onResponse(Call<TabWatchResult> call, Response<TabWatchResult> response) {
-//                for (TabMineWatchData data:response.body().result) {
-//                    dataList.add(data);
-//                    Log.d("myTag",data.exhibition_name);
-//                }
-//                watchCount.setText(String.valueOf(dataList.size()));
-//                watchList.setLayoutManager(linearLayoutManager);
-//
-//                watchList.setAdapter(tabWatchAdapter);
-//            }
-//
-//            @Override
-//            public void onFailure(Call<TabWatchResult> call, Throwable t) {
-//
-//            }
-//        });
-//    }
-
     @BindView(R.id.tabWatch)
     LinearLayout tabWatch;
 
+    @BindView(R.id.tab_watch_message)
+    TextView message;
 
+    @BindView(R.id.tab_watch_count_message)
+    ConstraintLayout countmessage;
 
     NetworkService networkService;
-
-
-
     ArrayList<TabMineWatchData> dataList;
     TabWatchAdapter tabWatchAdapter;
     RequestManager requestManager;
@@ -91,12 +71,12 @@ public class Tab_Mine_Watch_Tab extends Fragment {
         linearLayoutManager.setOrientation(LinearLayout.VERTICAL);
         networkController = new NetworkController();
         tabWatchAdapter = new TabWatchAdapter(dataList,clickListener,requestManager);
+
     }
 
     View.OnClickListener clickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            Toast.makeText(getContext(),"시계는 와치 시계는 와치",Toast.LENGTH_SHORT).show();
             int itemPosition = watchList.getChildPosition(view);
             int idx = dataList.get(itemPosition).exhibition_idx;
             int status=0;
@@ -107,47 +87,27 @@ public class Tab_Mine_Watch_Tab extends Fragment {
 
             NetworkController.setIsFrom("watch");
             networkController.getDetailData(status, ApplicationController.getInstance().token, idx);
-            refresh();
 
-//            FragmentTransaction ft = getFragmentManager().beginTransaction();
-//            ft.detach(getTargetFragment()).attach(getTargetFragment()).commit();
-
-//            Intent refresh = new Intent(getActivity(), HomeActivity.class);
-//            startActivity(refresh);
-//            getActivity().finish();
         }
     };
 
     private void refresh(){
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.detach(this).attach(this).commit();
-    }
+        Log.d("eventCheck","refresh()");
+//        EventBus.getInstance().register(this);
+//        EventBus.getInstance().unregister(this);
+        FragmentTransaction transaction = (getActivity()).getSupportFragmentManager().beginTransaction();
+        transaction.detach(this).attach(this).commitAllowingStateLoss();
+//        EventBus.getInstance().unregister(this);
+//        EventBus.getInstance().register(this);
 
-//
-//    @Override
-//    public void onStart() {
-//        super.onStart();
-//        Call<TabWatchResult> tabWatchResultCall = networkService.getWatch(ApplicationController.getToken());
-//        tabWatchResultCall.enqueue(new Callback<TabWatchResult>() {
-//            @Override
-//            public void onResponse(Call<TabWatchResult> call, Response<TabWatchResult> response) {
-//                for (TabMineWatchData data:response.body().result) {
-//                    dataList.add(data);
-//                    Log.d("myTag",data.exhibition_name);
-//                }
-//                watchCount.setText(String.valueOf(dataList.size()));
-//                watchList.setLayoutManager(linearLayoutManager);
-//
-//                watchList.setAdapter(tabWatchAdapter);
-//            }
-//
-//            @Override
-//            public void onFailure(Call<TabWatchResult> call, Throwable t) {
-//
-//            }
-//        });
-//
-//    }
+    }
+    @Subscribe
+    public void onEventLoad(Integer code) {
+        if(code == EventCode.EVENT_CODE_EDIT_WATCH){
+            Log.d("eventCheck","onEventLoad()");
+            refresh();
+        }
+    }
 
     @Nullable
     @Override
@@ -155,6 +115,11 @@ public class Tab_Mine_Watch_Tab extends Fragment {
         View view = inflater.inflate(R.layout.tab_mine_watch, container, false);
         ButterKnife.bind(this, view);
         initTab();
+        EventBus.getInstance().register(this);
+        EventBus.getInstance().unregister(this);
+        EventBus.getInstance().register(this);
+
+//        EventBus.getInstance().register(this);
 
         Log.d("myTag","onCreateView 호출");
 
@@ -163,32 +128,11 @@ public class Tab_Mine_Watch_Tab extends Fragment {
             @Override
             public void onResponse(Call<TabWatchResult> call, Response<TabWatchResult> response) {
                 if(response.body().result.size() == 0){
-                    tabWatch.removeAllViewsInLayout();
-                    LinearLayout newLayout = new LinearLayout(getContext());
-//                    LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-//                    lp.gravity = Gravity.CENTER;
-                    TextView tv = new TextView(newLayout.getContext());
-                    tv.setText("아직 본 전시가 없습니다!");
-                    tv.setTextSize(18);
-                    LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
-                            ViewGroup.LayoutParams.WRAP_CONTENT,
-                            ViewGroup.LayoutParams.WRAP_CONTENT);
-                    lp.setMargins(450,500,0,0);
-                    tv.setLayoutParams(lp);
-
-//                    tv.setGravity(Gravity.CENTER);
-//                    tv.setGravity(View.TEXT_ALIGNMENT_CENTER);
-//                    tv.setLayoutParams(lp);
-                    newLayout.addView(tv);
-                    tabWatch.addView(newLayout);
-                    //마진 속성을 부여합니다. 마진은 addView 이후에 지정해주어야 제대로 적용됩니다.
-//                    ViewGroup.MarginLayoutParams margin =
-//                            new ViewGroup.MarginLayoutParams(tv.getLayoutParams());
-//                    margin.setMargins(0, 30, 0, 0);
-//                    tv.setLayoutParams(new LinearLayout.LayoutParams(margin));
-
-
+                    countmessage.setVisibility(View.GONE);
+                    message.setVisibility(View.VISIBLE);
                 }else{
+                    countmessage.setVisibility(View.VISIBLE);
+                    message.setVisibility(View.GONE);
                     for (TabMineWatchData data:response.body().result) {
                         dataList.add(data);
                         Log.d("myTag",data.exhibition_name);
@@ -209,18 +153,21 @@ public class Tab_Mine_Watch_Tab extends Fragment {
 
         return view;
     }
-    @Override
-    public void onResume() {
-        super.onResume();
-        Log.d("lifeCheck","onResume");
-//        HomeTabAdapter homeTabAdapter = new HomeTabAdapter(getFragmentManager(),3);
-//        HomeTabAdapter.flagChange = true;
-//        homeTabAdapter.notifyDataSetChanged();
-        tabWatchAdapter.notifyDataSetChanged();
-    }
+//    @Override
+//    public void onResume() {
+//        Log.d("lifeCheck","onResume");
+////        HomeTabAdapter homeTabAdapter = new HomeTabAdapter(getFragmentManager(),3);
+////        HomeTabAdapter.flagChange = true;
+////        homeTabAdapter.notifyDataSetChanged();
+////        tabWatchAdapter.notifyDataSetChanged();
+//        refresh();
+//    }
 
     @Override
     public void onPause() {
         super.onPause();
     }
+
+
+
 }

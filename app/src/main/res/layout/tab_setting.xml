@@ -7,6 +7,7 @@
     android:layout_height="match_parent"
     android:background="#212121"
     android:orientation="vertical"
+    android:clickable="true"
     android:id="@+id/tabSetting">
 
     <RelativeLayout

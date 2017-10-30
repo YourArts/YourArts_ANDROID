@@ -386,6 +386,7 @@ public class NetworkController {
             @Override
             public void onResponse(Call<ExhibitLikePostResponse> call, Response<ExhibitLikePostResponse> response) {
                 if(response.isSuccessful()){
+                    EventBus.getInstance().post(EventCode.EVENT_CODE_EDIT_WATCH);
                     Log.v(TAG,"postLikeSuccess");
                 }else{
                     Log.v(TAG,"postLikeFail");
@@ -406,6 +407,7 @@ public class NetworkController {
             @Override
             public void onResponse(Call<ExhibitLikePutResponse> call, Response<ExhibitLikePutResponse> response) {
                 if(response.isSuccessful()){
+                    EventBus.getInstance().post(EventCode.EVENT_CODE_EDIT_WATCH);
                     Log.v(TAG,"putLikeSuccess");
                 }else{
                     Log.v(TAG,"putLikeFail");
@@ -425,6 +427,7 @@ public class NetworkController {
             @Override
             public void onResponse(Call<ExhibitHeartPostResponse> call, Response<ExhibitHeartPostResponse> response) {
                 if(response.isSuccessful()){
+                    EventBus.getInstance().post(EventCode.EVENT_CODE_EDIT_WISH);
                     Log.v(TAG,"postHeartSuccess");
 
                 }else{
@@ -446,6 +449,7 @@ public class NetworkController {
             @Override
             public void onResponse(Call<ExhibitHeartPutResponse> call, Response<ExhibitHeartPutResponse> response) {
                 if(response.isSuccessful()){
+                    EventBus.getInstance().post(EventCode.EVENT_CODE_EDIT_WISH);
                     Log.v(TAG,"putHeartSuccess");
                 }else{
                     Log.v(TAG,"putHeartFail");

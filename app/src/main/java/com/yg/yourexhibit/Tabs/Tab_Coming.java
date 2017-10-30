@@ -104,6 +104,10 @@ public class Tab_Coming extends Fragment{
         public void onClick(View v) {
             int itemPosition = comingList.getChildPosition(v);
 
+            
+            NetworkController.setIsFrom("home");
+            
+
 
 
 
@@ -116,6 +120,7 @@ public class Tab_Coming extends Fragment{
                 idx = ApplicationController.getInstance().getExhibitComingResult().get(itemPosition - 1).getExhibition_idx();
                 networkController.getDetailData(2, ApplicationController.getInstance().token, idx);
             }
+
         }
     };
 

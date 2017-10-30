@@ -147,6 +147,11 @@ public class Tab_End extends Fragment{
         public void onClick(View v) {
             int itemPosition = endList.getChildPosition(v);
 
+            
+            NetworkController.setIsFrom("home");
+            
+
+
 
 
 
@@ -160,6 +165,7 @@ public class Tab_End extends Fragment{
                 idx = ApplicationController.getInstance().getExhibitEndResult().get(itemPosition - 1).getExhibition_idx();
                 networkController.getDetailData(0, ApplicationController.getInstance().token, idx);
             }
+
         }
     };
 
