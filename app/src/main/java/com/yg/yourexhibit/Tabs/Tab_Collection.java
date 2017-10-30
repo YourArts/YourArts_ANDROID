@@ -77,6 +77,8 @@ public class Tab_Collection extends Fragment{
     private ArrayList<ExhibitCollectionResult> secondResult;
     private ArrayList<ExhibitCollectionResult> thirdResult;
 
+    private Fragment temp = null;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.tab_collection, container, false);
@@ -87,7 +89,9 @@ public class Tab_Collection extends Fragment{
 //            EventBus.getInstance().register(this);
 //            ApplicationController.getInstance().setCollectionEventSwtich(true);
 //        }
-        beforInit();
+        //beforInit();
+        ApplicationController.getInstance().temp2 = this;
+        temp = this;
         networkService = ApplicationController.getInstance().getNetworkService();
         ApplicationController.getInstance().setInDetail(false);
         ApplicationController.getInstance().setFromWork(false);
@@ -296,12 +300,11 @@ public class Tab_Collection extends Fragment{
                 if(response.body().isStatus()){
                     ApplicationController.getInstance().setExhibitCollectionDetailResult(response.body().getResult());
                     Log.v(TAG, "toDetail");
-                 getFragmentManager()
+                    getFragmentManager()
                         .beginTransaction()
-                        .disallowAddToBackStack()
+                        .addToBackStack(null)
                         .replace(R.id.tab_collection_container, new Tab_Collection_Detail())
                         .commit();
-
 
                     Log.v(TAG, "getCollectionDetailSuccess");
                 }else{
@@ -320,7 +323,7 @@ public class Tab_Collection extends Fragment{
         ApplicationController.getInstance().setFromDetail(false);
         getFragmentManager()
                 .beginTransaction()
-                .disallowAddToBackStack()
+                .addToBackStack(null)
                 .add(R.id.tab_collection_container, new Tab_Collection(), "base")
                 .replace(R.id.tab_collection_container, new Tab_Collection_Edit(), "edit")
                 .commit();

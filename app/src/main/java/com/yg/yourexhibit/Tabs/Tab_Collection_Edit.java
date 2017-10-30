@@ -6,7 +6,6 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.StrictMode;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -461,14 +460,17 @@ public class Tab_Collection_Edit extends android.support.v4.app.Fragment{
 //            ft.attach(fromFrag);
 //            ft.commit();
             ApplicationController.getInstance().setFromEdit(true);
-            getFragmentManager()
-                    .beginTransaction()
-                    .disallowAddToBackStack()
-                    .replace(R.id.collection_edit_container, new Tab_Collection())
-                    .commit();
-            FragmentTransaction ft = getFragmentManager().beginTransaction();
-            ft.detach(new Tab_Collection());
-            ft.commit();
+//            getFragmentManager()
+//                    .beginTransaction()
+//                    .disallowAddToBackStack()
+//                    .replace(R.id.collection_edit_container, new Tab_Collection())
+//                    .commit();
+
+                getActivity().finish();
+                startActivity(getActivity().getIntent());
+
+            //여긴 작성했을 때
+
 
 
 //            toFrag = getFragmentManager().findFragmentByTag("toBase");

@@ -2,7 +2,6 @@ package com.yg.yourexhibit.Tabs;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,6 +17,7 @@ import com.yg.yourexhibit.App.ApplicationController;
 import com.yg.yourexhibit.Datas.TabGoingData;
 import com.yg.yourexhibit.R;
 import com.yg.yourexhibit.Retrofit.RetrofitGet.ExhibitGoingResult;
+import com.yg.yourexhibit.Util.CustomLinearLayout;
 import com.yg.yourexhibit.Util.EventBus;
 import com.yg.yourexhibit.Util.EventCode;
 import com.yg.yourexhibit.Util.NetworkController;
@@ -38,7 +38,7 @@ public class Tab_Going extends Fragment{
 
     private TabGoingAdapter tabGoingAdapter;
     private RequestManager requestManager;
-    private LinearLayoutManager linearLayoutManager;
+    private CustomLinearLayout linearLayoutManager;
     private NetworkController networkController;
     private ArrayList<TabGoingData> goingDatas;
     private int idx;
@@ -57,7 +57,7 @@ public class Tab_Going extends Fragment{
     public void initFragment(){
         requestManager = Glide.with(this);
         goingList.setHasFixedSize(true);
-        linearLayoutManager = new LinearLayoutManager(getActivity());
+        linearLayoutManager = new CustomLinearLayout(getActivity());
         linearLayoutManager.setOrientation(LinearLayout.VERTICAL);
         goingList.setLayoutManager(linearLayoutManager);
         editData();
@@ -120,8 +120,10 @@ public class Tab_Going extends Fragment{
     public View.OnClickListener clickEvent = new View.OnClickListener() {
         public void onClick(View v) {
             int itemPosition = goingList.getChildPosition(v);
-            idx = ApplicationController.getInstance().getExhibitGoingResult().get(itemPosition).getExhibition_idx();
-            networkController.getDetailData(1, ApplicationController.getInstance().token, idx);
+            if(itemPosition!=0) {
+                idx = ApplicationController.getInstance().getExhibitGoingResult().get(itemPosition).getExhibition_idx();
+                networkController.getDetailData(1, ApplicationController.getInstance().token, idx);
+            }
         }
     };
     @Override

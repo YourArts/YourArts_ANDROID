@@ -3,7 +3,6 @@ package com.yg.yourexhibit.Tabs;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -53,12 +52,13 @@ public class Tab_Collection_Detail extends Fragment {
     private ExhibitCollectionDetailResult detailResult;
     private NetworkController networkController;
     private NetworkService networkService;
-
+    private Fragment temp;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.tab_collection_detail, container, false);
         ButterKnife.bind(this, v);
         Log.v(TAG, "create");
+       // ApplicationController.getInstance().temp2 = this;
         //ApplicationController.getInstance().setCollectionEventSwtich(false);
         //ApplicationController.getInstance().setColEditSwitch(false);
 
@@ -66,6 +66,8 @@ public class Tab_Collection_Detail extends Fragment {
 //            EventBus.getInstance().unregister(this);
 //            ApplicationController.getInstance().setColDetailSwitch(true);
 //        }
+        temp = this;
+        ApplicationController.getInstance().setFromDetail(true);
         networkService = ApplicationController.getInstance().getNetworkService();
         ApplicationController.getInstance().setInDetail(true);
         detailResult = ApplicationController.getInstance().getExhibitCollectionDetailResult();
@@ -174,8 +176,6 @@ public class Tab_Collection_Detail extends Fragment {
 
         android.support.v4.app.FragmentManager fm = getFragmentManager();
 
-
-
         Fragment fromFrag = null, toFrag = null;
 
 
@@ -185,16 +185,11 @@ public class Tab_Collection_Detail extends Fragment {
 //        ft.detach(fromFrag);
 //            ft.attach(toFrag);
        // ft.commit();
-        getFragmentManager()
-                .beginTransaction()
-                .disallowAddToBackStack()
-                .replace(R.id.collection_detail_container, new Tab_Collection())
-                .commit();
 
-        for(int i = 0; i < fm.getBackStackEntryCount(); ++i) {
-            Log.v(TAG, "count");
-            fm.popBackStack();
-        }
+        getActivity().finish();
+        startActivity(getActivity().getIntent());
+
+
 
 
     }
@@ -219,10 +214,9 @@ public class Tab_Collection_Detail extends Fragment {
     @Override
     public void onDetach() {
         Log.v(TAG,"detach");
-        super.onDetach();
-        FragmentTransaction ft = getFragmentManager().beginTransaction();
 
-        ft.attach(new Tab_Collection()).commit();
+        super.onDetach();
+
        // EventBus.getInstance().unregister(this);
     }
 

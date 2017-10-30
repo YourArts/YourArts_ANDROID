@@ -18,6 +18,7 @@ public class JoinDialog extends Dialog {
     private Button mLeftButton;
     private Button mRightButton;
     private String mContent;
+    private boolean join;
 
     private View.OnClickListener mLeftClickListener;
     private View.OnClickListener mRightClickListener;
@@ -32,11 +33,15 @@ public class JoinDialog extends Dialog {
         lpWindow.dimAmount = 0.8f;
         getWindow().setAttributes(lpWindow);
 
-        setContentView(R.layout.dialog_gallery);
+        setContentView(R.layout.dialog_join);
 
-        mContentView = (TextView) findViewById(R.id.dialog_gallery_txt_content);
-        mLeftButton = (Button) findViewById(R.id.dialog_gallery_btn_no);
-        mRightButton = (Button) findViewById(R.id.dialog_gallery_btn_yes);
+        mContentView = (TextView) findViewById(R.id.dialog_join_txt_content);
+        mLeftButton = (Button) findViewById(R.id.dialog_join_btn_no);
+        mRightButton = (Button) findViewById(R.id.dialog_join_btn_start);
+        if(join){
+            mLeftButton.setText("NO");
+            mRightButton.setText("START!");
+        }
 
         // 제목과 내용을 생성자에서 셋팅한다.
         mContentView.setText(mContent);
@@ -64,11 +69,12 @@ public class JoinDialog extends Dialog {
     // 클릭버튼이 확인과 취소 두개일때 생성자 함수로 이벤트를 받는다
     public JoinDialog(Context context,
                         String content, View.OnClickListener leftListener,
-                        View.OnClickListener rightListener) {
+                        View.OnClickListener rightListener, boolean join) {
         super(context, android.R.style.Theme_Translucent_NoTitleBar);
         this.mContent = content;
         this.mLeftClickListener = leftListener;
         this.mRightClickListener = rightListener;
+        this.join = join;
 
     }
 }
