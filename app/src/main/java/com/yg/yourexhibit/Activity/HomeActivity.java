@@ -7,6 +7,7 @@ import android.view.WindowManager;
 
 import com.squareup.otto.Subscribe;
 import com.yg.yourexhibit.Adapter.Home.HomeTabAdapter;
+import com.yg.yourexhibit.App.ApplicationController;
 import com.yg.yourexhibit.R;
 import com.yg.yourexhibit.Util.BaseActivity;
 import com.yg.yourexhibit.Util.NetworkController;
@@ -46,17 +47,24 @@ public class HomeActivity extends BaseActivity {
         tabLayout.addTab(tabLayout.newTab().setCustomView(getLayoutInflater().inflate(R.layout.view_search, null)));
         tabLayout.addTab(tabLayout.newTab().setCustomView(getLayoutInflater().inflate(R.layout.view_collection, null)));
         tabLayout.addTab(tabLayout.newTab().setCustomView(getLayoutInflater().inflate(R.layout.view_mine, null)));
-        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+        tabLayout.setTabGravity(TabLayout.GRAVITY_CENTER);
 
         HomeTabAdapter pagerAdapter = new HomeTabAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(pagerAdapter);
-        viewPager.removeOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-        //viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        //viewPager.removeOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+
+        if(!ApplicationController.getInstance().isReFresh())
+            viewPager.setCurrentItem(0);
+        else
+            viewPager.setCurrentItem(ApplicationController.getInstance().getTabNum());
+
 
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                viewPager.clearAnimation();
+                //viewPager.clearAnimation();
+                Log.v(TAG, "tab1");
                 viewPager.setCurrentItem(tab.getPosition());
                 switch (tab.getPosition()) {
                     case 0:
@@ -80,14 +88,19 @@ public class HomeActivity extends BaseActivity {
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
+                Log.v(TAG, "tab2");
 
             }
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
+                Log.v(TAG, "tab3");
 
             }
         });
+        ApplicationController.getInstance().setReFresh(false);
+        ApplicationController.getInstance().setTabNum(0);
+
     }
 
     @Subscribe
@@ -104,6 +117,18 @@ public class HomeActivity extends BaseActivity {
 //                break;
         }
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(ApplicationController.getInstance().isDetailFromEdit()){
+            ApplicationController.getInstance().setDetailFromEdit(false);
+            ApplicationController.getInstance().setReFresh(true);
+            ApplicationController.getInstance().setTabNum(2);
+            finish();
+            startActivity(getIntent());
+        }else
+            super.onBackPressed();
     }
 
     public void getData(){

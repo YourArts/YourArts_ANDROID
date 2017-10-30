@@ -19,8 +19,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
-            android:layout_marginLeft="32dp"
-            android:layout_marginRight="32dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:lineSpacingMultiplier="1"
+            android:lineSpacingExtra="6dp"
             android:gravity="center"
             android:textColor="#ffffff"
             android:text="AAAAAAA\n AAAAAAAAAAA"
@@ -37,7 +39,8 @@
 
             <Button
                 android:id="@+id/dialog_gallery_btn_no"
-                android:layout_width="130dp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:background="#00ff0000"
                 android:layout_height="wrap_content"
                 android:textColor="#666666"
@@ -50,9 +53,10 @@
 
             <Button
                 android:id="@+id/dialog_gallery_btn_yes"
-                android:layout_width="130dp"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:background="#00ff0000"
-                android:textColor="#666666"
+                android:textColor="#00ffc4"
                 android:textStyle="bold"
                 android:textSize="13sp"
                 android:layout_height="wrap_content"

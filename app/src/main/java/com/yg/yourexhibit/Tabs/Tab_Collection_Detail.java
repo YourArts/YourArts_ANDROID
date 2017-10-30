@@ -67,9 +67,9 @@ public class Tab_Collection_Detail extends Fragment {
 //            ApplicationController.getInstance().setColDetailSwitch(true);
 //        }
         temp = this;
-        ApplicationController.getInstance().setFromDetail(true);
+        //ApplicationController.getInstance().setFromDetail(true);
         networkService = ApplicationController.getInstance().getNetworkService();
-        ApplicationController.getInstance().setInDetail(true);
+        //ApplicationController.getInstance().setInDetail(true);
         detailResult = ApplicationController.getInstance().getExhibitCollectionDetailResult();
         networkController = new NetworkController();
         initFragment();
@@ -90,6 +90,7 @@ public class Tab_Collection_Detail extends Fragment {
     @OnClick(R.id.collection_detail_edit)
     public void toEdit(){
         ApplicationController.getInstance().setFromDetail(true);
+        ApplicationController.getInstance().setDetailFromEdit(false);
 
 //        getFragmentManager()
 //                .beginTransaction()
@@ -188,7 +189,8 @@ public class Tab_Collection_Detail extends Fragment {
 
         getActivity().finish();
         startActivity(getActivity().getIntent());
-
+        ApplicationController.getInstance().setReFresh(true);
+        ApplicationController.getInstance().setTabNum(2);
 
 
 
