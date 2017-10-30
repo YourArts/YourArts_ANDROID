@@ -100,6 +100,9 @@ public class ApplicationController extends Application{
 
     private boolean detailFromEdit = false;
 
+
+    private boolean likeWishChange = false;
+
     @Override public void onCreate() {
         super.onCreate();
         appContext = getApplicationContext();
@@ -319,4 +322,13 @@ public class ApplicationController extends Application{
     public void setDetailFromEdit(boolean detailFromEdit) {
         this.detailFromEdit = detailFromEdit;
     }
+
+    public boolean isLikeWishChange() {
+        return likeWishChange;
+    }
+
+    public void setLikeWishChange(boolean likeWishChange) {
+        this.likeWishChange = likeWishChange;
+    }
+
 }

@@ -253,6 +253,7 @@
                 android:layout_centerHorizontal="true"
                 android:textColor="#ffffff"
                 android:text="미리보기가 없습니다"
+                android:visibility="gone"
                 android:textSize="13sp"
                 />
 

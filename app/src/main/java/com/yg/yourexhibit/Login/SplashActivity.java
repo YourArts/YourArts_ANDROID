@@ -3,18 +3,18 @@ package com.yg.yourexhibit.Login;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.squareup.otto.Subscribe;
 import com.yg.yourexhibit.Activity.HomeActivity;
 import com.yg.yourexhibit.R;
+import com.yg.yourexhibit.Util.BaseActivity;
 import com.yg.yourexhibit.Util.EventBus;
 import com.yg.yourexhibit.Util.EventCode;
 import com.yg.yourexhibit.Util.NetworkController;
 import com.yg.yourexhibit.Util.SharedPrefrernceController;
 
-public class SplashActivity extends AppCompatActivity {
+public class SplashActivity extends BaseActivity {
 
     private NetworkController networkController;
     @Override
