@@ -8,6 +8,11 @@ import com.squareup.otto.Bus;
 
 public class EventBus {
     private static final Bus BUS = new Bus();
+    private static final Bus BUS_TEST = new Bus();
+
+    public static Bus getTestBUS() {
+        return BUS_TEST;
+    }
 
     public static Bus getInstance() {
         return BUS;
