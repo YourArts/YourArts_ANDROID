@@ -95,6 +95,7 @@ public class Tab_Collection extends Fragment{
         networkService = ApplicationController.getInstance().getNetworkService();
         ApplicationController.getInstance().setInDetail(false);
         ApplicationController.getInstance().setFromWork(false);
+        ApplicationController.getInstance().setFromDetail(false);
         networkController = new NetworkController();
         requestManagerFirst = Glide.with(this);
         requestManagerSecond = Glide.with(this);

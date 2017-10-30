@@ -50,6 +50,37 @@ public class EventCode {
     public static final int EVENT_CODE_FB_LOGN_FAIL = 126;
     public static final int EVENT_CDOE_FB_SIGN_FAIL = 127;
 
+
     public static final int EVENT_CODE_EDIT_WATCH = 200; // 따봉 추가, 따봉 수정 할 때 이벤트 보내기
     public static final int EVENT_CODE_EDIT_WISH = 201; // 하트 추가, 하트 수정 할 때 이벤트 보내기
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public static final int EVENT_CODE_FIND_ID = 128;
+    public static final int EVENT_CODE_FIND_ID_FAIL = 129;
+    public static final int EVENT_CODE_FIND_PW = 130;
+    public static final int EVENT_CODE_FIND_PW_FAIL = 131;
+    public static final int EVENT_CDOE_AUTH = 132;
+    public static final int EVENT_CODE_AUTH_FAIL = 133;
+
 }
