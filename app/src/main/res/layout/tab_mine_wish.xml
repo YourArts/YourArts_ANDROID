@@ -6,11 +6,11 @@
     android:layout_height="wrap_content"
     android:id="@+id/tabWish">
     <android.support.constraint.ConstraintLayout
+        android:id="@+id/tab_wish_count_message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginLeft="82dp"
-        android:layout_marginTop="3dp">
+        android:layout_gravity="center">
         <TextView
             android:id="@+id/당신은"
             android:layout_width="wrap_content"
@@ -45,4 +45,21 @@
         android:layout_marginLeft="6dp"
         android:layout_marginTop="21dp">
     </android.support.v7.widget.RecyclerView>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="155dp"
+        >
+        <TextView
+            android:id="@+id/tab_wish_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="보고싶은 전시를 추가해 주세요!"
+            android:textColor="#666666"
+            android:textSize="13sp"
+            android:visibility="gone"
+            />
+    </RelativeLayout>
 </LinearLayout>

@@ -25,6 +25,7 @@
             android:layout_marginLeft="31dp"
             android:layout_marginRight="31dp"
             android:gravity="center"
+            android:lineSpacingExtra="6dp"
             android:textColor="#000000"
             android:textSize="13sp"
             android:textStyle="bold"/>

@@ -1,7 +1,5 @@
 package com.yg.yourexhibit.Tabs;
 
-import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
@@ -46,25 +44,6 @@ public class Tab_Mine extends Fragment{
     @BindView(R.id.topbarName)
     TextView topName;
 
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        Log.d("tabmine","onActivityResult!!");
-    }
-
-    @Override
-    public void onAttachFragment(Fragment childFragment) {
-        super.onAttachFragment(childFragment);
-        Log.d("tabmine","onAttachFragment!!");
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        Log.d("tabmine","onAttach!!");
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.tab_mine, container, false);
@@ -72,7 +51,6 @@ public class Tab_Mine extends Fragment{
 
         Log.d("tabmine","oncreateView!!");
         topName.setText(SharedPrefrernceController.getUserNickname(getContext()));
-
 
         // Initializing the TabLayout
         tabLayout.addTab(tabLayout.newTab().setText("WATCH"));
@@ -120,56 +98,7 @@ public class Tab_Mine extends Fragment{
 
         tabLayout.getTabAt(0).select();
 
-//        goSetting.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent i = new Intent(getContext(), SettingActivity.class);
-//                startActivity(i);
-////                getFragmentManager()
-////                        .beginTransaction()
-////                        .add(R.id.topLayout, new Tab_Mine(), "base")
-////                        .replace(R.id.tabSetting, new Tab_Setting(), "setting")
-////                        .commit();
-//            }
-//        });
-
         return v;
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        Log.d("tabmine","onStart!!");
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        Log.d("tabmine","onResume!!");
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        Log.d("tabmine","onPause!!");
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        Log.d("tabmine","onStop!!");
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        Log.d("tabmine","onDestroy!!");
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        Log.d("tabmine","onDetach!!");
     }
 
     @OnClick(R.id.btnGoSetting)
@@ -186,6 +115,20 @@ public class Tab_Mine extends Fragment{
                 .commit();
     }
 
-
+//    private void refresh(){
+////        viewPager.getAdapter().notifyDataSetChanged();
+////        android.app.Fragment currentFragment = getActivity().getFragmentManager().findFragmentById(R.id.tabWatch);
+//        Fragment frag = getFragmentManager().findFragmentById(R.id.tabWatch);
+//        FragmentTransaction fragTransaction = getFragmentManager().beginTransaction();
+//        fragTransaction.detach(frag);
+//        fragTransaction.attach(frag);
+//        fragTransaction.commit();
+//    }
+//    @Subscribe
+//    public void onEventLoad(Integer code) {
+//        if(code== EventCode.EVENT_CODE_EDIT){
+//            refresh();
+//        }
+//    }
 
 }

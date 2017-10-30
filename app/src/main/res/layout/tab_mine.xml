@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:background="#212121"
     android:id="@+id/topLayout"
+    android:tag="tabMine"
     >
     <LinearLayout
 
