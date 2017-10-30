@@ -25,6 +25,8 @@ import com.yg.yourexhibit.Retrofit.RetrofitPost.ExhibitLikePost;
 import com.yg.yourexhibit.Retrofit.RetrofitPost.ExhibitLikePostResponse;
 import com.yg.yourexhibit.Retrofit.RetrofitPost.FindIdPost;
 import com.yg.yourexhibit.Retrofit.RetrofitPost.FindIdResponse;
+import com.yg.yourexhibit.Retrofit.RetrofitPost.FindPwPost;
+import com.yg.yourexhibit.Retrofit.RetrofitPost.FindPwPostResponse;
 import com.yg.yourexhibit.Retrofit.RetrofitPost.LoginPost;
 import com.yg.yourexhibit.Retrofit.RetrofitPost.LoginPostResponse;
 import com.yg.yourexhibit.Retrofit.RetrofitPost.SignPost;
@@ -577,16 +579,84 @@ public class NetworkController {
             @Override
             public void onResponse(Call<CheckAuthResponse> call, Response<CheckAuthResponse> response) {
                 if(response.isSuccessful()){
-                    EventBus.getInstance().post(true);
+                    EventBus.getInstance().post(EventCode.EVENT_CDOE_AUTH);
                     Log.v(TAG,"authSuccess");
                 }else{
-                    EventBus.getInstance().post(false);
+                    EventBus.getInstance().post(EventCode.EVENT_CODE_AUTH_FAIL);
                     Log.v(TAG,"authFail");
                 }
             }
             @Override
             public void onFailure(Call<CheckAuthResponse> call, Throwable t) {
                 Log.v(TAG,"checkNetwork");
+            }
+        });
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public void findPwPost(String id, String email){
+        Call<FindPwPostResponse> findpwPostResponse = networkService.findPwResponse(new FindPwPost(id, email));
+        findpwPostResponse.enqueue(new Callback<FindPwPostResponse>() {
+            @Override
+            public void onResponse(Call<FindPwPostResponse> call, Response<FindPwPostResponse> response) {
+                if(response.isSuccessful()){
+                    EventBus.getInstance().post(EventCode.EVENT_CODE_FIND_PW);
+
+                }else{
+                    EventBus.getInstance().post(EventCode.EVENT_CODE_FIND_PW_FAIL);
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<FindPwPostResponse> call, Throwable t) {
+
             }
         });
     }

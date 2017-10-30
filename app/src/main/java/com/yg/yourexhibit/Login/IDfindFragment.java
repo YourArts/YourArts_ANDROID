@@ -1,5 +1,6 @@
 package com.yg.yourexhibit.Login;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -9,6 +10,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 
 import com.squareup.otto.Subscribe;
+import com.yg.yourexhibit.App.ApplicationController;
 import com.yg.yourexhibit.Dialog.FindIDdialog;
 import com.yg.yourexhibit.R;
 import com.yg.yourexhibit.Util.EventBus;
@@ -16,6 +18,8 @@ import com.yg.yourexhibit.Util.NetworkController;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import static com.facebook.FacebookSdk.getApplicationContext;
 
 /**
  * Created by jinhyemin on 2017. 10. 12..
@@ -52,7 +56,10 @@ public class IDfindFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 //아이디 찾기 확인 다이얼로그 뜨는 곳
-                networkController.postFindId(findName.getText().toString(), findEmail.getText().toString());
+                if(findEmail.getText().toString().equals("") || findName.getText().toString().equals("")) {
+                    ApplicationController.getInstance().makeToast("모든 입력란을 채워주세요");
+                }else
+                    networkController.findPwPost(findName.getText().toString(), findEmail.getText().toString());
 
             }
         });
@@ -63,21 +70,36 @@ public class IDfindFragment extends Fragment {
 
     @Subscribe
     public void onEventLoad(String id){
-        if(!id.equals("")){
-            findIdfialog = new FindIDdialog(getContext(), true, id);
-            findIdfialog.setContentView(R.layout.dialog_find_id);
-            //findIdfialog.getWindow().setLayout(900, 900);//레이아웃에서 다이얼로그 뜰때 화면에서 어느정도 비율을 차지할 것인지
-            findIdfialog.show();
-        }else{
-            findIdfialog = new FindIDdialog(getContext(), false, "");
-            findIdfialog.setContentView(R.layout.dialog_find_id);
-            //findIdfialog.getWindow().setLayout(900, 900);//레이아웃에서 다이얼로그 뜰때 화면에서 어느정도 비율을 차지할 것인지
-            findIdfialog.show();
-        }
+
+        Intent intent = new Intent(getApplicationContext(), FIndIdCheck.class);
+        intent.putExtra("id", id);
+        startActivity(intent);
+
+//        if(!id.equals("")){
+//            Fragment fragment = new IDfindFragment(); // Fragment 생성
+//            Bundle bundle = new Bundle(1); // 파라미터는 전달할 데이터 개수
+//            bundle.putString("id", id); // key , value
+//            fragment.setArguments(bundle);
+//
+//
+//            getFragmentManager()
+//                    .beginTransaction()
+//                    .addToBackStack(null)
+//                    .replace(R.id.find_id_container, new FindIdOkFragment())
+//                    .commit();
+//
+//        }else{
+//            Fragment fragment = new IDfindFragment(); // Fragment 생성
+//            Bundle bundle = new Bundle(1); // 파라미터는 전달할 데이터 개수
+//            bundle.putString("id", id); // key , value
+//            fragment.setArguments(bundle);
+//            getFragmentManager()
+//                    .beginTransaction()
+//                    .addToBackStack(null)
+//                    .replace(R.id.find_id_container, new FindIdOkFragment())
+//                    .commit();
+//        }
     }
-
-
-
 }
 
 
