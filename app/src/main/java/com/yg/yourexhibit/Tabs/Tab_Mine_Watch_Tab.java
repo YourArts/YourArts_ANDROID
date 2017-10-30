@@ -97,7 +97,7 @@ public class Tab_Mine_Watch_Tab extends Fragment {
 //        EventBus.getInstance().register(this);
 //        EventBus.getInstance().unregister(this);
         FragmentTransaction transaction = (getActivity()).getSupportFragmentManager().beginTransaction();
-        transaction.detach(this).attach(this.getTargetFragment()).commitAllowingStateLoss();
+        transaction.detach(this).attach(new Tab_Mine_Watch_Tab()).commitAllowingStateLoss();
 //        transaction.detach(this)
 //        EventBus.getInstance().unregister(this);
 //        EventBus.getInstance().register(this);
