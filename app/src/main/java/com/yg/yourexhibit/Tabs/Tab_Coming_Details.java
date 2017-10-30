@@ -18,6 +18,7 @@ import com.yg.yourexhibit.App.ApplicationController;
 import com.yg.yourexhibit.R;
 import com.yg.yourexhibit.Retrofit.RetrofitGet.ExhibitDetailResult;
 import com.yg.yourexhibit.Util.EventBus;
+import com.yg.yourexhibit.Util.EventCode;
 import com.yg.yourexhibit.Util.NetworkController;
 
 import butterknife.BindView;
@@ -101,8 +102,8 @@ public class Tab_Coming_Details extends Fragment{
             tabComingDetailAdapter = new TabComingDetailAdapter(exhibitDetailResult.getImages(), requestManager);
             //tabEndAdapter.setOnItemClickListener(this.getView().OnClickListener);
             preViewList.setAdapter(tabComingDetailAdapter);
-            //Intent intent = new Intent(getActivity().getApplicationContext(), Tab_End.class);
         }
+        //Intent intent = new Intent(getActivity().getApplicationContext(), Tab_End.class);
 
         if(exhibitDetailResult.getHeart_used() == 1){
             heartCheck = true;

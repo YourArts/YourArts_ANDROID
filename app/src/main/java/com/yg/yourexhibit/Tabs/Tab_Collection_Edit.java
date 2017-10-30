@@ -58,6 +58,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.yg.yourexhibit.R.id.collection_edit_pic;
+
 /**
  * Created by 2yg on 2017. 10. 18..
  */
@@ -97,6 +99,9 @@ public class Tab_Collection_Edit extends android.support.v4.app.Fragment{
     @BindView(R.id.collection_edit_icon)
     ImageView icon;
 
+    @BindView(R.id.collection_edit_pic)
+    ImageView toEditImage;
+
     private static final String TAG = "LOG::CollectionEdit";
 
     private GalleryDialog galleryDialog;
@@ -131,6 +136,12 @@ public class Tab_Collection_Edit extends android.support.v4.app.Fragment{
         ApplicationController.getInstance().setInDetail(false);
         ApplicationController.getInstance().setFromEdit(true);
         //TODO : 여기에 원래 Shared에 저장한 아이디 들어가야 함
+        if (ApplicationController.getInstance().isFromDetail())
+        {
+            search.setVisibility(View.GONE);
+            icon.setVisibility(View.GONE);
+            toEditImage.setVisibility(View.GONE);
+        }
 
         search.addTextChangedListener(new TextWatcher() {
             @Override
@@ -374,20 +385,20 @@ public class Tab_Collection_Edit extends android.support.v4.app.Fragment{
 
 
 
-    @OnClick(R.id.collection_edit_pic)
+    @OnClick(collection_edit_pic)
     public void changeImage(){
-        if(SharedPrefrernceController.getGallery(getActivity())) {
-            Intent intent = new Intent(Intent.ACTION_PICK);
-            intent.setType(android.provider.MediaStore.Images.Media.CONTENT_TYPE);
-            intent.setData(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-            startActivityForResult(intent, REQ_CODE_SELECT_IMAGE);
-        }else{
-            galleryDialog = new GalleryDialog(getActivity(),
-                    ("'당신'의 전시에서 갤러리에 접근합니다.\n이후 설정에서 변경 가능합니다.").replace(" ","\u00a0"),
-                    leftListener, // 왼쪽 버튼 이벤트
-                    rightListener); // 오른쪽 버튼 이벤트
-            galleryDialog.show();
-        }
+            if (SharedPrefrernceController.getGallery(getActivity())) {
+                Intent intent = new Intent(Intent.ACTION_PICK);
+                intent.setType(android.provider.MediaStore.Images.Media.CONTENT_TYPE);
+                intent.setData(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(intent, REQ_CODE_SELECT_IMAGE);
+            } else {
+                galleryDialog = new GalleryDialog(getActivity(),
+                        ("'당신'의 전시에서 갤러리에 접근합니다.\n이후 설정에서 변경 가능합니다.").replace(" ", "\u00a0"),
+                        leftListener, // 왼쪽 버튼 이벤트
+                        rightListener); // 오른쪽 버튼 이벤트
+                galleryDialog.show();
+            }
     }
 
     @Override
@@ -557,6 +568,9 @@ public class Tab_Collection_Edit extends android.support.v4.app.Fragment{
 
     @OnClick(R.id.collection_edit_container_frame)
     public void onClickFrame(){
+        if(ApplicationController.getInstance().isFromDetail()){
+            return;
+        }
         searchText.setText(search.getText().toString());
         search.setText("");
         search.clearFocus();

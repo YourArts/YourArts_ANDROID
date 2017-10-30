@@ -115,8 +115,8 @@ public class Tab_End_Details extends Fragment{
             tabEndDetailAdapter = new TabEndDetailAdapter(exhibitDetailResult.getImages(), requestManager);
             //tabEndAdapter.setOnItemClickListener(this.getView().OnClickListener);
             preViewList.setAdapter(tabEndDetailAdapter);
-            //Intent intent = new Intent(getActivity().getApplicationContext(), Tab_End.class);
         }
+        //Intent intent = new Intent(getActivity().getApplicationContext(), Tab_End.class);
     }
 
     public void setLike(){

@@ -173,6 +173,16 @@ public class NetworkController {
                             EventBus.getInstance().post(EventCode.EVENT_CODE_COMING_DETAIL_SEARCH);
                             Log.v(TAG, "getDetailSuccess/COMINGSEARCH");
                             break;
+                        case 6:
+                            EventBus.getInstance().post(EventCode.EVENT_CODE_END_DETAIL_MINE);
+                            break;
+                        case 7:
+                            EventBus.getInstance().post(EventCode.EVENT_CODE_GOING_DETAIL_MINE);
+                            break;
+                        case 8:
+                            EventBus.getInstance().post(EventCode.EVENT_CODE_COMING_DETAIL_MINE);
+
+                            break;
                         default:
                             break;
                     }
