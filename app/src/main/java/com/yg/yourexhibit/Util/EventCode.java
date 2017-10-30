@@ -85,5 +85,9 @@ public class EventCode {
     public static final int EVENT_CODE_END_DETAIL_SEARCH = 134;
     public static final int EVENT_CODE_GOING_DETAIL_SEARCH = 135;
     public static final int EVENT_CODE_COMING_DETAIL_SEARCH = 136;
+    public static final int EVENT_CODE_END_DETAIL_MINE = 137;
+    public static final int EVENT_CODE_GOING_DETAIL_MINE = 138;
+    public static final int EVENT_CODE_COMING_DETAIL_MINE = 139;
 
+    public static final int EVENT_CODE_SET_CHANGE = 140;
 }

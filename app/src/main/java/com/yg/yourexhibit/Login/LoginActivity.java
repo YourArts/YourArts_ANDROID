@@ -2,7 +2,6 @@ package com.yg.yourexhibit.Login;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -22,6 +21,7 @@ import com.squareup.otto.Subscribe;
 import com.yg.yourexhibit.Activity.HomeActivity;
 import com.yg.yourexhibit.App.ApplicationController;
 import com.yg.yourexhibit.R;
+import com.yg.yourexhibit.Util.BaseActivity;
 import com.yg.yourexhibit.Util.EventBus;
 import com.yg.yourexhibit.Util.EventCode;
 import com.yg.yourexhibit.Util.NetworkController;
@@ -36,7 +36,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends BaseActivity {
 
     @BindView(R.id.editText_id)
     EditText id;

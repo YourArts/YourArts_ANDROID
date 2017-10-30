@@ -270,6 +270,7 @@
                 android:textColor="#ffffff"
                 android:text="미리보기가 없습니다"
                 android:textSize="13sp"
+                android:visibility="gone"
                 />
 
             <android.support.v7.widget.RecyclerView
