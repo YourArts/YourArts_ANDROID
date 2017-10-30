@@ -92,9 +92,8 @@ public class Tab_Mine_Wish_Tab extends Fragment{
     };
 
     private void refresh(){
-//        EventBus.getInstance().unregister(this);
         FragmentTransaction transaction = (getActivity()).getSupportFragmentManager().beginTransaction();
-        transaction.detach(this).attach(this).commitAllowingStateLoss();
+        transaction.detach(this).attach(this).commit();
     }
     @Subscribe
     public void onEventLoad(Integer code) {

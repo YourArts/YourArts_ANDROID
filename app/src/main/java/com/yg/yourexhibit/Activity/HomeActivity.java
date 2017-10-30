@@ -80,10 +80,6 @@ public class HomeActivity extends BaseActivity {
                         Log.v(TAG, "CollectionTab");
                         break;
                     case 3:
-                        ApplicationController.getInstance().setReFresh(true);
-                        ApplicationController.getInstance().setTabNum(3);
-                        finish();
-                        startActivity(getIntent());
                         //totleText.setText("내 전시");
                         Log.v(TAG, "mineTab");
                         break;
