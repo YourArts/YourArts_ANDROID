@@ -24,6 +24,7 @@ import com.yg.yourexhibit.Datas.TabMineWishData;
 import com.yg.yourexhibit.R;
 import com.yg.yourexhibit.Retrofit.NetworkService;
 import com.yg.yourexhibit.Retrofit.RetrofitGet.TabWishResult;
+import com.yg.yourexhibit.Util.EventBus;
 import com.yg.yourexhibit.Util.EventCode;
 import com.yg.yourexhibit.Util.NetworkController;
 
@@ -86,7 +87,7 @@ public class Tab_Mine_Wish_Tab extends Fragment{
             else if(dataList.get(itemPosition).flag.toString().equals("todo")) status=2;
 
             NetworkController.setIsFrom("wish");
-            networkController.getDetailData(status, ApplicationController.getToken(), idx);
+            networkController.getDetailData(status, ApplicationController.getInstance().token, idx);
         }
     };
 
@@ -99,6 +100,7 @@ public class Tab_Mine_Wish_Tab extends Fragment{
     public void onEventLoad(Integer code) {
         if(code == EventCode.EVENT_CODE_EDIT_WISH){
             refresh();
+            EventBus.getInstance().unregister(this);
         }
     }
 
@@ -108,6 +110,7 @@ public class Tab_Mine_Wish_Tab extends Fragment{
         View view = inflater.inflate(R.layout.tab_mine_wish, container, false);
         ButterKnife.bind(this, view);
         initTab();
+        EventBus.getInstance().register(this);
 
 
         Call<TabWishResult> tabWishResultCall = networkService.getWish(ApplicationController.getToken());
@@ -124,6 +127,7 @@ public class Tab_Mine_Wish_Tab extends Fragment{
                     for (TabMineWishData data:response.body().result) {
                         dataList.add(data);
                         Log.d("myTag",data.exhibition_name);
+                        Log.d("idxCheck",data.exhibition_idx.toString());
                     }
                     wishCount.setText(String.valueOf(dataList.size()));
                     wishList.setLayoutManager(gridLayoutManager);

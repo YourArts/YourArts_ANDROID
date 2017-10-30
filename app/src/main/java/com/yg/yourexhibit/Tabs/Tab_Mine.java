@@ -17,6 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.yg.yourexhibit.R;
+import com.yg.yourexhibit.Util.EventBus;
 import com.yg.yourexhibit.Util.SharedPrefrernceController;
 
 import butterknife.BindView;
@@ -44,10 +45,31 @@ public class Tab_Mine extends Fragment{
     @BindView(R.id.topbarName)
     TextView topName;
 
+
+//    private void refresh(){
+//        Log.d("eventCheck","refresh()");
+////        EventBus.getInstance().register(this);
+////        EventBus.getInstance().unregister(this);
+//        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+//        transaction.detach(this).attach(this).commit();
+////        EventBus.getInstance().unregister(this);
+////        EventBus.getInstance().register(this);
+//
+//    }
+//    @Subscribe
+//    public void onEventLoad(Integer code) {
+//        if(code == EventCode.EVENT_CODE_EDIT_WATCH){
+//            Log.d("eventCheck","onEventLoad()");
+//            refresh();
+//            EventBus.getInstance().unregister(this);
+//        }
+//    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.tab_mine, container, false);
         ButterKnife.bind(this, v);
+        EventBus.getInstance().register(this);
 
         Log.d("tabmine","oncreateView!!");
         topName.setText(SharedPrefrernceController.getUserNickname(getContext()));
@@ -72,7 +94,7 @@ public class Tab_Mine extends Fragment{
                 viewPager.setCurrentItem(tab.getPosition());
                 TextView txt = (TextView)(((LinearLayout)((LinearLayout)tabLayout.getChildAt(0)).getChildAt(tab.getPosition())).getChildAt(1));
                 txt.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
-                txt.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 1);
+                txt.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 20);
 //                float scale = getResources().getDisplayMetrics().density;
 //                txt.setTextSize(200.0f * scale);
                 txt.setTextColor(Color.parseColor("#00FFC4"));
