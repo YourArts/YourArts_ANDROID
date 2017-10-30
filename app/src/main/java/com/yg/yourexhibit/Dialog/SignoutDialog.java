@@ -27,9 +27,6 @@ public class SignoutDialog extends Dialog {
         super(context, android.R.style.Theme_Translucent_NoTitleBar);
         this.mLeftClickListener = leftListener;
         this.mRightClickListener = rightListener;
-
-//        btnDialogLogoutYes.setOnClickListener(mRightClickListener);
-//        btnDialogLogoutNo.setOnClickListener(mLeftClickListener);
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {

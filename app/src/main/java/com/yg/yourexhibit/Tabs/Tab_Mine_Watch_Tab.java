@@ -94,39 +94,8 @@ public class Tab_Mine_Watch_Tab extends Fragment {
 
     private void refresh() {
         Log.d("eventCheck", "refresh()");
-//        EventBus.getInstance().register(this);
-//        EventBus.getInstance().unregister(this);
-
-//        Fragment currentFragment = getActivity().getSupportFragmentManager().findFragmentById(R.id.tabWatch);
-//        if (currentFragment instanceof Tab_Mine_Watch_Tab) {
-//            android.support.v4.app.FragmentTransaction fragTransaction =   getActivity().getSupportFragmentManager().beginTransaction();
-//            fragTransaction.detach(currentFragment);
-//            fragTransaction.attach(currentFragment);
-//            fragTransaction.commit();
-//        }
-//    }
-
-//        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-////        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-////        if (reload) {
-//        getActivity().getSupportFragmentManager().popBackStack();
-////        }
-//        transaction.replace(R.id.tabWatch, new Tab_Mine_Watch_Tab());
-//        transaction.addToBackStack(null);
-//        transaction.commit();
-//        EventBus.getInstance().unregister(this);
-
-
         FragmentTransaction transaction = (getActivity()).getSupportFragmentManager().beginTransaction();
         transaction.detach(this).attach(this).commit();
-
-//        String name = getActivity().getSupportFragmentManager().getBackStackEntryAt(0).getName();
-//        Fragment fg = getActivity().getSupportFragmentManager().popBackStack(name, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-
-//        transaction.attach(this).commitAllowingStateLoss();
-//        transaction.detach(this)
-//        EventBus.getInstance().unregister(this);
-//        EventBus.getInstance().register(this);
     }
 
     @Subscribe
@@ -179,21 +148,6 @@ public class Tab_Mine_Watch_Tab extends Fragment {
 
         return view;
     }
-//    @Override
-//    public void onResume() {
-//        Log.d("lifeCheck","onResume");
-////        HomeTabAdapter homeTabAdapter = new HomeTabAdapter(getFragmentManager(),3);
-////        HomeTabAdapter.flagChange = true;
-////        homeTabAdapter.notifyDataSetChanged();
-////        tabWatchAdapter.notifyDataSetChanged();
-//        refresh();
-//    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-    }
-
 
 
 }

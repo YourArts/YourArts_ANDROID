@@ -101,6 +101,7 @@ public class Tab_Setting extends Fragment {
         newName.setHint(SharedPrefrernceController.getUserNickname(getContext()));
 
         if(gallery){
+            gallerySetting.setText("ON");
             gallerySetting.setTextColor(Color.parseColor("#00ffc4"));
         }else{
             gallerySetting.setTextColor(Color.parseColor("#666666"));
@@ -235,8 +236,6 @@ public class Tab_Setting extends Fragment {
                             SharedPrefrernceController.setPasswd(getActivity(), "");
                             signoutDialog.dismiss();
 
-//                            getActivity().finish();
-//                            startActivity(new Intent(getContext(), SplashActivity.class));
                             FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                             fragmentManager.beginTransaction().remove(Tab_Setting.this).commit();
 
