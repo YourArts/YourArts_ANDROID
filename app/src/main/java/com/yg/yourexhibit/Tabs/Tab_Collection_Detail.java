@@ -58,14 +58,7 @@ public class Tab_Collection_Detail extends Fragment {
         View v = inflater.inflate(R.layout.tab_collection_detail, container, false);
         ButterKnife.bind(this, v);
         Log.v(TAG, "create");
-       // ApplicationController.getInstance().temp2 = this;
-        //ApplicationController.getInstance().setCollectionEventSwtich(false);
-        //ApplicationController.getInstance().setColEditSwitch(false);
 
-//        if(ApplicationController.getInstance().isColDetailSwitch()){
-//            EventBus.getInstance().unregister(this);
-//            ApplicationController.getInstance().setColDetailSwitch(true);
-//        }
         temp = this;
         //ApplicationController.getInstance().setFromDetail(true);
         networkService = ApplicationController.getInstance().getNetworkService();
@@ -92,11 +85,6 @@ public class Tab_Collection_Detail extends Fragment {
         ApplicationController.getInstance().setFromDetail(true);
         ApplicationController.getInstance().setDetailFromEdit(false);
 
-//        getFragmentManager()
-//                .beginTransaction()
-//                .disallowAddToBackStack()
-//                .replace(R.id.collection_detail_container, new Tab_Collection_Edit())
-//                .commit();
             getFragmentManager()
                     .beginTransaction()
                     .addToBackStack("toEdit")
@@ -179,14 +167,6 @@ public class Tab_Collection_Detail extends Fragment {
 
         Fragment fromFrag = null, toFrag = null;
 
-
-//        fromFrag = getActivity().getSupportFragmentManager().findFragmentByTag("base");
-////            toFrag = getActivity().getSupportFragmentManager().findFragmentByTag("detail");
-//        final FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-//        ft.detach(fromFrag);
-//            ft.attach(toFrag);
-       // ft.commit();
-
         getActivity().finish();
         startActivity(getActivity().getIntent());
         ApplicationController.getInstance().setReFresh(true);
@@ -195,16 +175,6 @@ public class Tab_Collection_Detail extends Fragment {
 
 
     }
-
-//    @Override
-//    public void onBack() {
-//        BaseActivity activity = (BaseActivity) getActivity();
-//        activity.setOnKeyBackPressedListener(null);
-//        activity.onBackPressed();
-//
-//        returnToCollection();
-//    }
-
 
     @Override
     public void onDestroy() {
@@ -225,22 +195,14 @@ public class Tab_Collection_Detail extends Fragment {
     @Override
     public void onPause() {
         Log.v(TAG,"pause");
-//        ApplicationController.getInstance().setColDetailSwitch(true);
-//        if(ApplicationController.getInstance().isColDetailSwitch()){
-//            EventBus.getInstance().unregister(this);
-//            ApplicationController.getInstance().setColDetailSwitch(false);
-//        }
+
         super.onPause();
     }
 
     @Override
     public void onResume() {
         Log.v(TAG, "resume");
-        //EventBus.getInstance().register(this);
-//        if(!ApplicationController.getInstance().isColDetailSwitch()){
-//            EventBus.getInstance().register(this);
-//            ApplicationController.getInstance().setColDetailSwitch(true);
-//        }
+
         super.onResume();
 
     }

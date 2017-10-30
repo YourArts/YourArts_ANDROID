@@ -84,12 +84,6 @@ public class Tab_Collection extends Fragment{
         View v = inflater.inflate(R.layout.tab_collection, container, false);
         ButterKnife.bind(this, v);
         Log.v(TAG, "createView");
-//        if(!ApplicationController.getInstance().isCollectionEventSwtich()){
-//            Log.v(TAG, "register");
-//            EventBus.getInstance().register(this);
-//            ApplicationController.getInstance().setCollectionEventSwtich(true);
-//        }
-        //beforInit();
         ApplicationController.getInstance().temp2 = this;
         temp = this;
         networkService = ApplicationController.getInstance().getNetworkService();
@@ -188,24 +182,6 @@ public class Tab_Collection extends Fragment{
         super.onAttach(context);
     }
 
-//    @Subscribe
-//    public void onEventLoad(Integer code){
-//        switch(code){
-//            case EventCode.EVENT_CODE_COLLECTION_GET:
-//                initFragment();
-//                break;
-//            case EventCode.EVENT_CODE_COLLECTION_DETAIL:
-//                //Fragment fragment = Tab_Collection_Detail.newInstance();
-//                Log.v(TAG, "toDetail");
-//                getFragmentManager()
-//                        .beginTransaction()
-//                        .addToBackStack(null)
-//                        .add(R.id.tab_collection_container, new Tab_Collection(), "base")
-//                        .replace(R.id.tab_collection_container, new Tab_Collection_Detail(), "detail")
-//                        .commit();
-//                break;
-//        }
-//    }
 
     public void initFragment(){
         firstResult = ApplicationController.getInstance().getExhibitCollectionResultFirst();
@@ -348,24 +324,12 @@ public class Tab_Collection extends Fragment{
     public void onPause() {
         Log.v(TAG,"pause");
         super.onPause();
-       // ApplicationController.getInstance().setCollectionEventSwtich(true);
-        //ApplicationController.getInstance().setCollectionEventSwtich(false);
-
-//        if(ApplicationController.getInstance().isCollectionEventSwtich()){
-//            EventBus.getInstance().unregister(this);
-//            Log.v(TAG, "unregister");
-//            ApplicationController.getInstance().setCollectionEventSwtich(false);
-//        }
     }
 
     @Override
     public void onResume() {
         Log.v(TAG, "resume");
         super.onResume();
-//        if(!ApplicationController.getInstance().isCollectionEventSwtich()){
-//            EventBus.getInstance().register(this);
-//            Log.v(TAG, "register");
-//            ApplicationController.getInstance().setCollectionEventSwtich(true);
-//        }
+
     }
 }
