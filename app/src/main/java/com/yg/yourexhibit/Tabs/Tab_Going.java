@@ -135,7 +135,11 @@ public class Tab_Going extends Fragment{
 
             if(itemPosition!=0) {
 
+
                 idx = ApplicationController.getInstance().getExhibitGoingResult().get(itemPosition).getExhibition_idx();
+
+                
+
                 NetworkController.setIsFrom("home");
 
                 idx = ApplicationController.getInstance().getExhibitGoingResult().get(itemPosition-1).getExhibition_idx();
