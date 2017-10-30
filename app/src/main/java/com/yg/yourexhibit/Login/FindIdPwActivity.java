@@ -14,6 +14,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -47,8 +48,10 @@ public class FindIdPwActivity extends AppCompatActivity {
         mViewPager = (ViewPager) findViewById(R.id.mViewPager);
 //        setupViewPager(mViewPager);
         tabLayout = (TabLayout) findViewById(R.id.tabs);
-        tabLayout.addTab(tabLayout.newTab().setCustomView(getLayoutInflater().inflate(R.layout.view_id_search, null)));
-        tabLayout.addTab(tabLayout.newTab().setCustomView(getLayoutInflater().inflate(R.layout.view_pw_search, null)));
+        tabLayout.addTab(tabLayout.newTab().setText("ID 찾기"));
+        tabLayout.addTab(tabLayout.newTab().setText("PW 찾기"));
+
+
         tabLayout.setTabGravity(TabLayout.GRAVITY_CENTER);
 
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
@@ -57,26 +60,17 @@ public class FindIdPwActivity extends AppCompatActivity {
 
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
-        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 mViewPager.setCurrentItem(tab.getPosition());
                 TextView txt = (TextView)(((LinearLayout)((LinearLayout)tabLayout.getChildAt(0)).getChildAt(tab.getPosition())).getChildAt(1));
                 txt.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);
-                //txt.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 1);
+                txt.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
 //                float scale = getResources().getDisplayMetrics().density;
 //                txt.setTextSize(200.0f * scale);
                 txt.setTextColor(Color.parseColor("#00FFC4"));
                 txt.setTypeface(txt.getTypeface(), Typeface.BOLD);
-
-
-                switch (tab.getPosition()) {
-                    case 0:
-                        break;
-                    case 1:
-                        //totleText.setText("검색");
-                        break;
-                }
             }
 
             @Override
@@ -84,9 +78,36 @@ public class FindIdPwActivity extends AppCompatActivity {
                 mViewPager.setCurrentItem(tab.getPosition());
                 TextView txt = (TextView)(((LinearLayout)((LinearLayout)tabLayout.getChildAt(0)).getChildAt(tab.getPosition())).getChildAt(1));
                 txt.setPaintFlags(Paint.HINTING_OFF);
-                //txt.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 20);
+                txt.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
                 txt.setTextColor(Color.parseColor("#FFFFFF"));
                 txt.setTypeface(txt.getTypeface(), Typeface.DEFAULT.getStyle());
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
+        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                mViewPager.setCurrentItem(tab.getPosition());
+                switch (tab.getPosition()) {
+                    case 0:
+                        //tabLayout.getTabAt(0).setCustomView(getLayoutInflater().inflate(R.layout.view_id_search, null));
+                        //tabLayout.getTabAt(1).setCustomView(getLayoutInflater().inflate(R.layout.view_pw_search_none, null));
+                        break;
+                    case 1:
+                        //tabLayout.getTabAt(0).setCustomView(getLayoutInflater().inflate(R.layout.view_id_search_none, null));
+                        //tabLayout.getTabAt(1).setCustomView(getLayoutInflater().inflate(R.layout.view_pw_search, null));
+                        //totleText.setText("검색");
+                        break;
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
             }
 
             @Override

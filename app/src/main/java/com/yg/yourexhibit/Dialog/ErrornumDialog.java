@@ -22,7 +22,7 @@ public class ErrornumDialog extends Dialog {
 
     //인증번호 입력하고 틀렸을때 나오는 다이얼로그임
 
-    private TextView mContentView;
+    //private TextView mContentView;
     private Button mLeftButton;
     private Button mRightButton;
     private String mContent;
@@ -33,9 +33,14 @@ public class ErrornumDialog extends Dialog {
     @BindView(R.id.dialog_err_btn_no)
     Button button;
 
+    @BindView(R.id.dialog_err_txt_content)
+    TextView mContentView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.dialog_errornum);
+
         ButterKnife.bind(this);
         // 다이얼로그 외부 화면 흐리게 표현
         WindowManager.LayoutParams lpWindow = new WindowManager.LayoutParams();
@@ -43,26 +48,20 @@ public class ErrornumDialog extends Dialog {
         lpWindow.dimAmount = 0.8f;
         getWindow().setAttributes(lpWindow);
 
-        setContentView(R.layout.dialog_errornum);
         onClicked();
-
-        mContentView = (TextView) findViewById(R.id.dialog_join_txt_content);
-        mLeftButton = (Button) findViewById(R.id.dialog_join_btn_no);
-        mRightButton = (Button) findViewById(R.id.dialog_join_btn_start);
-
         // 제목과 내용을 생성자에서 셋팅한다.
         mContentView.setText(mContent);
 
         // 클릭 이벤트 셋팅
-        if (mLeftClickListener != null && mRightClickListener != null) {
-            mLeftButton.setOnClickListener(mLeftClickListener);
-            mRightButton.setOnClickListener(mRightClickListener);
-        } else if (mLeftClickListener != null
-                && mRightClickListener == null) {
-            mLeftButton.setOnClickListener(mLeftClickListener);
-        } else {
-
-        }
+//        if (mLeftClickListener != null && mRightClickListener != null) {
+//            mLeftButton.setOnClickListener(mLeftClickListener);
+//            mRightButton.setOnClickListener(mRightClickListener);
+//        } else if (mLeftClickListener != null
+//                && mRightClickListener == null) {
+//            mLeftButton.setOnClickListener(mLeftClickListener);
+//        } else {
+//
+//        }
     }
 
     private void onClicked() {
@@ -74,8 +73,9 @@ public class ErrornumDialog extends Dialog {
         });
     }
 
-    public ErrornumDialog(Context context) {
+    public ErrornumDialog(Context context, String mContent) {
         super(context, android.R.style.Theme_Translucent_NoTitleBar);
+        this.mContent = mContent;
 
     }
 
@@ -88,15 +88,6 @@ public class ErrornumDialog extends Dialog {
     }
 
     // 클릭버튼이 확인과 취소 두개일때 생성자 함수로 이벤트를 받는다
-    public ErrornumDialog(Context context,
-                      String content, View.OnClickListener leftListener,
-                      View.OnClickListener rightListener) {
-        super(context, android.R.style.Theme_Translucent_NoTitleBar);
-        this.mContent = content;
-        this.mLeftClickListener = leftListener;
-        this.mRightClickListener = rightListener;
-
-    }
 }
 
 

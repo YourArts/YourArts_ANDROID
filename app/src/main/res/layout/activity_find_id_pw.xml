@@ -81,6 +81,7 @@
 
         <android.support.design.widget.TabLayout
             android:id="@+id/tabs"
+            app:tabIndicatorHeight="0dp"
             android:layout_marginLeft="50dp"
             android:layout_marginRight="50dp"
             android:layout_width="match_parent"
