@@ -161,6 +161,18 @@ public class NetworkController {
                             EventBus.getInstance().post(EventCode.EVENT_CODE_COMING_DETAIL);
                             Log.v(TAG, "getDetailSuccess/COMING");
                             break;
+                        case 3:
+                            EventBus.getInstance().post(EventCode.EVENT_CODE_END_DETAIL_SEARCH);
+                            Log.v(TAG, "getDetailSuccess/EDNSEARCH");
+                            break;
+                        case 4:
+                            EventBus.getInstance().post(EventCode.EVENT_CODE_GOING_DETAIL_SEARCH);
+                            Log.v(TAG, "getDetailSuccess/GOINGSEARCH");
+                            break;
+                        case 5:
+                            EventBus.getInstance().post(EventCode.EVENT_CODE_COMING_DETAIL_SEARCH);
+                            Log.v(TAG, "getDetailSuccess/COMINGSEARCH");
+                            break;
                         default:
                             break;
                     }
@@ -176,13 +188,13 @@ public class NetworkController {
     }
 
     public void getSearchData(String search){
-        Call<ArrayList<ExhibitSearchResponse>> exhibitSearchResponse = networkService.getSearchResponse(search);
-        exhibitSearchResponse.enqueue(new Callback<ArrayList<ExhibitSearchResponse>>() {
+        Call<ExhibitSearchResponse> exhibitSearchResponse = networkService.getSearchResponse(search);
+        exhibitSearchResponse.enqueue(new Callback<ExhibitSearchResponse>() {
             @Override
-            public void onResponse(Call<ArrayList<ExhibitSearchResponse>> call, Response<ArrayList<ExhibitSearchResponse>> response) {
+            public void onResponse(Call<ExhibitSearchResponse> call, Response<ExhibitSearchResponse> response) {
                 if(response.isSuccessful()){
                     if(response.body()!=null) {
-                        ApplicationController.getInstance().setExhibitSearchResult(response.body());
+                        ApplicationController.getInstance().setExhibitSearchResult(response.body().getResult());
                         EventBus.getInstance().post(EventCode.EVENT_CODE_SEARCH);
                         Log.v(TAG, "getSearchSuccess");
                     }else{
@@ -194,7 +206,7 @@ public class NetworkController {
                 }
             }
             @Override
-            public void onFailure(Call<ArrayList<ExhibitSearchResponse>> call, Throwable t) {
+            public void onFailure(Call<ExhibitSearchResponse> call, Throwable t) {
                 Log.v(TAG,"checkNetwork");
             }
         });
@@ -315,13 +327,13 @@ public class NetworkController {
     }
 
     public void getCollectionSearchData(String search){
-        Call<ArrayList<ExhibitSearchResponse>> exhibitSearchResponse = networkService.getSearchResponse(search);
-        exhibitSearchResponse.enqueue(new Callback<ArrayList<ExhibitSearchResponse>>() {
+        Call<ExhibitSearchResponse> exhibitSearchResponse = networkService.getSearchResponse(search);
+        exhibitSearchResponse.enqueue(new Callback<ExhibitSearchResponse>() {
             @Override
-            public void onResponse(Call<ArrayList<ExhibitSearchResponse>> call, Response<ArrayList<ExhibitSearchResponse>> response) {
+            public void onResponse(Call<ExhibitSearchResponse> call, Response<ExhibitSearchResponse> response) {
                 if(response.isSuccessful()){
                     if(response.body()!=null) {
-                        ApplicationController.getInstance().setExhibitSearchResult(response.body());
+                        ApplicationController.getInstance().setExhibitSearchResult(response.body().getResult());
                         EventBus.getInstance().post(EventCode.EVENT_CODE_COLLECTION_SEARCH);
                         Log.v(TAG, "getCollectionSearchSuccess");
                     }else{
@@ -333,7 +345,7 @@ public class NetworkController {
                 }
             }
             @Override
-            public void onFailure(Call<ArrayList<ExhibitSearchResponse>> call, Throwable t) {
+            public void onFailure(Call<ExhibitSearchResponse> call, Throwable t) {
                 Log.v(TAG,"checkNetwork");
             }
         });

@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ffffff"
+    android:id="@+id/tab_search_container"
     >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#ffffff"
+        >
 
     <RelativeLayout
         android:id="@+id/tab_search_title"
@@ -89,6 +96,6 @@
         android:layout_marginRight="21dp"
         android:visibility="gone"
         />
+    </RelativeLayout>
 
-
-</RelativeLayout>
+</FrameLayout>
